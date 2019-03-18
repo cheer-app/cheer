@@ -6,17 +6,15 @@ const responseSchema = new mongoose.Schema({
     default: Date.now
   },
   response: {
-    type: String,
-    required: true
+    type: String
+  },
+  score: {
+    type: Number
   },
   question_id: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    ref: 'Question'
   },
-  employee_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
-  }
 })
 
 module.exports = mongoose.model('response', responseSchema)
