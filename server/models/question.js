@@ -9,11 +9,6 @@ const questionSchema = new mongoose.Schema({
     type: String,
     enum: ['wellness', 'engagement'],
     required: true
-  },
-  format: {
-    type: String,
-    enum: ['range', 'emoji', 'text'],
-    required: true
   }
 })
 

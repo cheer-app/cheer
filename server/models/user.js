@@ -6,27 +6,40 @@ const mongoose = require('mongoose');
 // plain text - see the authentication helpers below.
 const userSchema = new mongoose.Schema({
   email: {
-    type: String
+    type: String,
+    required: true
   },
   password: {
-    type: String
+    type: String,
+    required: true
   },
   name: {
-    type: String
+    type: String,
+    required: true
   },
-  company: {
-    type: String
-  },
-  position: {
-    type: String
+  department: {
+    type: String,
+    required: true
   },
   isAdmin: {
     type: Boolean,
     default: false
   },
-  recommendation_id: {
-    type: mongoose.Schema.Types.ObjectId
-  }
+  slackId: {
+    type: String
+  },
+  recommendations: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Recommendation'
+    }
+  ],
+  responses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Response'
+    }
+  ],
 })
 
 // The user's password is never saved in plain text.  Prior to saving the
@@ -39,8 +52,8 @@ userSchema.pre('save', function save(next) {
   if (!user.isModified('password')) { return next(); }
   bcrypt.genSalt(10, (err, salt) => {
     if (err) { return next(err); }
-    bcrypt.hash(user.password, salt, null, (err, hash) => {
-      if (err) { return next(err); }
+    bcrypt.hash(user.password, salt, null, (error, hash) => {
+      if (error) { return next(error); }
       user.password = hash;
       next();
     });
