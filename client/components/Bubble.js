@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { pack } from 'd3-hierarchy'
 import d3 from 'd3'
 
 class Bubble extends Component {
@@ -8,6 +9,31 @@ class Bubble extends Component {
   }
   
   createBubble() {
+    const data = [{
+      name: "company",
+      title: "company",
+      group: undefined,
+      value: 2
+    },
+    {
+      name: "employee",
+      title: "employee",
+      group: undefined,
+      value: 1
+    },
+    {
+      name: "coding",
+      title: "coding",
+      group: undefined,
+      value: 3
+    }]
+
+    const pack = data => d3.pack()
+      .size([width - 2, height - 2])
+      .padding(3)
+      (d3.hierarchy({children: data})
+      .sum(d => d.value))
+
     const root = pack(data);
     
     const svg = d3.select(DOM.svg(width, height))

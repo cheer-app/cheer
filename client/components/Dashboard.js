@@ -4,7 +4,7 @@ import Bubble from './Bubble'
 class Dashboard extends Component {
   render() {
     return (
-      <body>
+      <div>
         <div id="nav">
           <h1>Cheer App</h1>
           <p>Explore emloyee wellness over time: <span id="year-val"></span><input id="year" type="range" step="1" /></p>
@@ -20,8 +20,8 @@ class Dashboard extends Component {
 
         <Bubble />
 
-        {/* <section class="container">
-          <div class="chart-container">
+        {/* <section className="container">
+          <div className="chart-container">
           <svg 
             version="1.1"
             baseProfile="full"
@@ -29,7 +29,7 @@ class Dashboard extends Component {
             id="map">
           </svg>
         </div>
-        <div class="chart-container right">
+        <div className="chart-container right">
           <svg 
             version="1.1"
             baseProfile="full"
@@ -44,8 +44,8 @@ class Dashboard extends Component {
           </svg>
         </div>
         </section> */}
-        <div class="tooltip"></div>
-      </body>
+        <div className="tooltip"></div>
+      </div>
     )
   }
 }

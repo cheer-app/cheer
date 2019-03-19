@@ -54,11 +54,7 @@ app.use('/graphql', expressGraphQL({
   graphiql: true
 }));
 
-console.log('BEFORE WATSON REQUIRE')
-
 // app.use('/watson', require('./services/watson'))
-
-console.log('AFTER WATSON REQUIRE')
 
 // Webpack runs as a middleware. If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and
