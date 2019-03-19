@@ -56,7 +56,7 @@ app.use('/graphql', expressGraphQL({
 
 console.log('BEFORE WATSON REQUIRE')
 
-app.use('/watson', require('./services/watson'))
+// app.use('/watson', require('./services/watson'))
 
 console.log('AFTER WATSON REQUIRE')
 
