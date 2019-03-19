@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Bubble from './Bubble'
 
 class Dashboard extends Component {
   render() {
@@ -17,7 +18,9 @@ class Dashboard extends Component {
           <p>Click on a word to see its trends over time.</p>
         </div>
 
-        <section class="container">
+        <Bubble />
+
+        {/* <section class="container">
           <div class="chart-container">
           <svg 
             version="1.1"
@@ -40,7 +43,7 @@ class Dashboard extends Component {
             id="bar">
           </svg>
         </div>
-        </section>
+        </section> */}
         <div class="tooltip"></div>
       </body>
     )
