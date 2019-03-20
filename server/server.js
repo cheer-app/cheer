@@ -55,33 +55,19 @@ app.use(passport.session())
 
 // Instruct Express to pass on any request made to the '/graphql' route
 // to the GraphQL instance.
-<<<<<<< HEAD
 app.use('/graphql', expressGraphQL({
   schema,
   graphiql: true
 }));
 
-<<<<<<< HEAD
-app.use('/watson', watson)
-=======
-// app.use('/watson', require('./services/watson'))
-=======
-app.use(
-  '/graphql',
-  expressGraphQL({
-    schema,
-    graphiql: true,
-  })
-)
 
 // Use this to make use of the method from the slack interactive messages package
 app.use('/slack', slackServer)
+app.use('/watson', watson)
 
 // Body Parser middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
->>>>>>> 569cb71ab6436c0c3ccdbaa2d4898e94e57acd52
->>>>>>> master
 
 // Webpack runs as a middleware. If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and
