@@ -8,13 +8,22 @@ const responseSchema = new mongoose.Schema({
   response: {
     type: String
   },
+  polarResponse: {
+    type: String
+  },
   score: {
     type: Number
+  },
+  questionText: {
+    type: String
   },
   question_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Question'
   },
+  userSlackId: {
+    type: String
+  }
 })
 
 module.exports = mongoose.model('response', responseSchema)
