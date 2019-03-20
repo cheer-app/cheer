@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo')(session)
 const schema = require('./schema/schema')
 const slackServer = require('./services/slack').router
 // const { createMessageAdapter } = require('@slack/interactive-messages')
+const watson = require('./services/watson').router
 require('dotenv').config()
 
 // Create a new Express application
@@ -54,16 +55,15 @@ app.use(passport.session())
 
 // Instruct Express to pass on any request made to the '/graphql' route
 // to the GraphQL instance.
-app.use(
-  '/graphql',
-  expressGraphQL({
-    schema,
-    graphiql: true,
-  })
-)
+app.use('/graphql', expressGraphQL({
+  schema,
+  graphiql: true
+}));
+
 
 // Use this to make use of the method from the slack interactive messages package
 app.use('/slack', slackServer)
+app.use('/watson', watson)
 
 // Body Parser middleware
 app.use(express.json())
