@@ -7,9 +7,8 @@ const passport = require('passport');
 const passportConfig = require('./services/auth');
 const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
-// const dotenv = require('dotenv')
-// dotenv.config();
-// console.log('PROCESS.ENV: ', process.env.NATURAL_LANGUAGE_UNDERSTANDING_URL)
+const watson = require('./services/watson').router
+
 // Create a new Express application
 const app = express();
 
@@ -54,7 +53,7 @@ app.use('/graphql', expressGraphQL({
   graphiql: true
 }));
 
-app.use('/watson', require('./services/watson'))
+app.use('/watson', watson)
 
 // Webpack runs as a middleware. If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and

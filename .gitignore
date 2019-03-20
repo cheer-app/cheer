@@ -1,3 +1,2 @@
 node_modules
-secrets.js
-ibm-credentials.env
+.env
