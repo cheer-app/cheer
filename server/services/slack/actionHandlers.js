@@ -19,6 +19,7 @@ function yesButtHandler(payload, respond) {
   }
 
   const reply = payload.original_message
+  // REVIEW: consider copying, mutating the payloyd is unexpected
   delete reply.attachments[0].actions
   return reply
 }

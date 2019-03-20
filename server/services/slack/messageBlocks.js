@@ -1,5 +1,6 @@
 // template for yes/no question message block
 
+// REVIEW: cool cool, think I get thiss
 const yesNoBlock = questionTxt => {
   return [
     {

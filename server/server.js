@@ -21,6 +21,7 @@ require('dotenv').config()
 const app = express()
 
 // Replace with your mongoLab URI
+// REVIEW: :point-up:
 const MONGO_URI =
   'mongodb://cheer:cheer2019@cluster0-shard-00-00-t8jw8.mongodb.net:27017,cluster0-shard-00-01-t8jw8.mongodb.net:27017,cluster0-shard-00-02-t8jw8.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true'
 
@@ -89,6 +90,7 @@ app.get('/', (req, res, next) => {
 
 console.log('BEFORE WATSON REQUIRE')
 
+// REVIEW: how is watson?
 // app.use('/watson', require('./services/watson'))
 
 console.log('AFTER WATSON REQUIRE')

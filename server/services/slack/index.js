@@ -86,6 +86,7 @@ module.exports = { router, web }
 //   }
 // })
 
+// REVIEW: whta is UGXQ9902U ?
 sendMessage(
   'UGXQ9902U',
   textResponse('Are you tired of seeing this question? (Coming from THE APP)')
