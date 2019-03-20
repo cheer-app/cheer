@@ -11,12 +11,6 @@ const slackServer = require('./services/slack').router
 // const { createMessageAdapter } = require('@slack/interactive-messages')
 require('dotenv').config()
 
-//Creates Slack middleware to receiving actions
-// const slackInteractions = createMessageAdapter(process.env.SLACK_SIGNING_SECRET)
-
-// const dotenv = require('dotenv')
-// dotenv.config();
-// console.log('PROCESS.ENV: ', process.env.NATURAL_LANGUAGE_UNDERSTANDING_URL)
 // Create a new Express application
 const app = express()
 
@@ -68,32 +62,12 @@ app.use(
   })
 )
 
-// // Use this to make use of the POST route
-// app.use('/slack', require('./services/slack'))
-
 // Use this to make use of the method from the slack interactive messages package
 app.use('/slack', slackServer)
 
 // Body Parser middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
-app.get('/', (req, res, next) => {
-  try {
-    const response = req.body.channel
-    console.log(response)
-    res.sendStatus(200)
-  } catch (error) {
-    next(error)
-  }
-})
-
-console.log('BEFORE WATSON REQUIRE')
-
-// REVIEW: how is watson?
-// app.use('/watson', require('./services/watson'))
-
-console.log('AFTER WATSON REQUIRE')
 
 // Webpack runs as a middleware. If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and

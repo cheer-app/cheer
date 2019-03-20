@@ -5,6 +5,7 @@ const {
   yesButtHandler,
   noButtHandler,
   startDialog,
+  dialogHandler,
 } = require('./actionHandlers')
 require('dotenv').config()
 
@@ -22,7 +23,6 @@ const rtm = new RTMClient(token)
 
 // open direct message conversation and send a message
 const sendMessage = async (user, messageBlock) => {
-  console.log('Im running')
   try {
     const res = await web.im.open({
       user: user,
@@ -54,6 +54,9 @@ slackInteractions.action(
   startDialog
 )
 
+//handles dialog submissions
+slackInteractions.action({ callbackId: 'dialogSubmit' }, dialogHandler)
+
 // get a list of users and their slack IDs
 const getUsers = async () => {
   try {
@@ -67,7 +70,6 @@ const getUsers = async () => {
       }
       return list
     }, [])
-    console.log(userList)
   } catch (error) {
     console.error(error)
   }
@@ -75,21 +77,9 @@ const getUsers = async () => {
 
 module.exports = { router, web }
 
-// //sets up a route to accept incoming events from the slack app
-// router.post('/', (req, res, next) => {
-//   try {
-//     const response = JSON.parse(req.body.payload)
-//     console.log(response)
-//     res.sendStatus(200)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
-// REVIEW: whta is UGXQ9902U ?
 sendMessage(
-  'UGXQ9902U',
-  textResponse('Are you tired of seeing this question? (Coming from THE APP)')
+  'UH0HC1C3Z',
+  yesNoBlock('Are you tired of seeing this question? (Coming from THE APP)')
 )
 
 // getUsers()

@@ -1,70 +1,84 @@
 const { web } = require('../../server')
 const { dialogBlock } = require('./messageBlocks')
+const qs = require('qs')
 const axios = require('axios')
 require('dotenv').config()
+const Response = require('../../models/response')
+const User = require('../../models/user')
 
-function yesButtHandler(payload, respond) {
-  console.log(payload)
+async function yesButtHandler(payload, respond) {
   try {
-    //TODO: save the response to the database
+    await new Response({
+      polarResponse: payload.actions[0].value,
+      questionText: payload.message.blocks[0].text.text,
+      userSlackId: payload.user.id,
+    }).save()
     const message = {
       text: `You were asked ${
         payload.message.blocks[0].text.text
       } and you responded yes.`,
     }
     respond(message)
-  } catch {
+  } catch (error) {
     console.error(error)
     respond({ text: 'An error occurred while recording your response.' })
   }
-
-  const reply = payload.original_message
-  // REVIEW: consider copying, mutating the payloyd is unexpected
-  delete reply.attachments[0].actions
-  return reply
 }
 
-function noButtHandler(payload, respond) {
-  console.log(payload)
+async function noButtHandler(payload, respond) {
   try {
-    //TODO: save the response to the database
+    await new Response({
+      polarResponse: payload.actions[0].value,
+      questionText: payload.message.blocks[0].text.text,
+      userSlackId: payload.user.id,
+    }).save()
     const message = {
       text: `You were asked ${
         payload.message.blocks[0].text.text
       } and you responded no.`,
     }
     respond(message)
-  } catch {
+  } catch (error) {
     console.error(error)
     respond({ text: 'An error occurred while recording your response.' })
   }
-
-  // const reply = payload.original_message
-  // delete reply.attachments[0].actions
-  // return reply
 }
 
 async function startDialog(payload, respond) {
-  console.log(payload)
   try {
-    const trigId = payload.trigger_id
+    const originalQuestion = payload.message.blocks[0].text.text
+    const dialogForm = JSON.stringify(dialogBlock(originalQuestion))
     const dialogData = {
       token: process.env.SLACK_BOT_OAUTH_ACCESS_TOKEN,
-      trigger_id: trigId,
-      dialog: JSON.stringify(dialogBlock),
+      trigger_id: payload.trigger_id,
+      dialog: dialogForm,
     }
     await axios.post(
       'https://slack.com/api/dialog.open',
-      JSON.stringify(dialogData)
+      qs.stringify(dialogData)
     )
-    // respond(message)
-  } catch {
+    respond({ text: originalQuestion })
+  } catch (error) {
     console.error(error)
     respond({ text: 'An error occurred while recording your response.' })
   }
-
-  const reply = payload.original_message
-  delete reply.attachments[0].actions
-  return reply
 }
-module.exports = { yesButtHandler, noButtHandler, startDialog }
+
+async function dialogHandler(payload, respond) {
+  try {
+    await new Response({
+      questionText: payload.state,
+      userSlackId: payload.user.id,
+      response: payload.submission.answerbox,
+    }).save()
+    const message = {
+      text: `Thank you for your submission`,
+    }
+    respond(message)
+  } catch (error) {
+    console.error(error)
+    respond({ text: 'An error occurred while recording your response.' })
+  }
+}
+
+module.exports = { yesButtHandler, noButtHandler, startDialog, dialogHandler }

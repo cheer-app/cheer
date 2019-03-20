@@ -1,6 +1,5 @@
 // template for yes/no question message block
 
-// REVIEW: cool cool, think I get thiss
 const yesNoBlock = questionTxt => {
   return [
     {
@@ -68,21 +67,20 @@ const textResponse = questionText => {
 }
 
 const dialogBlock = questionText => {
-  return [
-    {
-      callback_id: 'ryde-46e2b0',
-      title: 'dialogResponse',
-      submit_label: 'Request',
-      elements: [
-        {
-          type: 'textarea',
-          label: questionText,
-          name: 'answerbox',
-          placeholder: 'Please type your answer here',
-        },
-      ],
-    },
-  ]
+  return {
+    callback_id: 'dialogSubmit',
+    title: 'dialogResponse',
+    submit_label: 'Submit',
+    state: questionText,
+    elements: [
+      {
+        type: 'textarea',
+        label: 'temp Label',
+        name: 'answerbox',
+        placeholder: questionText,
+      },
+    ],
+  }
 }
 
 module.exports = { yesNoBlock, textResponse, dialogBlock }
