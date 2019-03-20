@@ -13,13 +13,13 @@ import requireAuth from './components/requireAuth';
 const networkInterface = createNetworkInterface({
   uri: '/graphql',
   opts: {
-    credentials: 'same-origin'
-  }
+    credentials: 'same-origin',
+  },
 });
 
 const client = new ApolloClient({
   networkInterface,
-  dataIdFromObject: o => o.id
+  dataIdFromObject: o => o.id,
 });
 
 const Root = () => {
