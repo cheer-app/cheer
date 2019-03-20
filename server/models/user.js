@@ -34,12 +34,12 @@ const userSchema = new mongoose.Schema({
       ref: 'Recommendation'
     }
   ],
-  responses: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Response'
-    }
-  ],
+  // responses: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: 'Response'
+  //   }
+  // ],
 })
 
 // The user's password is never saved in plain text.  Prior to saving the
