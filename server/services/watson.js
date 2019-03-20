@@ -7,6 +7,8 @@ const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
 });
 
 router.post('/', (req, res, next) => {
+  // REVIEW: probably ought to remove the try/catch,
+  //         I believe that it shouldn't be here
   // try {
     const parameters = {
       'text': 'Hello World!',
@@ -19,6 +21,7 @@ router.post('/', (req, res, next) => {
     naturalLanguageUnderstanding.analyze(parameters, function(err, response) {
       if (err) {
         console.log('error:', err);
+        // REVIEW: discuss return here
         return next(err)
       }
       else {

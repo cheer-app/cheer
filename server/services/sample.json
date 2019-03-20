@@ -1,0 +1,67 @@
+{
+  "type": "block_actions",
+  "team": { "id": "TGZE6QY0L", "domain": "cheer-app-fs" },
+  "user": {
+    "id": "UH0HC1C3Z",
+    "username": "greatheights",
+    "team_id": "TGZE6QY0L"
+  },
+  "api_app_id": "AGX3C53U0",
+  "token": "pcifJrA9F1IypCZ1HpmfBK7h",
+  "container": {
+    "type": "message",
+    "message_ts": "1552927972.000700",
+    "channel_id": "CGX37S5TJ",
+    "is_ephemeral": false
+  },
+  "trigger_id": "578040035184.577482848020.e3220426dcc34f9dc3e81d607eda404c",
+  "channel": { "id": "CGX37S5TJ", "name": "everyone" },
+  "message": {
+    "type": "message",
+    "subtype": "bot_message",
+    "text": "This content can't be displayed.",
+    "ts": "1552927972.000700",
+    "username": "cheer-app",
+    "bot_id": "BH0TJAXHB",
+    "blocks": [
+      {
+        "type": "section",
+        "block_id": "t43bK",
+        "text": {
+          "type": "mrkdwn",
+          "text": "Have you worked extra hours this week? (Coming from THE APP)",
+          "verbatim": false
+        }
+      },
+      {
+        "type": "actions",
+        "block_id": "q\\/a6E",
+        "elements": [
+          {
+            "type": "button",
+            "action_id": "j0K",
+            "text": { "type": "plain_text", "text": "Yes", "emoji": true },
+            "value": "yes"
+          },
+          {
+            "type": "button",
+            "action_id": "\\/HUi",
+            "text": { "type": "plain_text", "text": "No", "emoji": true },
+            "value": "no"
+          }
+        ]
+      }
+    ]
+  },
+  "response_url": "https:\\/\\/hooks.slack.com\\/actions\\/TGZE6QY0L\\/578040035072\\/y0ouDmpvOCls32VpIJJ7BDzB",
+  "actions": [
+    {
+      "action_id": "j0K",
+      "block_id": "q\\/a6E",
+      "text": { "type": "plain_text", "text": "Yes", "emoji": true },
+      "value": "yes",
+      "type": "button",
+      "action_ts": "1552927975.802892"
+    }
+  ]
+}
