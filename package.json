@@ -9,11 +9,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js --ignore client",
-    "lint": "",
-    "test": "",
-    "build": "",
-    "deploy": "",
-    "postinstall": "webpack"
+    "build": "nodemon index.js --ignore client"
   },
   "author": "Cheer-App",
   "license": "ISC",
