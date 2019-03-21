@@ -5,10 +5,21 @@ const watsonSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  data: {
-    type: String,
-    required: true
-  }
+  categories: {
+    type: Array
+  },
+  concepts: {
+    type: Array
+  },
+  keywords: {
+    type: Array
+  },
+  entities: {
+    type: Array
+  },
+  sentiment: {
+      type: Object
+    }
 })
 
 module.exports = mongoose.model('watson', watsonSchema)
