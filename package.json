@@ -1,16 +1,20 @@
 {
-  "name": "users",
+  "name": "cheer",
   "version": "1.0.0",
-  "description": "Starter pack for an auth-included graphql project",
+  "description": "Fullstack Academy Capstone Project",
   "repository": {
     "type": "git",
-    "url": "github.com/stephengrider"
+    "url": "github.com/cheer-app/cheer"
   },
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js --ignore client"
+    "dev": "nodemon index.js --ignore client",
+    "lint": "eslint src/**/*.js src/**/*.mjs",
+    "test": "jest",
+    "build": "",
+    "deploy": ""
   },
-  "author": "",
+  "author": "Cheer-App",
   "license": "ISC",
   "dependencies": {
     "@slack/client": "^4.11.0",
