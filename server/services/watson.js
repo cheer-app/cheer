@@ -1,6 +1,7 @@
 require('dotenv').config()
 const router = require('express').Router()
 const Response = require('../models/response')
+const Watson = require('../models/watson')
 const NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js')
 
 const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
@@ -38,9 +39,13 @@ const callWatson = async () => {
   
   naturalLanguageUnderstanding.analyze(parameters, (err, res) => {
     if (err)
-      console.log('error:', err)
-    else
-      console.log(JSON.stringify(res, null, 2))
+      console.log('Watson error:', err)
+    else {
+      let data = JSON.stringify(res, null, 2)
+      Watson.create({ data }, (err) => {
+        if (err) console.log('MongoDB error:', err)
+      })
+    }
   })
 }
 callWatson()

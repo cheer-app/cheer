@@ -9,8 +9,8 @@ const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
 const slackServer = require('./services/slack').router;
 // const { createMessageAdapter } = require('@slack/interactive-messages')
-const watson = require('./services/watson').router;
-require('dotenv').config();
+// const watson = require('./services/watson').router
+require('dotenv').config()
 
 // Create a new Express application
 const app = express();
@@ -66,8 +66,8 @@ app.use(
 );
 
 // Use this to make use of the method from the slack interactive messages package
-app.use('/slack', slackServer);
-app.use('/watson', watson);
+
+app.use('/slack', slackServer)
 
 // Body Parser middleware
 app.use(express.json());
