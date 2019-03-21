@@ -8,8 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js --ignore client",
-    "build": "nodemon index.js --ignore client"
+    "start": "nodemon index.js --ignore client"
   },
   "author": "Cheer-App",
   "license": "ISC",
