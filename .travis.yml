@@ -8,8 +8,8 @@ script:
   - 'npm run build-client'
 deploy:
   provider: heroku
-  api_key: process.env.HEROKU_API_KEY
-    secure: 
+  api_key: 
+    secure: process.env.HEROKU_API_KEY
   app: cheer-io
   on:
     repo: cheer-app/cheer
