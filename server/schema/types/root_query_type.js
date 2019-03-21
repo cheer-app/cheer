@@ -14,7 +14,7 @@ const RootQueryType = new GraphQLObjectType({
         return req.user;
       }
     },
-    data: {
+    watson: {
       type: new GraphQLList(DataType),
       resolve() {
         return Watson.find({});
