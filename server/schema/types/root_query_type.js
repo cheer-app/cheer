@@ -1,7 +1,9 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLID } = graphql;
+const mongoose = require('mongoose');
+const { GraphQLObjectType, GraphQLList } = graphql;
 const UserType = require('./user_type');
 const DataType = require('./data_type');
+const Watson = mongoose.model('watson');
 
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -13,9 +15,9 @@ const RootQueryType = new GraphQLObjectType({
       }
     },
     data: {
-      type: DataType,
-      resolve(parentValue, args, req) {
-        return {};
+      type: new GraphQLList(DataType),
+      resolve() {
+        return Watson.find({});
       }
     }
   }

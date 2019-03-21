@@ -60,7 +60,6 @@ app.use('/graphql', expressGraphQL({
   graphiql: true
 }));
 
-
 // Use this to make use of the method from the slack interactive messages package
 app.use('/slack', slackServer)
 
