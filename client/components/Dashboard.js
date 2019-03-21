@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import query from '../queries/DashboardData';
+import query from '../queries/WatsonData';
 import BarGraph from './Graphs/BarGraph';
 import WordCloudWrapper from './Graphs/WordCloud';
 
 class Dashboard extends Component {
   render() {
-    const { data } = this.props.data
-    if (data) {
-      const watson = data.map(elm => ({date: elm.date, id: elm.id, data: JSON.parse(elm.data)}))
-      console.log(watson)
-    }
+    const { watson } = this.props.data
+    if (watson) console.log(watson)
 
     return (
       <div>

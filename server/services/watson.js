@@ -41,8 +41,8 @@ const callWatson = async () => {
     if (err)
       console.log('Watson error:', err)
     else {
-      let data = JSON.stringify(res, null, 2)
-      Watson.create({ data }, (err) => {
+      let { categories, concepts, keywords, entities, sentiment }  = res
+      Watson.create({ categories, concepts, keywords, entities, sentiment }, (err) => {
         if (err) console.log('MongoDB error:', err)
       })
     }
