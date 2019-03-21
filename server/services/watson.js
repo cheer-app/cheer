@@ -1,37 +1,48 @@
-const express = require('express')
-const router = express.Router()
+require('dotenv').config()
+const router = require('express').Router()
+const Response = require('../models/response')
+const NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js')
 
-const NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
 const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
   version: '2018-11-16',
-});
-
-router.post('/', (req, res, next) => {
-  // REVIEW: probably ought to remove the try/catch,
-  //         I believe that it shouldn't be here
-  // try {
-    const parameters = {
-      'text': 'Hello World!',
-      'features': {
-        'categories': {
-          'limit': 3
-        }
-      }
-    }
-    naturalLanguageUnderstanding.analyze(parameters, function(err, response) {
-      if (err) {
-        console.log('error:', err);
-        // REVIEW: discuss return here
-        return next(err)
-      }
-      else {
-        console.log(JSON.stringify(response, null, 2));
-        return res.json(JSON.stringify(response, null, 2))
-      }
-    });
-  // } catch (err) {
-  //   next(err)
-  // }
+  iam_apikey: process.env.WATSON_API_KEY,
+  url: 'https://gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2018-11-16'
 })
 
-module.exports = router
+const callWatson = async () => {
+  let arr = []
+  const responses = await Response.find()
+  responses.forEach(elm => arr.push(elm.response))
+  let text = arr.join(' ')
+
+  const parameters = {
+    'text': text,
+    'features': {
+      "sentiment": {},
+      "categories": {},
+      "concepts": {
+        'limit': 25
+      },
+      'entities': {
+        'sentiment': true,
+        'emotion': true,
+        'limit': 25
+      },
+      'keywords': {
+        'sentiment': true,
+        'emotion': true,
+        'limit': 25
+      }
+    }
+  }
+  
+  naturalLanguageUnderstanding.analyze(parameters, (err, res) => {
+    if (err)
+      console.log('error:', err)
+    else
+      console.log(JSON.stringify(res, null, 2))
+  })
+}
+callWatson()
+
+module.exports = { router }

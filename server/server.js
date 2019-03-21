@@ -9,15 +9,18 @@ const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
 const slackServer = require('./services/slack').router;
 // const { createMessageAdapter } = require('@slack/interactive-messages')
+const watson = require('./services/watson').router;
 require('dotenv').config();
 
 // Create a new Express application
 const app = express();
 
+const MONGOPASS = process.env.MONGODB_PASSWORD
+
 // Replace with your mongoLab URI
 // REVIEW: :point-up:
 const MONGO_URI =
-  'mongodb://cheer:cheer2019@cluster0-shard-00-00-t8jw8.mongodb.net:27017,cluster0-shard-00-01-t8jw8.mongodb.net:27017,cluster0-shard-00-02-t8jw8.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true';
+`mongodb://cheer:${MONGOPASS}@cluster0-shard-00-00-t8jw8.mongodb.net:27017,cluster0-shard-00-01-t8jw8.mongodb.net:27017,cluster0-shard-00-02-t8jw8.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true`;
 
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
 mongoose.Promise = global.Promise;
@@ -64,6 +67,7 @@ app.use(
 
 // Use this to make use of the method from the slack interactive messages package
 app.use('/slack', slackServer);
+app.use('/watson', watson);
 
 // Body Parser middleware
 app.use(express.json());
