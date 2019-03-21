@@ -13,6 +13,7 @@
   "author": "Cheer-App",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^3.9.2",
     "@slack/client": "^4.11.0",
     "@slack/interactive-messages": "^1.1.1",
     "apollo-client": "^0.8.2",
