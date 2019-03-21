@@ -1,0 +1,15 @@
+require('dotenv').config()
+
+language: node_js
+node_js:
+  - node
+script:
+  - 'npm test'
+  - 'npm run build-client'
+deploy:
+  provider: heroku
+  api_key: process.env.HEROKU_API_KEY
+    secure: 
+  app: cheer-io
+  on:
+    repo: cheer-app/cheer
