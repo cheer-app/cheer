@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import query from '../queries/DashboardData';
 import BarGraph from './Graphs/BarGraph';
 import WordCloudWrapper from './Graphs/WordCloud';
 
 class Dashboard extends Component {
   render() {
+    const { data } = this.props.data
+    if (data) {
+      const watson = data.map(elm => ({date: elm.date, id: elm.id, data: JSON.parse(elm.data)}))
+      console.log(watson)
+    }
+
     return (
       <div>
         <div id="nav">
@@ -32,4 +40,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default graphql(query)(Dashboard);
