@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import query from '../queries/WatsonData';
 import BarGraph from './Graphs/BarGraph';
 import WordCloudWrapper from './Graphs/WordCloud';
+import LineGraph from './Graphs/LineGraph';
 
 class Dashboard extends Component {
   render() {
@@ -27,6 +28,8 @@ class Dashboard extends Component {
         </div>
 
         <WordCloudWrapper data={watson} />
+
+        <LineGraph data={watson} />
 
         <BarGraph data={watson} />
 
