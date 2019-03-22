@@ -1,6 +1,6 @@
 const express = require('express');
 const models = require('./models');
-const expressGraphQL = require('express-graphql');
+const graphqlHTTP = require('express-graphql');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
@@ -40,7 +40,7 @@ app.use(passport.session());
 
 app.use(
   '/graphql',
-  expressGraphQL({
+  graphqlHTTP({
     schema,
     graphiql: true,
   })
@@ -50,6 +50,11 @@ app.use('/slack', slackServer)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const webpackMiddleware = require('webpack-dev-middleware');
+const webpack = require('webpack');
+const webpackConfig = require('../webpack.config.js');
+app.use(webpackMiddleware(webpack(webpackConfig)));
 
 app.use((err, req, res, next) => {
   console.error(err);

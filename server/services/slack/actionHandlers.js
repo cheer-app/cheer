@@ -1,4 +1,4 @@
-const { web } = require('../..')
+const { web } = require('../../server')
 const { dialogBlock } = require('./messageBlocks')
 const qs = require('qs')
 const axios = require('axios')
