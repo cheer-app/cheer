@@ -11,10 +11,20 @@ class WordCloudWrapper extends Component {
         acc.push({ text: firstWord, value: word.sentiment.score });
         return acc;
       }, []);
-      return <WordCloud data={keywords} fontSizeMapper={fontSizeMapper} />;
+      return (
+        <WordCloud
+          data={keywords}
+          fontSizeMapper={fontSizeMapper}
+          font="roboto"
+          onWordClick={word => {
+            console.log(word);
+          }}
+        />
+      );
     } else {
       return null;
     }
   }
 }
+
 export default WordCloudWrapper;

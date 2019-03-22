@@ -10,15 +10,20 @@ const data = [
 
 export default class BarGraph extends Component {
   render() {
-    return (
-      <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
-        <VictoryAxis
-          tickValues={[1, 2, 3, 4]}
-          tickFormat={['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4']}
-        />
-        <VictoryAxis dependentAxis tickFormat={x => `$${x / 1000}k`} />
-        <VictoryBar data={data} x="quarter" y="earnings" />
-      </VictoryChart>
-    );
+    if (this.props.data) {
+      console.log(this.props.data[0].keywords);
+      return (
+        <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
+          <VictoryAxis
+            tickValues={[1, 2, 3, 4]}
+            tickFormat={['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4']}
+          />
+          <VictoryAxis dependentAxis tickFormat={x => `$${x / 1000}k`} />
+          <VictoryBar data={data} x="quarter" y="earnings" />
+        </VictoryChart>
+      );
+    } else {
+      return null;
+    }
   }
 }
