@@ -6,8 +6,7 @@ import WordCloudWrapper from './Graphs/WordCloud';
 
 class Dashboard extends Component {
   render() {
-    const { watson } = this.props.data
-    if (watson) console.log(watson)
+    const { watson } = this.props.data;
 
     return (
       <div>
@@ -27,9 +26,9 @@ class Dashboard extends Component {
           <p>Click on a word to see its trends over time.</p>
         </div>
 
-        <WordCloudWrapper />
+        <WordCloudWrapper data={watson} />
 
-        <BarGraph />
+        <BarGraph data={watson} />
 
         <div className="tooltip" />
       </div>
