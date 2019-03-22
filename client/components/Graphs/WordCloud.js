@@ -17,5 +17,4 @@ class WordCloudWrapper extends Component {
     }
   }
 }
-
 export default WordCloudWrapper;
