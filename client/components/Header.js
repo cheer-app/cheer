@@ -5,6 +5,8 @@ import query from '../queries/CurrentUser'
 import mutation from '../mutations/Logout'
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
@@ -26,15 +28,29 @@ const styles = {
 }
 
 class Header extends Component {
+  constructor() {
+    super()
+    this.state = {
+      anchorEl: null,
+    }
+  }
+
   onLogoutClick() {
     this.props.mutate({
       refetchQueries: [{ query }],
     })
+    this.handleClose()
+  }
+
+  handleClose() {
+    this.setState({ anchorEl: null })
   }
 
   render() {
     const { classes } = this.props
     const { loading, user } = this.props.data
+    const { anchorEl } = this.state
+    const open = Boolean(anchorEl)
 
     if (loading) {
       return <div />
@@ -54,15 +70,34 @@ class Header extends Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Cheer
             </Typography>
-            {user ? (
-              <IconButton
-                onClick={this.onLogoutClick.bind(this)}
-                className={classes.menuButton}
-              >
-                <AccountCircle />
-              </IconButton>
-            ) : (
+            {!user ? (
               <Button color="inherit">Login</Button>
+            ) : (
+              <div>
+                <IconButton
+                  onClick={this.onLogoutClick.bind(this)}
+                  className={classes.menuButton}
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.onLogoutClick}>Logout</MenuItem>
+                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                </Menu>
+              </div>
             )}
           </Toolbar>
         </AppBar>
