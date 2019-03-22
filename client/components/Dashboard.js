@@ -28,7 +28,7 @@ class Dashboard extends Component {
 
         <WordCloudWrapper data={watson} />
 
-        <BarGraph />
+        <BarGraph data={watson} />
 
         <div className="tooltip" />
       </div>
