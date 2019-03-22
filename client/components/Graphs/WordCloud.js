@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import WordCloud from 'react-d3-cloud';
 
-// const data = watsonData.keywords.reduce((acc, keywords) => {
-//   acc.push({ text: keywords.text, value: keywords.count });
-//   return acc;
-// }, []);
+const fontSizeMapper = word => word.value * 60;
 
-// const fontSizeMapper = word => Math.log2(word.value) * 40;
-
-const WordCloudWrapper = () => {
-  // return <WordCloud data={data} fontSizeMapper={fontSizeMapper} />;
-  return <div></div>
-};
-
+class WordCloudWrapper extends Component {
+  render() {
+    if (this.props.data) {
+      const keywords = this.props.data[0].keywords.reduce((acc, word) => {
+        let firstWord = word.text.split(' ')[0];
+        acc.push({ text: firstWord, value: word.sentiment.score });
+        return acc;
+      }, []);
+      return <WordCloud data={keywords} fontSizeMapper={fontSizeMapper} />;
+    } else {
+      return null;
+    }
+  }
+}
 export default WordCloudWrapper;
