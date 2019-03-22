@@ -18,7 +18,7 @@ class Dashboard extends Component {
           </p>
           <p>
             Choose between keywords or entities.
-            <input type="radio" name="data-type" value="keyword" checked />
+            <input type="radio" name="data-type" value="keyword" />
             <label>Keywords</label>
             <input type="radio" name="data-type" value="entities" />
             <label>Entities</label>
