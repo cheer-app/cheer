@@ -33,6 +33,9 @@ class Header extends Component {
     this.state = {
       anchorEl: null,
     }
+    this.onLogoutClick = this.onLogoutClick.bind(this)
+    this.handleMenu = this.handleMenu.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
   onLogoutClick() {
@@ -40,6 +43,10 @@ class Header extends Component {
       refetchQueries: [{ query }],
     })
     this.handleClose()
+  }
+
+  handleMenu(event) {
+    this.setState({ anchorEl: event.currentTarget })
   }
 
   handleClose() {
@@ -71,11 +78,13 @@ class Header extends Component {
               Cheer
             </Typography>
             {!user ? (
-              <Button color="inherit">Login</Button>
+              <Button component={Link} to="/login" color="inherit">
+                Login
+              </Button>
             ) : (
               <div>
                 <IconButton
-                  onClick={this.onLogoutClick.bind(this)}
+                  onClick={this.handleMenu.bind(this)}
                   className={classes.menuButton}
                 >
                   <AccountCircle />
