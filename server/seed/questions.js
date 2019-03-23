@@ -44,11 +44,6 @@ const questions = [
     format: 'text',
   }),
   new Question({
-    question: 'Have you voluntarily worked extra hours recently?',
-    category: 'engagement',
-    format: 'text',
-  }),
-  new Question({
     question: 'Do you feel your workload is appropriate?',
     category: 'engagement',
     format: 'text',
@@ -97,13 +92,3 @@ const saveHandler = (err, result) => {
 for (let i = 0; i < questions.length; i++) {
   questions[i].save(saveHandler);
 }
-
-// for (let i = 0; i < questions.length; i++) {
-//   questions[i].save((err, result) => {
-//     if (err) console.log(err)
-//     done++;
-//     if (done === questions.length) {
-//       exit();
-//     }
-//   });
-// }

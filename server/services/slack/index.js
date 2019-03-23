@@ -16,8 +16,6 @@ const { WebClient } = require('@slack/client')
 const { createMessageAdapter } = require('@slack/interactive-messages')
 const slackInteractions = createMessageAdapter(process.env.SLACK_SIGNING_SECRET)
 
-
-
 const token = process.env.SLACK_BOT_OAUTH_ACCESS_TOKEN
 
 const web = new WebClient(token)
@@ -27,27 +25,6 @@ slackInteractions.action(
   { blockId: 'rateBlock' },
   rateButtHandler
 )
-
-// slackInteractions.action(
-//   { blockId: 'rateBlock', actionId: 'rate_1_butt' },
-//   rateButtHandler
-// )
-// slackInteractions.action(
-//   { blockId: 'rateBlock', actionId: 'rate_2_butt' },
-//   rateButtHandler
-// )
-// slackInteractions.action(
-//   { blockId: 'rateBlock', actionId: 'rate_3_butt' },
-//   rateButtHandler
-// )
-// slackInteractions.action(
-//   { blockId: 'rateBlock', actionId: 'rate_4_butt' },
-//   rateButtHandler
-// )
-// slackInteractions.action(
-//   { blockId: 'rateBlock', actionId: 'rate_5_butt' },
-//   rateButtHandler
-// )
 
 // open direct message conversation and send a message
 const sendMessage = async (user, messageBlock) => {
@@ -68,18 +45,6 @@ slackInteractions.action(
   { blockId: 'yesNoBlock' },
   yesNoButtHandler
 )
-
-// handles a yes answer to a yes/no question
-// slackInteractions.action(
-//   { blockId: 'yesNoBlock', actionId: 'yes_butt' },
-//   yesNoButtHandler
-// )
-
-// handles a no answer to a yes/no question
-// slackInteractions.action(
-//   { blockId: 'yesNoBlock', actionId: 'no_butt' },
-//   yesNoButtHandler
-// )
 
 // handles text questions, initiates dialog
 slackInteractions.action(
