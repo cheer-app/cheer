@@ -2,6 +2,8 @@ const router = require('express').Router()
 const axios = require('axios')
 const { yesNoBlock, textResponse } = require('./messageBlocks')
 const {
+  rateButtHandler,
+  yesNoButtHandler,
   yesButtHandler,
   noButtHandler,
   startDialog,
@@ -10,16 +12,42 @@ const {
 require('dotenv').config()
 
 const { WebClient } = require('@slack/client')
-const { RTMClient } = require('@slack/client')
+//const { RTMClient } = require('@slack/client')
 const { createMessageAdapter } = require('@slack/interactive-messages')
 const slackInteractions = createMessageAdapter(process.env.SLACK_SIGNING_SECRET)
 
-router.use('/actions', slackInteractions.expressMiddleware())
+
 
 const token = process.env.SLACK_BOT_OAUTH_ACCESS_TOKEN
 
 const web = new WebClient(token)
-const rtm = new RTMClient(token)
+//const rtm = new RTMClient(token)
+
+slackInteractions.action(
+  { blockId: 'rateBlock' },
+  rateButtHandler
+)
+
+// slackInteractions.action(
+//   { blockId: 'rateBlock', actionId: 'rate_1_butt' },
+//   rateButtHandler
+// )
+// slackInteractions.action(
+//   { blockId: 'rateBlock', actionId: 'rate_2_butt' },
+//   rateButtHandler
+// )
+// slackInteractions.action(
+//   { blockId: 'rateBlock', actionId: 'rate_3_butt' },
+//   rateButtHandler
+// )
+// slackInteractions.action(
+//   { blockId: 'rateBlock', actionId: 'rate_4_butt' },
+//   rateButtHandler
+// )
+// slackInteractions.action(
+//   { blockId: 'rateBlock', actionId: 'rate_5_butt' },
+//   rateButtHandler
+// )
 
 // open direct message conversation and send a message
 const sendMessage = async (user, messageBlock) => {
@@ -27,7 +55,7 @@ const sendMessage = async (user, messageBlock) => {
     const res = await web.im.open({
       user: user,
     })
-    const send = await web.chat.postMessage({
+    await web.chat.postMessage({
       channel: res.channel.id,
       blocks: messageBlock,
     })
@@ -36,17 +64,22 @@ const sendMessage = async (user, messageBlock) => {
   }
 }
 
-// handles a yes answer to a yes/no question
 slackInteractions.action(
-  { blockId: 'yesNoBlock', actionId: 'yes_butt' },
-  yesButtHandler
+  { blockId: 'yesNoBlock' },
+  yesNoButtHandler
 )
 
+// handles a yes answer to a yes/no question
+// slackInteractions.action(
+//   { blockId: 'yesNoBlock', actionId: 'yes_butt' },
+//   yesNoButtHandler
+// )
+
 // handles a no answer to a yes/no question
-slackInteractions.action(
-  { blockId: 'yesNoBlock', actionId: 'no_butt' },
-  noButtHandler
-)
+// slackInteractions.action(
+//   { blockId: 'yesNoBlock', actionId: 'no_butt' },
+//   yesNoButtHandler
+// )
 
 // handles text questions, initiates dialog
 slackInteractions.action(
@@ -61,7 +94,7 @@ slackInteractions.action({ callbackId: 'dialogSubmit' }, dialogHandler)
 const getUsers = async () => {
   try {
     const response = await web.users.list({ token })
-    const userList = response.members.reduce((list, nextUser) => {
+    return response.members.reduce((list, nextUser) => {
       if (
         nextUser.real_name !== 'Slackbot' &&
         nextUser.real_name !== 'cheerapp'
@@ -75,11 +108,7 @@ const getUsers = async () => {
   }
 }
 
-module.exports = { router, web }
+router.use('/actions', slackInteractions.expressMiddleware())
 
-// sendMessage(
-//   'UH0HC1C3Z',
-//   yesNoBlock('Are you tired of seeing this question? (Coming from THE APP)')
-// )
+module.exports = { router, web, sendMessage, getUsers }
 
-// getUsers()

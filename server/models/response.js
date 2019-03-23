@@ -11,6 +11,9 @@ const responseSchema = new mongoose.Schema({
   polarResponse: {
     type: String
   },
+  rateResponse: {
+    type: Number
+  },
   score: {
     type: Number
   },
