@@ -9,7 +9,7 @@ function Users(props) {
 
   return (
     <div>
-      <h1>Users</h1>
+      <h3>Employees</h3>
       {!allUsers ? (
         <div>loading...</div>
       ) : (
