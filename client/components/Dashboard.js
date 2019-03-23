@@ -8,7 +8,7 @@ import LineGraph from './Graphs/LineGraph';
 class Dashboard extends Component {
   render() {
     const { watson } = this.props.data;
-
+    console.log('this.props.data ==>', watson);
     return (
       <div>
         <div id="nav">
