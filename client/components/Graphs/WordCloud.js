@@ -8,7 +8,16 @@ class WordCloudWrapper extends Component {
     if (this.props.data) {
       const keywords = this.props.data[0].keywords.reduce((acc, word) => {
         let firstWord = word.text.split(' ')[0];
-        acc.push({ text: firstWord, value: word.sentiment.score });
+        acc.push({
+          text: firstWord,
+          value: word.sentiment.score,
+          anger: word.emotion.anger,
+          disgust: word.emotion.disgust,
+          fear: word.emotion.fear,
+          joy: word.emotion.joy,
+          sadness: word.emotion.sadness,
+          sentiment: word.sentiment.label,
+        });
         return acc;
       }, []);
       return (
