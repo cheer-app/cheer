@@ -43,10 +43,8 @@ const DataType = new GraphQLObjectType({
   fields: {
     id: { type: GraphQLID },
     date: { type: GraphQLString },
-    // categories: new GraphQLList(KeyWordType),
     // concepts: new GraphQLList(KeyWordType),
     keywords: {type: new GraphQLList(KeyWordType)},
-    // entities: new GraphQLList(KeyWordType),
     // sentiment: { type: SentimentType }
   }
 })
