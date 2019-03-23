@@ -9,11 +9,12 @@ function Users(props) {
 
   return (
     <div>
+      <h1>Users</h1>
       {!allUsers ? (
-        <h1>No Users</h1>
+        <div>loading...</div>
       ) : (
         allUsers.map(user => {
-          return <SingleUser key={user.id} />
+          return <SingleUser key={user.id} user={user} />
         })
       )}
     </div>
