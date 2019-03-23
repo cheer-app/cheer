@@ -12,7 +12,7 @@ const questionSchema = new mongoose.Schema({
   },
   sendDayIdx: {
     type: String,
-    enum: ['0', '1', '2', '3', '4', '5', '6']
+    enum: ['1', '2', '3', '4', '5']
   },
   responseType: {
     type: String,
