@@ -77,9 +77,9 @@ const getUsers = async () => {
 
 module.exports = { router, web }
 
-// sendMessage(
-//   'UH0HC1C3Z',
-//   yesNoBlock('Are you tired of seeing this question? (Coming from THE APP)')
-// )
+sendMessage(
+  'UH0HC1C3Z',
+  yesNoBlock('Are you tired of seeing this question? (Coming from THE APP)')
+)
 
 // getUsers()
