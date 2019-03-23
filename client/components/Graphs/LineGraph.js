@@ -9,11 +9,10 @@ class LineGraph extends Component {
         acc.push({ x: elem.text[0], y: elem.sentiment.score });
         return acc;
       }, []);
-      console.log(data);
       return (
         <VictoryChart theme={VictoryTheme.material}>
           <VictoryLine
-            domain={{ y: [0.95, 1] }}
+            domain={{ y: [-2, 2] }}
             style={{
               data: { stroke: '#c43a31' },
               parent: { border: '1px solid #ccc' },

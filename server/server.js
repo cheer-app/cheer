@@ -8,8 +8,8 @@ const passportConfig = require('./services/auth');
 const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
 const slackServer = require('./services/slack').router;
-const { createMessageAdapter } = require('@slack/interactive-messages');
-const watson = require('./services/watson').router;
+// const { createMessageAdapter } = require('@slack/interactive-messages');
+// const watson = require('./services/watson').router;
 const app = express();
 require('dotenv').config();
 
