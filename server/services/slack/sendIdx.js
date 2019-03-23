@@ -19,19 +19,12 @@ mongoose.connection
     text: textResponse
   }
   const weekdayIdx = (new Date(moment().clone().format())).getDay()
-  const questions = await Question.find({ sendDayIdx: weekdayIdx }, '-_id -category')
-
-  const fakeQuestions = [ // remove once schema updated
-    {
-      responseType: 'rating',
-      question: 'Will this work?'
-    }
-  ]
+  const questions = await Question.find({}, '-_id -category') // search by weekdayIdx during the week!
 
   const users = await getUsers()
 
   users.forEach(user => {
-    fakeQuestions.forEach(q => { // change to real questions once schema is updated
+    questions.slice(0, 3).forEach(q => { // change to all questions when not testing
       const blockCreator = blockTypes[q.responseType]
       sendMessage(user.id, blockCreator(q.question))
     })
