@@ -4,7 +4,6 @@ import { VictoryLine, VictoryChart, VictoryTheme } from 'victory';
 class LineGraph extends Component {
   render() {
     if (this.props.data) {
-      console.log(this.props.data[0].keywords);
       const data = this.props.data[0].keywords.reduce((acc, elem) => {
         acc.push({ x: elem.text[0], y: elem.sentiment.score });
         return acc;
