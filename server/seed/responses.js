@@ -159,7 +159,7 @@ const randomResponse = (question) => {
 Question.find({}, (err, result) => {
   if (err) console.log(err)
   return result
-}).then(result => {
+}).then(async result => {
   const responses = []
 
   result.forEach(question => {
@@ -169,13 +169,11 @@ Question.find({}, (err, result) => {
   })
 
   responses.forEach(response => {
-    response.save((err) => {
+    response.save(err => {
       if (err) console.log(err)
     });
   })
 
+  //mongoose.disconnect();
 })
 
-// mongoose.disconnect(err => {
-//   console.log(err)
-// })

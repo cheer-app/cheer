@@ -39,7 +39,7 @@ const questions = [
   }),
   // engagement q's
   new Question({
-    question: 'If so, why do you take pride in your work for the company? Othwerise, why not?',
+    question: 'Do you take pride in your work for the company? Why or why not?',
     category: 'engagement',
     sendDayIdx: '3',
     responseType: 'text'
