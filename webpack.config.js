@@ -1,24 +1,27 @@
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
+  mode: isDev ? 'development' : 'production',
   entry: './client/index.js',
   output: {
     path: '/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
         use: 'babel-loader',
         test: /\.js$/,
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'client/index.html'
-    })
-  ]
-};
+      template: 'client/index.html',
+    }),
+  ],
+}
