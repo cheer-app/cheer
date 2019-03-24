@@ -91,12 +91,5 @@ router.use('/actions', slackInteractions.expressMiddleware())
 
 router.use('/events', slackEvents.expressMiddleware())
 
-<<<<<<< HEAD
 module.exports = { router, web, sendMessage, getUsers }
-=======
-sendMessage(
-  'UH0HC1C3Z',
-  yesNoBlock('Are you tired of seeing this question? (Coming from THE APP)')
-)
->>>>>>> af13d59fa7f732feb93bbf96e98b1bb2d59aa707
 
