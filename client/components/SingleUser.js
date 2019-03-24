@@ -4,8 +4,13 @@ import {
   Typography,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
+  ExpansionPanelActions,
+  Divider,
+  Button,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+// import SingleUserDetails from './SingleUserDetails'
+import SingleUserForm from './SingleUserForm'
 
 class SingleUser extends Component {
   render() {
@@ -16,14 +21,15 @@ class SingleUser extends Component {
           <Typography>{user.name}</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Typography>
-            Email: {user.email}
-            <br />
-            Admin Status: {user.isAdmin}
-            <br />
-            Slack ID: {user.slackId}
-          </Typography>
+          <SingleUserForm user={user} />
         </ExpansionPanelDetails>
+        <Divider />
+        <ExpansionPanelActions>
+          <Button size="small">Edit</Button>
+          <Button size="small" color="primary">
+            Save
+          </Button>
+        </ExpansionPanelActions>
       </ExpansionPanel>
     )
   }

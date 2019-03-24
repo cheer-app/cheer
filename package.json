@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js --ignore client --open",
-    "start-dev": "NODE_ENV='developtment' npm run start"
+    "start-dev": "NODE_ENV='development' npm run start"
   },
   "author": "Cheer-App",
   "license": "ISC",
