@@ -1,29 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import ApolloClient from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
-import { ApolloProvider } from 'react-apollo';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { Router, hashHistory, Route } from 'react-router';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import ApolloClient from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { ApolloProvider } from 'react-apollo'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { Router, hashHistory, Route } from 'react-router'
 
-import App from './components/app';
-import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
-import Dashboard from './components/Dashboard';
-import requireAuth from './components/requireAuth';
+import App from './components/app'
+import LoginForm from './components/LoginForm'
+import SignupForm from './components/SignupForm'
+import Dashboard from './components/Dashboard'
+import requireAuth from './components/requireAuth'
+import Users from './components/Users'
 
 const link = new HttpLink({
   uri: '/graphql',
   opts: {
     credentials: 'same-origin',
   },
-});
+})
 
 const client = new ApolloClient({
   link,
   cache: new InMemoryCache(),
   dataIdFromObject: o => o.id,
-});
+})
 
 const Root = () => {
   return (
@@ -33,10 +34,11 @@ const Root = () => {
           <Route path="login" component={LoginForm} />
           <Route path="signup" component={SignupForm} />
           <Route path="dashboard" component={requireAuth(Dashboard)} />
+          <Route path="users" component={Users} />
         </Route>
       </Router>
     </ApolloProvider>
-  );
-};
+  )
+}
 
-ReactDOM.render(<Root />, document.querySelector('#root'));
+ReactDOM.render(<Root />, document.querySelector('#root'))
