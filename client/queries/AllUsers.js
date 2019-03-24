@@ -2,9 +2,12 @@ import gql from 'graphql-tag'
 
 export default gql`
   {
-    user {
+    allUsers {
+      name
       id
       email
+      isAdmin
+      slackId
     }
   }
 `
