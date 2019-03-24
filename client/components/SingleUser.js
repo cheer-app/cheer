@@ -11,8 +11,21 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 // import SingleUserDetails from './SingleUserDetails'
 import SingleUserForm from './SingleUserForm'
+import SingleUserDetails from './SingleUserDetails'
 
 class SingleUser extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      edit: false,
+    }
+    this.toggleEdit = this.toggleEdit.bind(this)
+  }
+
+  toggleEdit() {
+    this.setState({ edit: !this.state.edit })
+  }
+
   render() {
     const { user } = this.props
     return (
@@ -21,14 +34,30 @@ class SingleUser extends Component {
           <Typography>{user.name}</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <SingleUserForm user={user} />
+          {this.state.edit ? (
+            <SingleUserForm user={user} />
+          ) : (
+            <SingleUserDetails user={user} />
+          )}
         </ExpansionPanelDetails>
         <Divider />
         <ExpansionPanelActions>
-          <Button size="small">Edit</Button>
-          <Button size="small" color="primary">
-            Save
-          </Button>
+          {!this.state.edit ? (
+            <div>
+              <Button size="small" onClick={this.toggleEdit}>
+                Edit
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <Button size="small" onClick={this.toggleEdit}>
+                Cancel
+              </Button>
+              <Button size="small" color="primary">
+                Save
+              </Button>
+            </div>
+          )}
         </ExpansionPanelActions>
       </ExpansionPanel>
     )
