@@ -56,6 +56,8 @@
     "redux-thunk": "^2.3.0",
     "victory": "^32.1.0",
     "watson-developer-cloud": "^3.18.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
     "webpack-dev-middleware": "^3.6.1"
   },
   "devDependencies": {
@@ -65,8 +67,6 @@
     "@babel/preset-react": "^7.0.0",
     "enzyme": "^3.9.0",
     "random-date-generator": "^1.0.2",
-    "redux-logger": "^3.0.6",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
+    "redux-logger": "^3.0.6"
   }
 }
