@@ -2,8 +2,10 @@ const graphql = require('graphql')
 const mongoose = require('mongoose')
 const { GraphQLObjectType, GraphQLString, GraphQLBoolean } = graphql
 const UserType = require('./types/user_type')
+const QuestionType = require('./types/question_type')
 const AuthService = require('../services/auth')
 const User = mongoose.model('user')
+const Question = mongoose.model('question')
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -48,6 +50,24 @@ const mutation = new GraphQLObjectType({
       resolve(parents, { id, name, email, isAdmin, slackId }) {
         return User.findByIdAndUpdate(id, {
           $set: { name, email, isAdmin, slackId },
+        })
+      },
+    },
+    updateQuestion: {
+      type: QuestionType,
+      args: {
+        id: { type: GraphQLString },
+        question: { type: GraphQLString },
+        category: { type: GraphQLString },
+        sendDayIdx: { type: GraphQLString },
+      },
+      resolve(parents, { id, question, category, sendDayIdx }) {
+        return Question.findByIdAndUpdate(id, {
+          $set: {
+            question,
+            category,
+            sendDayIdx,
+          },
         })
       },
     },
