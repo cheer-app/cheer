@@ -3,8 +3,6 @@ import {
   ExpansionPanel,
   Typography,
   ExpansionPanelSummary,
-  Divider,
-  Button,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import SingleUserForm from './SingleUserForm'
