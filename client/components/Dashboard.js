@@ -7,7 +7,16 @@ import WordCloudWrapper from './Graphs/WordCloud';
 class Dashboard extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      sentiment: '',
+      text: '',
+      value: 0,
+      anger: 0,
+      disgust: 0,
+      fear: 0,
+      joy: 0,
+      sadness: 0,
+    };
   }
   render() {
     const { watson } = this.props.data;
