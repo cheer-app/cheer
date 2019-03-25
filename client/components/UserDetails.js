@@ -7,7 +7,7 @@ import {
   Divider,
 } from '@material-ui/core'
 
-function SingleUserDetails(props) {
+function UserDetails(props) {
   const { user } = props
 
   return (
@@ -31,4 +31,4 @@ function SingleUserDetails(props) {
   )
 }
 
-export default SingleUserDetails
+export default UserDetails

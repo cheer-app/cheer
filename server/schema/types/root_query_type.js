@@ -3,8 +3,10 @@ const mongoose = require('mongoose')
 const { GraphQLObjectType, GraphQLList } = graphql
 const UserType = require('./user_type')
 const DataType = require('./data_type')
+const QuestionType = require('./question_type')
 const Watson = mongoose.model('watson')
 const User = mongoose.model('user')
+const Question = mongoose.model('question')
 
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -30,7 +32,7 @@ const RootQueryType = new GraphQLObjectType({
     questions: {
       type: new GraphQLList(QuestionType),
       resolve() {
-        return Questions.find({})
+        return Question.find({})
       },
     },
   },

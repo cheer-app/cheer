@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
-import SingleUser from './SingleUser'
+import UserPanel from './UserPanel'
 import query from '../queries/AllUsers'
 import { Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
@@ -39,7 +39,7 @@ function Users(props) {
         <div>loading...</div>
       ) : (
         allUsers.map(user => {
-          return <SingleUser key={user.id} user={user} />
+          return <UserPanel key={user.id} user={user} />
         })
       )}
     </div>
