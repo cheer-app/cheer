@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import WordCloud from 'react-d3-cloud';
-import BarGraph from './BarGraph';
 
 const fontSizeMapper = word => word.value * 60;
 
