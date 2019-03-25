@@ -16,8 +16,18 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import Dashboard from '@material-ui/icons/Dashboard';
+import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
+import QuestionAnswer from '@material-ui/icons/QuestionAnswer';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+
+import { graphql } from 'react-apollo'
+import { Link } from 'react-router'
+import query from '../queries/CurrentUser'
+import mutation from '../mutations/Logout'
 
 const drawerWidth = 240;
 
@@ -80,8 +90,25 @@ const styles = theme => ({
 
 class Header extends React.Component {
   state = {
+    anchorEl: null,
     open: false,
-  };
+    popup: false
+  }
+
+  onLogoutClick = () => {
+    this.props.mutate({
+      refetchQueries: [{ query }],
+    })
+    this.handleClose()
+  }
+
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget })
+  }
+
+  handleClose = () => {
+    this.setState({ anchorEl: null })
+  }
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -92,8 +119,14 @@ class Header extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
-    const { open } = this.state;
+    const { classes, theme } = this.props
+    const { anchorEl, open } = this.state
+    const { loading, user } = this.props.data
+    const popup = Boolean(anchorEl)
+
+    if (loading) {
+      return <div />
+    }
 
     return (
       <div className={classes.root}>
@@ -116,6 +149,37 @@ class Header extends React.Component {
             <Typography variant="h6" color="inherit" noWrap>
               Cheer App
             </Typography>
+            {!user ? (
+              <Button component={Link} to="/login" color="inherit">
+                Login
+              </Button>
+            ) : (
+              <div>
+                <IconButton
+                  onClick={this.handleMenu.bind(this)}
+                  className={classes.menuButton}
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={popup}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.onLogoutClick}>Logout</MenuItem>
+                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                </Menu>
+              </div>
+            )}
           </Toolbar>
         </AppBar>
         <Drawer
@@ -134,12 +198,24 @@ class Header extends React.Component {
           </div>
           <Divider />
           <List>
-            {['Dashboard', 'Users', 'Questions'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
+            <Link to='/dashboard'>
+              <ListItem button key={'Dashboard'}>
+                <ListItemIcon><Dashboard /></ListItemIcon>
+                <ListItemText primary={'Dashboard'} />
               </ListItem>
-            ))}
+            </Link>
+            <Link to='/users'>
+              <ListItem button key={'Users'}>
+                <ListItemIcon><SupervisorAccount /></ListItemIcon>
+                <ListItemText primary={'Users'} />
+              </ListItem>
+            </Link>
+            <Link to='/questions'>
+              <ListItem button key={'Questions'}>
+                <ListItemIcon><QuestionAnswer /></ListItemIcon>
+                <ListItemText primary={'Questions'} />
+              </ListItem>
+            </Link>
           </List>
         </Drawer>
         <main
@@ -159,4 +235,4 @@ Header.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Header);
+export default withStyles(styles, { withTheme: true })(graphql(mutation)(graphql(query)(Header)))
