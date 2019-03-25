@@ -1,10 +1,46 @@
-const { web } = require('../../server')
+//const { web } = require('../../server')
 const { dialogBlock } = require('./messageBlocks')
 const qs = require('qs')
 const axios = require('axios')
 require('dotenv').config()
 const Response = require('../../models/response')
-const User = require('../../models/user')
+//const User = require('../../models/user')
+
+async function rateButtHandler(payload, respond) {
+  try {
+    await new Response({
+      rateResponse: Number(payload.actions[0].value),
+      questionText: payload.message.blocks[0].text.text,
+      userSlackId: payload.user.id,
+    }).save()
+    const message = {
+      text: `You were asked: '${payload.message.blocks[0].text.text}' and you responded '${payload.actions[0].value}'.`,
+    }
+    respond(message)
+  } catch (error) {
+    console.error(error)
+    respond({ text: 'An error occurred while recording your response.' })
+  }
+}
+
+async function yesNoButtHandler(payload, respond) {
+  try {
+    await new Response({
+      polarResponse: payload.actions[0].value,
+      questionText: payload.message.blocks[0].text.text,
+      userSlackId: payload.user.id,
+    }).save()
+    const message = {
+      text: `You were asked: ${
+        payload.message.blocks[0].text.text
+      } and you responded ${payload.actions[0].value}.`,
+    }
+    respond(message)
+  } catch (error) {
+    console.error(error)
+    respond({ text: 'An error occurred while recording your response.' })
+  }
+}
 
 async function yesButtHandler(payload, respond) {
   try {
@@ -81,4 +117,4 @@ async function dialogHandler(payload, respond) {
   }
 }
 
-module.exports = { yesButtHandler, noButtHandler, startDialog, dialogHandler }
+module.exports = { rateButtHandler, yesNoButtHandler, yesButtHandler, noButtHandler, startDialog, dialogHandler }

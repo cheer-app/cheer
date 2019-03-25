@@ -1,4 +1,70 @@
-// template for yes/no question message block
+const rateBlock = questionTxt => {
+  return [
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: questionTxt,
+      },
+    },
+    {
+      type: 'actions',
+      block_id: 'rateBlock',
+      elements: [
+        {
+          type: 'button',
+          action_id: 'rate_1_butt',
+          text: {
+            type: 'plain_text',
+            emoji: true,
+            text: '1',
+          },
+          value: '1',
+        },
+        {
+          type: 'button',
+          action_id: 'rate_2_butt',
+          text: {
+            type: 'plain_text',
+            emoji: true,
+            text: '2',
+          },
+          value: '2',
+        },
+        {
+          type: 'button',
+          action_id: 'rate_3_butt',
+          text: {
+            type: 'plain_text',
+            emoji: true,
+            text: '3',
+          },
+          value: '3',
+        },
+        {
+          type: 'button',
+          action_id: 'rate_4_butt',
+          text: {
+            type: 'plain_text',
+            emoji: true,
+            text: '4',
+          },
+          value: '4',
+        },
+        {
+          type: 'button',
+          action_id: 'rate_5_butt',
+          text: {
+            type: 'plain_text',
+            emoji: true,
+            text: '5',
+          },
+          value: '5',
+        },
+      ],
+    },
+  ]
+}
 
 const yesNoBlock = questionTxt => {
   return [
@@ -83,4 +149,4 @@ const dialogBlock = questionText => {
   }
 }
 
-module.exports = { yesNoBlock, textResponse, dialogBlock }
+module.exports = { rateBlock, yesNoBlock, textResponse, dialogBlock }
