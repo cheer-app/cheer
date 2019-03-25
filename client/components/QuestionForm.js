@@ -8,6 +8,10 @@ import {
   ExpansionPanelActions,
   ExpansionPanelDetails,
   Divider,
+  InputLabel,
+  OutlinedInput,
+  Select,
+  MenuItem,
 } from '@material-ui/core'
 
 class QuestionForm extends Component {
@@ -15,17 +19,24 @@ class QuestionForm extends Component {
     super(props)
     this.state = {
       text: this.props.question.question,
-      type: this.props.question.type,
+      type: this.props.question.responseType,
       category: this.props.question.category,
       sendDayIdx: this.props.question.sendDayIdx,
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
     this.handleSwitch = this.handleSwitch.bind(this)
   }
 
   handleChange(event) {
-    console.log('before', this.state)
+    console.log('before', event.target)
     this.setState({ [event.target.id]: event.target.value })
+    console.log('after', this.state)
+  }
+
+  handleSelect(event) {
+    console.log('before', event.target)
+    this.setState({ [event.target.name]: event.target.value })
     console.log('after', this.state)
   }
 
@@ -36,6 +47,7 @@ class QuestionForm extends Component {
   }
 
   render() {
+    const { classes } = this.props
     return (
       <div>
         <ExpansionPanelDetails>
@@ -46,28 +58,47 @@ class QuestionForm extends Component {
               value={this.state.text}
               onChange={this.handleChange}
               variant="outlined"
+              fullWidth
+              multiline
             />
-            <TextField
-              id="type"
-              label="Type"
-              value={this.state.type}
-              onChange={this.handleChange}
-              variant="outlined"
-            />
-            <TextField
-              id="category"
-              label="Category"
-              value={this.state.slackId}
-              onChange={this.handleChange}
-              variant="outlined"
-            />
-            <TextField
-              id="scheduleDayIdx"
-              label="Scheduled Day"
-              value={this.state.sendDayIdx}
-              onChange={this.handleChange}
-              variant="outlined"
-            />
+            <br />
+            <FormControl variant="outlined">
+              <InputLabel>Scheduled Day</InputLabel>
+              <Select
+                value={this.state.sendDayIdx}
+                onChange={this.handleSelect}
+                input={<OutlinedInput name="sendDayIdx" />}
+              >
+                <MenuItem value="1">Monday</MenuItem>
+                <MenuItem value="2">Tuesday</MenuItem>
+                <MenuItem value="3">Wednesday</MenuItem>
+                <MenuItem value="4">Thursday</MenuItem>
+                <MenuItem value="5">Friday</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="outlined">
+              <InputLabel>Category</InputLabel>
+              <Select
+                value={this.state.category}
+                onChange={this.handleSelect}
+                input={<OutlinedInput name="category" />}
+              >
+                <MenuItem value="wellness">Wellness</MenuItem>
+                <MenuItem value="engagement">Engagement</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="outlined">
+              <InputLabel>Response Type</InputLabel>
+              <Select
+                value={this.state.type}
+                onChange={this.handleSelect}
+                input={<OutlinedInput name="type" />}
+              >
+                <MenuItem value="polar">Yes/No</MenuItem>
+                <MenuItem value="rating">Point Scale</MenuItem>
+                <MenuItem value="text">Free Text</MenuItem>
+              </Select>
+            </FormControl>
           </form>
         </ExpansionPanelDetails>
         <Divider />
