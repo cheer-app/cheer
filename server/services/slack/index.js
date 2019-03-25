@@ -2,6 +2,8 @@ const router = require('express').Router();
 const axios = require('axios');
 const { yesNoBlock, textResponse } = require('./messageBlocks');
 const {
+  rateButtHandler,
+  yesNoButtHandler,
   yesButtHandler,
   noButtHandler,
   startDialog,
@@ -9,27 +11,32 @@ const {
 } = require('./actionHandlers');
 require('dotenv').config();
 
-const { WebClient } = require('@slack/client');
-const { RTMClient } = require('@slack/client');
-const { createMessageAdapter } = require('@slack/interactive-messages');
-const slackInteractions = createMessageAdapter(
-  process.env.SLACK_SIGNING_SECRET
-);
+const { WebClient } = require('@slack/client')
+//const { RTMClient } = require('@slack/client')
+const { createMessageAdapter } = require('@slack/interactive-messages')
+const slackInteractions = createMessageAdapter(process.env.SLACK_SIGNING_SECRET)
 
-router.use('/actions', slackInteractions.expressMiddleware());
+const { createEventAdapter } = require('@slack/events-api')
+const slackEvents = createEventAdapter(process.env.SLACK_SIGNING_SECRET)
+
 
 const token = process.env.SLACK_BOT_OAUTH_ACCESS_TOKEN;
 
-const web = new WebClient(token);
-const rtm = new RTMClient(token);
+const web = new WebClient(token)
+//const rtm = new RTMClient(token)
+
+slackInteractions.action(
+  { blockId: 'rateBlock' },
+  rateButtHandler
+)
 
 // open direct message conversation and send a message
 const sendMessage = async (user, messageBlock) => {
   try {
     const res = await web.im.open({
       user: user,
-    });
-    const send = await web.chat.postMessage({
+    })
+    await web.chat.postMessage({
       channel: res.channel.id,
       blocks: messageBlock,
     });
@@ -38,17 +45,10 @@ const sendMessage = async (user, messageBlock) => {
   }
 };
 
-// handles a yes answer to a yes/no question
 slackInteractions.action(
-  { blockId: 'yesNoBlock', actionId: 'yes_butt' },
-  yesButtHandler
-);
-
-// handles a no answer to a yes/no question
-slackInteractions.action(
-  { blockId: 'yesNoBlock', actionId: 'no_butt' },
-  noButtHandler
-);
+  { blockId: 'yesNoBlock' },
+  yesNoButtHandler
+)
 
 // handles text questions, initiates dialog
 slackInteractions.action(
@@ -62,8 +62,8 @@ slackInteractions.action({ callbackId: 'dialogSubmit' }, dialogHandler);
 // get a list of users and their slack IDs
 const getUsers = async () => {
   try {
-    const response = await web.users.list({ token });
-    const userList = response.members.reduce((list, nextUser) => {
+    const response = await web.users.list({ token })
+    return response.members.reduce((list, nextUser) => {
       if (
         nextUser.real_name !== 'Slackbot' &&
         nextUser.real_name !== 'cheerapp'
@@ -77,8 +77,19 @@ const getUsers = async () => {
   }
 };
 
-module.exports = { router, web };
+slackEvents.on('team_join', (event) => {
+  try {
+    console.log('TEAM JOIN EVENT => ', event)
+  } catch (error) {
+    console.error(error)
+  }
+})
 
-// sendMessage('UGXQ9902U', textResponse('Whats wrong babe?'));
+slackEvents.on('error', console.error)
 
-// getUsers()
+router.use('/actions', slackInteractions.expressMiddleware())
+
+router.use('/events', slackEvents.expressMiddleware())
+
+module.exports = { router, web, sendMessage, getUsers }
+

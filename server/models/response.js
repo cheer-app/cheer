@@ -11,16 +11,19 @@ const responseSchema = new mongoose.Schema({
   polarResponse: {
     type: String
   },
+  rateResponse: {
+    type: Number
+  },
   score: {
     type: Number
   },
   questionText: {
     type: String
   },
-  question_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Question'
-  },
+  // question_id: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'Question'
+  // },
   userSlackId: {
     type: String
   }
