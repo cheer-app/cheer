@@ -6,7 +6,7 @@ import { ApolloProvider } from 'react-apollo'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { Router, hashHistory, Route } from 'react-router'
 
-import App from './components/app'
+import App from './components/App'
 import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
 import Dashboard from './components/Dashboard'
@@ -34,7 +34,8 @@ const Root = () => {
           <Route path="login" component={LoginForm} />
           <Route path="signup" component={SignupForm} />
           <Route path="dashboard" component={requireAuth(Dashboard)} />
-          <Route path="users" component={Users} />
+          <Route path="users" component={requireAuth(Users)} />
+          {/* <Route path="questions" component={requireAuth(Questions)} /> */}
         </Route>
       </Router>
     </ApolloProvider>
