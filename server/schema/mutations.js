@@ -40,12 +40,15 @@ const mutation = new GraphQLObjectType({
       type: UserType,
       args: {
         id: { type: GraphQLString },
+        name: { type: GraphQLString },
         email: { type: GraphQLString },
         isAdmin: { type: GraphQLBoolean },
         slackId: { type: GraphQLString },
       },
-      resolve(parents, { id, email, isAdmin, slackId }) {
-        return User.findByIdAndUpdate(id, { email, isAdmin, slackId })
+      resolve(parents, { id, name, email, isAdmin, slackId }) {
+        return User.findByIdAndUpdate(id, {
+          $set: { name, email, isAdmin, slackId },
+        })
       },
     },
   },
