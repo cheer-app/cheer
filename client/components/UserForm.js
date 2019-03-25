@@ -10,7 +10,7 @@ import {
   Divider,
 } from '@material-ui/core'
 
-class SingleUserForm extends Component {
+class UserForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -86,4 +86,4 @@ class SingleUserForm extends Component {
   }
 }
 
-export default SingleUserForm
+export default UserForm

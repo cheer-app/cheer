@@ -25,10 +25,7 @@ const token = process.env.SLACK_BOT_OAUTH_ACCESS_TOKEN
 const web = new WebClient(token)
 //const rtm = new RTMClient(token)
 
-slackInteractions.action(
-  { blockId: 'rateBlock' },
-  rateButtHandler
-)
+slackInteractions.action({ blockId: 'rateBlock' }, rateButtHandler)
 
 // open direct message conversation and send a message
 const sendMessage = async (user, messageBlock) => {
@@ -45,10 +42,7 @@ const sendMessage = async (user, messageBlock) => {
   }
 }
 
-slackInteractions.action(
-  { blockId: 'yesNoBlock' },
-  yesNoButtHandler
-)
+slackInteractions.action({ blockId: 'yesNoBlock' }, yesNoButtHandler)
 
 // handles text questions, initiates dialog
 slackInteractions.action(
@@ -106,4 +100,3 @@ router.use('/actions', slackInteractions.expressMiddleware())
 router.use('/events', slackEvents.expressMiddleware())
 
 module.exports = { router, web, sendMessage, getUsers }
-
