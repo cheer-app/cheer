@@ -199,7 +199,7 @@ class Header extends React.Component {
             </IconButton>
           </div>
           <Divider />
-          <List>
+          <List onClick={this.handleDrawerClose}>
             <Link to='/dashboard'>
               <ListItem button key={'Dashboard'}>
                 <ListItemIcon><Dashboard /></ListItemIcon>
