@@ -20,7 +20,7 @@ function QuestionDetails(props) {
           <br />
           Category: {question.category}
           <br />
-          Scheduled Day; {question.sendDayIdx}
+          Scheduled Day: {question.sendDayIdx}
         </Typography>
       </ExpansionPanelDetails>
       <Divider />

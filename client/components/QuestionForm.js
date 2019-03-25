@@ -13,12 +13,12 @@ import {
 class QuestionForm extends Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    //   name: this.props.user.name,
-    //   email: this.props.user.email,
-    //   slackId: this.props.user.slackid,
-    //   isAdmin: this.props.user.isAdmin,
-    // }
+    this.state = {
+      text: this.props.question.question,
+      type: this.props.question.type,
+      category: this.props.question.category,
+      sendDayIdx: this.props.question.sendDayIdx,
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleSwitch = this.handleSwitch.bind(this)
   }
@@ -36,53 +36,52 @@ class QuestionForm extends Component {
   }
 
   render() {
-    return <div>PENDING</div>
+    return (
+      <div>
+        <ExpansionPanelDetails>
+          <form>
+            <TextField
+              id="text"
+              label="Question Text:"
+              value={this.state.text}
+              onChange={this.handleChange}
+              variant="outlined"
+            />
+            <TextField
+              id="type"
+              label="Type"
+              value={this.state.type}
+              onChange={this.handleChange}
+              variant="outlined"
+            />
+            <TextField
+              id="category"
+              label="Category"
+              value={this.state.slackId}
+              onChange={this.handleChange}
+              variant="outlined"
+            />
+            <TextField
+              id="scheduleDayIdx"
+              label="Scheduled Day"
+              value={this.state.sendDayIdx}
+              onChange={this.handleChange}
+              variant="outlined"
+            />
+          </form>
+        </ExpansionPanelDetails>
+        <Divider />
+        <ExpansionPanelActions>
+          <Button size="small" onClick={this.props.toggleEdit}>
+            Cancel
+          </Button>
+          <Button size="small" color="primary">
+            Save
+          </Button>
+        </ExpansionPanelActions>
+      </div>
+    )
   }
 }
-
-// {/* <ExpansionPanelDetails>
-//   <form>
-//     <TextField
-//       id="name"
-//       label="Name"
-//       value={this.state.name}
-//       onChange={this.handleChange}
-//       variant="outlined"
-//     />
-//     <TextField
-//       id="email"
-//       label="Email"
-//       value={this.state.email}
-//       onChange={this.handleChange}
-//       variant="outlined"
-//     />
-//     <TextField
-//       id="slackId"
-//       label="Slack ID"
-//       value={this.state.slackId}
-//       onChange={this.handleChange}
-//       variant="outlined"
-//     />
-//     <FormControl>
-//       <FormControlLabel
-//         id="isAdmin"
-//         control={<Switch checked={this.state.isAdmin} />}
-//         onChange={this.handleSwitch}
-//         labelPlacement="start"
-//         label="Admin"
-//       />
-//     </FormControl>
-//   </form>
-// </ExpansionPanelDetails>
-// <Divider />
-// <ExpansionPanelActions>
-//   <Button size="small" onClick={this.props.toggleEdit}>
-//     Cancel
-//   </Button>
-//   <Button size="small" color="primary">
-//     Save
-//   </Button>
-// </ExpansionPanelActions>
-// </div> */}
 
 export default QuestionForm
