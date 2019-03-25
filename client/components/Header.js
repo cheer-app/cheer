@@ -137,7 +137,7 @@ class Header extends React.Component {
             [classes.appBarShift]: open,
           })}
         >
-          <Toolbar disableGutters={!open}>
+          <Toolbar disableGutters={!open} style={{display: 'flex', justifyContent: 'space-between'}}>
             <IconButton
               color="inherit"
               aria-label="Open drawer"
@@ -146,7 +146,7 @@ class Header extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography variant="h4" color="inherit" noWrap>
               Cheer App
             </Typography>
             {!user ? (
@@ -159,7 +159,7 @@ class Header extends React.Component {
                   onClick={this.handleMenu.bind(this)}
                   className={classes.menuButton}
                 >
-                  <AccountCircle />
+                  <AccountCircle style={{color: 'white'}} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
