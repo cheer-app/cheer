@@ -23,7 +23,7 @@ class SingleUser extends Component {
   }
 
   toggleEdit() {
-    this.setState({ edit: !this.state.edit })
+    this.setState(prevState => ({ edit: !prevState.edit }))
   }
 
   render() {
@@ -33,32 +33,11 @@ class SingleUser extends Component {
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{user.name}</Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          {this.state.edit ? (
-            <SingleUserForm user={user} />
-          ) : (
-            <SingleUserDetails user={user} />
-          )}
-        </ExpansionPanelDetails>
-        <Divider />
-        <ExpansionPanelActions>
-          {!this.state.edit ? (
-            <div>
-              <Button size="small" onClick={this.toggleEdit}>
-                Edit
-              </Button>
-            </div>
-          ) : (
-            <div>
-              <Button size="small" onClick={this.toggleEdit}>
-                Cancel
-              </Button>
-              <Button size="small" color="primary">
-                Save
-              </Button>
-            </div>
-          )}
-        </ExpansionPanelActions>
+        {this.state.edit ? (
+          <SingleUserForm user={user} toggleEdit={this.toggleEdit} />
+        ) : (
+          <SingleUserDetails user={user} toggleEdit={this.toggleEdit} />
+        )}
       </ExpansionPanel>
     )
   }
