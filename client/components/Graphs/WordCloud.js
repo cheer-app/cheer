@@ -21,7 +21,6 @@ class WordCloudWrapper extends Component {
       }, []);
       return (
         <WordCloud
-          padding={40}
           data={keywords}
           fontSizeMapper={fontSizeMapper}
           font="roboto"
