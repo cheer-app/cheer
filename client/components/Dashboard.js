@@ -3,20 +3,25 @@ import { graphql } from 'react-apollo';
 import query from '../queries/WatsonData';
 import BarGraph from './Graphs/BarGraph';
 import WordCloudWrapper from './Graphs/WordCloud';
-import LineGraph from './Graphs/LineGraph';
 
 class Dashboard extends Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
   render() {
     const { watson } = this.props.data;
-    return (
-      <div>
-        <WordCloudWrapper data={watson} />
-
-        <BarGraph data={watson} />
-
-        {/* <LineGraph data={watson} /> */}
-      </div>
-    );
+    if (watson) {
+      console.log(watson[0].keywords);
+      return (
+        <div>
+          <WordCloudWrapper data={watson} />;
+          <BarGraph data={watson} />
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
