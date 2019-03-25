@@ -3,8 +3,8 @@ import gql from 'graphql-tag'
 export default gql`
   {
     allUsers {
-      name
       id
+      name
       email
       isAdmin
       slackId

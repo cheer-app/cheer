@@ -11,17 +11,13 @@ class Dashboard extends Component {
   }
   render() {
     const { watson } = this.props.data;
-    if (watson) {
-      console.log(watson[0].keywords);
-      return (
-        <div>
-          <WordCloudWrapper data={watson} />;
-          <BarGraph data={watson} />
-        </div>
-      );
-    } else {
-      return null;
-    }
+
+    return (
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <WordCloudWrapper data={watson} />
+        <BarGraph data={watson} />
+      </div>
+    );
   }
 }
 

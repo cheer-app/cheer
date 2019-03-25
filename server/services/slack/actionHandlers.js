@@ -1,10 +1,8 @@
-//const { web } = require('../../server')
 const { dialogBlock } = require('./messageBlocks')
 const qs = require('qs')
 const axios = require('axios')
 require('dotenv').config()
 const Response = require('../../models/response')
-//const User = require('../../models/user')
 
 async function rateButtHandler(payload, respond) {
   try {

@@ -1,10 +1,9 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
 import { Link } from 'react-router'
-import UserPanel from './UserPanel'
-import query from '../queries/AllUsers'
-import { Button } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, Button } from '@material-ui/core'
+import query from '../queries/Questions'
+import QuestionPanel from './QuestionPanel'
 
 const styles = {
   root: {
@@ -24,28 +23,28 @@ const styles = {
   },
 }
 
-function Users(props) {
+function Questions(props) {
   const { classes } = props
-  const { allUsers } = props.data
+  const { questions } = props.data
 
   return (
     <div>
       <span className={classes.root}>
-        <h3 className={classes.grow}>Employees</h3>
-        <Link to='user-form'>
-          <Button className={classes.float}>Add User</Button>
+        <h3 className={classes.grow}>Questions</h3>
+        <Link to='question-form'>
+          <Button className={classes.float}>New Question</Button>
         </Link>
       </span>
       <br />
-      {!allUsers ? (
+      {!questions ? (
         <div>loading...</div>
       ) : (
-        allUsers.map(user => {
-          return <UserPanel key={user.id} user={user} />
+        questions.map(question => {
+          return <QuestionPanel key={question.id} question={question} />
         })
       )}
     </div>
   )
 }
 
-export default withStyles(styles)(graphql(query)(Users))
+export default withStyles(styles)(graphql(query)(Questions))
