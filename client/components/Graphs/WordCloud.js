@@ -27,7 +27,7 @@ class WordCloudWrapper extends Component {
           fontSizeMapper={fontSizeMapper}
           font="roboto"
           onWordClick={word => {
-            console.log(word);
+            this.props.handleClick(word);
           }}
         />
       );

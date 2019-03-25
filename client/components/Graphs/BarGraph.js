@@ -11,6 +11,7 @@ const data = [
 
 export default class BarGraph extends Component {
   render() {
+    console.log('bargraph state', this.props.state);
     if (this.props.data) {
       return (
         <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
