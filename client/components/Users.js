@@ -18,6 +18,8 @@ const styles = {
   float: {
     float: 'right',
     display: 'inline-block',
+    marginLeft: -12,
+    marginRight: 5,
   },
 }
 

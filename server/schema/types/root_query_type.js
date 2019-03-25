@@ -27,6 +27,12 @@ const RootQueryType = new GraphQLObjectType({
         return Watson.find({})
       },
     },
+    questions: {
+      type: new GraphQLList(QuestionType),
+      resolve() {
+        return Questions.find({})
+      },
+    },
   },
 })
 
