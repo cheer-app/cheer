@@ -9,7 +9,7 @@ class Dashboard extends Component {
     const { watson } = this.props.data;
 
     return (
-      <div>
+      <div style={{display: 'flex', alignItems: 'center'}}>
         <WordCloudWrapper data={watson} />
         <BarGraph data={watson} />
       </div>
