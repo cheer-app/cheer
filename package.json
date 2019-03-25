@@ -57,9 +57,7 @@
     "watson-developer-cloud": "^3.18.2",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-middleware": "^3.6.1"
-  },
-  "devDependencies": {
+    "webpack-dev-middleware": "^3.6.1",
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
