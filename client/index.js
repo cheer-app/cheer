@@ -12,6 +12,7 @@ import SignupForm from './components/SignupForm'
 import Dashboard from './components/Dashboard'
 import requireAuth from './components/requireAuth'
 import Users from './components/Users'
+import Questions from './components/Questions'
 
 const link = new HttpLink({
   uri: '/graphql',
@@ -35,7 +36,7 @@ const Root = () => {
           <Route path="signup" component={SignupForm} />
           <Route path="dashboard" component={requireAuth(Dashboard)} />
           <Route path="users" component={requireAuth(Users)} />
-          {/* <Route path="questions" component={requireAuth(Questions)} /> */}
+          <Route path="questions" component={requireAuth(Questions)} />
         </Route>
       </Router>
     </ApolloProvider>

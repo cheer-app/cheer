@@ -7,18 +7,20 @@ import {
   Divider,
 } from '@material-ui/core'
 
-function SingleUserDetails(props) {
-  const { user } = props
+function QuestionDetails(props) {
+  const { question } = props
 
   return (
     <div>
       <ExpansionPanelDetails>
         <Typography>
-          Email: {user.email}
+          Question Text: {question.question}
           <br />
-          Admin Status: {user.isAdmin ? 'Admin' : 'Not Admin'}
+          Response Type: {question.responseType}
           <br />
-          Slack ID: {user.slackId}
+          Category: {question.category}
+          <br />
+          Scheduled Day: {question.sendDayIdx}
         </Typography>
       </ExpansionPanelDetails>
       <Divider />
@@ -31,4 +33,4 @@ function SingleUserDetails(props) {
   )
 }
 
-export default SingleUserDetails
+export default QuestionDetails

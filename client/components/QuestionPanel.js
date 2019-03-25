@@ -5,10 +5,10 @@ import {
   ExpansionPanelSummary,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import SingleUserForm from './SingleUserForm'
-import SingleUserDetails from './SingleUserDetails'
+import QuestionForm from './QuestionForm'
+import QuestionDetails from './QuestionDetails'
 
-class SingleUser extends Component {
+class QuestionPanel extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -22,20 +22,20 @@ class SingleUser extends Component {
   }
 
   render() {
-    const { user } = this.props
+    const { question } = this.props
     return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>{user.name}</Typography>
+          <Typography>{question.question}</Typography>
         </ExpansionPanelSummary>
         {this.state.edit ? (
-          <SingleUserForm user={user} toggleEdit={this.toggleEdit} />
+          <QuestionForm question={question} toggleEdit={this.toggleEdit} />
         ) : (
-          <SingleUserDetails user={user} toggleEdit={this.toggleEdit} />
+          <QuestionDetails question={question} toggleEdit={this.toggleEdit} />
         )}
       </ExpansionPanel>
     )
   }
 }
 
-export default SingleUser
+export default QuestionPanel
