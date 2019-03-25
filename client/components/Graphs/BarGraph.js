@@ -2,23 +2,52 @@ import React, { Component } from 'react';
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
 const data = [
-  { quarter: 1, earnings: 13000 },
-  { quarter: 2, earnings: 16500 },
-  { quarter: 3, earnings: 14250 },
-  { quarter: 4, earnings: 19000 },
+  { emotion: 1, rating: 13000 },
+  { emotion: 2, rating: 16500 },
+  { emotion: 3, rating: 14250 },
+  { emotion: 4, rating: 19000 },
+  { emotion: 5, rating: 19000 },
 ];
 
 export default class BarGraph extends Component {
   render() {
-    return (
-      <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
-        <VictoryAxis
-          tickValues={[1, 2, 3, 4]}
-          tickFormat={['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4']}
-        />
-        <VictoryAxis dependentAxis tickFormat={x => `$${x / 1000}k`} />
-        <VictoryBar data={data} x="quarter" y="earnings" />
-      </VictoryChart>
-    );
+    console.log('bargraph state', this.props.state);
+    if (this.props.data) {
+      return (
+        <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
+          <VictoryAxis
+            tickValues={['Anger', 'Disgust', 'Fear', 'Joy', 'Sadness']}
+          />
+          <VictoryAxis dependentAxis />
+          <VictoryBar data={data} x="emotion" y="rating" />
+        </VictoryChart>
+      );
+    } else {
+      return null;
+    }
   }
 }
+
+// export default class BarGraph extends Component {
+//   render() {
+//     if (this.props.data) {
+//       console.log(this.props.data[0].keywords);
+//       return (
+//         <VictoryChart
+//           theme={VictoryTheme.material}
+//           domainPadding={10}
+//           alignment="start"
+//         >
+//           <VictoryAxis
+//             tickValues={[1, 2, 3, 4, 5]}
+//             tickFormat={['anger', 'disgust', 'fear', 'joy', 'sadness']}
+//           />
+//           <VictoryAxis dependentAxis tickFormat={x => `${x / 1000}%`} />
+//           <VictoryBar data={data} x="emotion" y="earnings" />
+//         </VictoryChart>
+//       );
+//     } else {
+//       return null;
+//     }
+//   }
+// }

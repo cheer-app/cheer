@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
+import { Link } from 'react-router'
 import UserPanel from './UserPanel'
 import query from '../queries/AllUsers'
 import { Button } from '@material-ui/core'
@@ -26,13 +27,14 @@ const styles = {
 function Users(props) {
   const { classes } = props
   const { allUsers } = props.data
-  console.log('allUsers', allUsers)
 
   return (
     <div>
       <span className={classes.root}>
-        <h3 className={classes.grow}>Employees</h3>
-        <Button className={classes.float}>Add User</Button>
+        <h3 className={classes.grow}>Users</h3>
+        <Link to='user-form'>
+          <Button className={classes.float}>Add User</Button>
+        </Link>
       </span>
       <br />
       {!allUsers ? (
