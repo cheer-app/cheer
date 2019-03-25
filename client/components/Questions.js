@@ -32,7 +32,7 @@ function Questions(props) {
       <span className={classes.root}>
         <h3 className={classes.grow}>Questions</h3>
         <Link to='question-form'>
-          <Button className={classes.float}>New Question</Button>
+          <Button className={classes.float}>Add Question</Button>
         </Link>
       </span>
       <br />

@@ -31,7 +31,7 @@ function Users(props) {
   return (
     <div>
       <span className={classes.root}>
-        <h3 className={classes.grow}>Employees</h3>
+        <h3 className={classes.grow}>Users</h3>
         <Link to='user-form'>
           <Button className={classes.float}>Add User</Button>
         </Link>
