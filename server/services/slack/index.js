@@ -10,6 +10,7 @@ const {
   dialogHandler,
 } = require('./actionHandlers')
 require('dotenv').config()
+const User = require('../../models/user')
 
 const { WebClient } = require('@slack/client')
 //const { RTMClient } = require('@slack/client')
@@ -18,7 +19,6 @@ const slackInteractions = createMessageAdapter(process.env.SLACK_SIGNING_SECRET)
 
 const { createEventAdapter } = require('@slack/events-api')
 const slackEvents = createEventAdapter(process.env.SLACK_SIGNING_SECRET)
-
 
 const token = process.env.SLACK_BOT_OAUTH_ACCESS_TOKEN
 
@@ -68,7 +68,7 @@ const getUsers = async () => {
         nextUser.real_name !== 'Slackbot' &&
         nextUser.real_name !== 'cheerapp'
       ) {
-        list.push({ id: nextUser.id, realName: nextUser.real_name })
+        list.push({ id: nextUser.id, realName: nextUser.real_name, email: nextUser.profile.email })
       }
       return list
     }, [])
@@ -77,9 +77,23 @@ const getUsers = async () => {
   }
 }
 
-slackEvents.on('team_join', (event) => {
+slackEvents.on('team_join', async event => {
   try {
-    console.log('TEAM JOIN EVENT => ', event)
+    // see if the new slack workspace member is in the database
+    const foundUser = await User.findOne({name: event.user.real_name})
+    if (foundUser) { // if they are, add their slack id
+      foundUser.slackId = event.user.id
+      await foundUser.save()
+    } else { // if they aren't, get their email from slack, and put them into the database
+      let slackUsers = await getUsers()
+      slackUsers = slackUsers.filter(user => user.id === event.user.id)
+      await User.create({
+        email: slackUsers[0].email,
+        password: 'password',
+        name: slackUsers[0].realName,
+        slackId: slackUsers[0].id,
+      })
+    }
   } catch (error) {
     console.error(error)
   }
