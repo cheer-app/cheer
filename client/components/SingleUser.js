@@ -2,14 +2,11 @@ import React, { Component } from 'react'
 import {
   ExpansionPanel,
   Typography,
-  ExpansionPanelDetails,
   ExpansionPanelSummary,
-  ExpansionPanelActions,
   Divider,
   Button,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-// import SingleUserDetails from './SingleUserDetails'
 import SingleUserForm from './SingleUserForm'
 import SingleUserDetails from './SingleUserDetails'
 
