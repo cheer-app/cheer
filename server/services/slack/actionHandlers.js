@@ -40,44 +40,6 @@ async function yesNoButtHandler(payload, respond) {
   }
 }
 
-async function yesButtHandler(payload, respond) {
-  try {
-    await new Response({
-      polarResponse: payload.actions[0].value,
-      questionText: payload.message.blocks[0].text.text,
-      userSlackId: payload.user.id,
-    }).save()
-    const message = {
-      text: `You were asked ${
-        payload.message.blocks[0].text.text
-      } and you responded yes.`,
-    }
-    respond(message)
-  } catch (error) {
-    console.error(error)
-    respond({ text: 'An error occurred while recording your response.' })
-  }
-}
-
-async function noButtHandler(payload, respond) {
-  try {
-    await new Response({
-      polarResponse: payload.actions[0].value,
-      questionText: payload.message.blocks[0].text.text,
-      userSlackId: payload.user.id,
-    }).save()
-    const message = {
-      text: `You were asked ${
-        payload.message.blocks[0].text.text
-      } and you responded no.`,
-    }
-    respond(message)
-  } catch (error) {
-    console.error(error)
-    respond({ text: 'An error occurred while recording your response.' })
-  }
-}
-
 async function startDialog(payload, respond) {
   try {
     const originalQuestion = payload.message.blocks[0].text.text
@@ -115,4 +77,4 @@ async function dialogHandler(payload, respond) {
   }
 }
 
-module.exports = { rateButtHandler, yesNoButtHandler, yesButtHandler, noButtHandler, startDialog, dialogHandler }
+module.exports = { rateButtHandler, yesNoButtHandler, startDialog, dialogHandler }

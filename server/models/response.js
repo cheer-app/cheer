@@ -20,10 +20,6 @@ const responseSchema = new mongoose.Schema({
   questionText: {
     type: String
   },
-  // question_id: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Question'
-  // },
   userSlackId: {
     type: String
   }

@@ -1,4 +1,4 @@
-// const { User, Response, Subscription } = require('../models'
+// const { User, Response, Subscription } = require('../models')
 
 // //User.hasMany(Subscription)
 // User.hasMany(Response)
