@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { graphql } from 'react-apollo'
 import SingleUser from './SingleUser'
 import query from '../queries/AllUsers'
-import { Button, Typography } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = {
