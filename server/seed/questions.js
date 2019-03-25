@@ -10,73 +10,81 @@ const questions = [
   new Question({
     question: 'Do you frequently need to work extra hours to meet deadlines?',
     category: 'wellness',
-    format: 'text',
+    responseType: 'polar',
+    sendDayIdx: '4'
   }),
   new Question({
-    question: 'Have you been sleeping adequately recently?',
+    question: 'Have you been sleeping adequately recently? Respond 1 to definitively disagree, 5 to definitively agree.',
     category: 'wellness',
-    format: 'text',
+    responseType: 'rating',
+    sendDayIdx: '1'
   }),
   new Question({
-    question: 'Do you feel you have enough leisure time?',
+    question: 'Do you feel you have enough leisure time? Respond 1 to definitively disagree, 5 to definitively agree.',
     category: 'wellness',
-    format: 'text',
+    responseType: 'rating',
+    sendDayIdx: '5'
   }),
   new Question({
-    question: 'Have you been adequately exercising recently?',
+    question: 'Have you been adequately exercising recently? Respond 1 to definitively disagree, 5 to definitively agree.',
     category: 'wellness',
-    format: 'text',
+    responseType: 'rating',
+    sendDayIdx: '2'
   }),
   new Question({
-    question: 'Are you able to concentrate on your work?',
+    question: 'Are you able to concentrate on your work? Respond 1 to definitively disagree, 5 to definitively agree.',
     category: 'wellness',
-    format: 'text',
+    responseType: 'rating',
+    sendDayIdx: '3'
   }),
   // engagement q's
   new Question({
-    question: 'Do you take pride in your work for the company?',
+    question: 'Do you take pride in your work for the company? Why or why not?',
     category: 'engagement',
-    format: 'text',
+    sendDayIdx: '3',
+    responseType: 'text'
   }),
   new Question({
-    question: 'Do you look forward to doing your work each day?',
+    question: 'Do you look forward to doing your work each day? Respond 1 to definitively disagree, 5 to definitively agree.',
     category: 'engagement',
-    format: 'text',
+    sendDayIdx: '2',
+    responseType: 'rating'
   }),
   new Question({
-    question: 'Have you voluntarily worked extra hours recently?',
+    question: 'Do you think your average workload is appropriate?',
     category: 'engagement',
-    format: 'text',
-  }),
-  new Question({
-    question: 'Do you feel your workload is appropriate?',
-    category: 'engagement',
-    format: 'text',
+    sendDayIdx: '1',
+    responseType: 'polar'
   }),
   new Question({
     question: 'Do you feel that your work is valued?',
     category: 'engagement',
-    format: 'text',
+    sendDayIdx: '4',
+    responseType: 'polar'
   }),
   new Question({
-    question: 'Do you have a good relationship with your immediate team members?',
+    question: 'Please describe your relationship with your team members.',
     category: 'engagement',
-    format: 'text',
+    sendDayIdx: '5',
+    responseType: 'text'
   }),
   new Question({
-    question: 'Do you have a good relationship with your manager?',
+    question: 'Please describe your relationship with your manager.',
     category: 'engagement',
-    format: 'text',
+    sendDayIdx: '4',
+    responseType: 'text'
   }),
   new Question({
     question: 'Do you feel you are being appropriately challenged by your work?',
     category: 'engagement',
-    format: 'text',
+    sendDayIdx: '2',
+    responseType: 'rating'
   }),
   new Question({
-    question: 'Do you feel the company supports your professional development?',
+    question: 'Do you feel the company supports your professional development? Respond 1 to definitively disagree, 5 to definitively agree.',
     category: 'engagement',
-    format: 'text',
+    sendDayIdx: '3',
+    responseType: 'rating'
   }),
 ];
 
@@ -97,13 +105,3 @@ const saveHandler = (err, result) => {
 for (let i = 0; i < questions.length; i++) {
   questions[i].save(saveHandler);
 }
-
-// for (let i = 0; i < questions.length; i++) {
-//   questions[i].save((err, result) => {
-//     if (err) console.log(err)
-//     done++;
-//     if (done === questions.length) {
-//       exit();
-//     }
-//   });
-// }

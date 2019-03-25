@@ -8,9 +8,14 @@ const passportConfig = require('./services/auth');
 const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
 const slackServer = require('./services/slack').router;
+
+
 // const { createMessageAdapter } = require('@slack/interactive-messages')
 // const watson = require('./services/watson').router
 const app = express();
+
+app.use(require('morgan')('dev'))
+app.use('/slack', slackServer)
 require('dotenv').config()
 
 const MONGOPASS = process.env.MONGODB_PASSWORD
@@ -46,7 +51,7 @@ app.use(
   })
 );
 
-app.use('/slack', slackServer)
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
