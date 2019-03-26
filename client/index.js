@@ -16,6 +16,7 @@ import Questions from './components/Questions'
 import UserForm from './components/UserForm'
 import QuestionForm from './components/QuestionForm'
 import Account from './components/Account'
+import { CssBaseline } from '@material-ui/core'
 
 const link = new HttpLink({
   uri: '/graphql',
@@ -33,6 +34,7 @@ const client = new ApolloClient({
 const Root = () => {
   return (
     <ApolloProvider client={client}>
+      <CssBaseline />
       <Router history={hashHistory}>
         <Route path="/" component={App}>
           <Route path="login" component={LoginForm} />

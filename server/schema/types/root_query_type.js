@@ -1,6 +1,6 @@
 const graphql = require('graphql')
 const mongoose = require('mongoose')
-const { GraphQLObjectType, GraphQLList } = graphql
+const { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLID } = graphql
 const UserType = require('./user_type')
 const DataType = require('./data_type')
 const TextResponseType = require('./textResponse_type')
@@ -39,8 +39,19 @@ const RootQueryType = new GraphQLObjectType({
     },
     textResponses: {
       type: new GraphQLList(TextResponseType),
-      resolve({ userSlackId }) {
-        return Response.find({ userSlackId })
+      args: {
+        userSlackId: {
+          type: GraphQLString,
+        },
+        response: {
+          type: GraphQLString,
+        },
+      },
+      resolve(parentValue, args) {
+        return Response.find({ ...args, response: { $ne: null } }, null, {
+          limit: 5,
+          sort: { date: -1 },
+        })
       },
     },
   },

@@ -7,7 +7,10 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import UserForm from './UserForm'
 import UserDetails from './UserDetails'
-import { VictoryChart, VictoryLine } from 'victory'
+import { VictoryLine, VictoryBar } from 'victory'
+import query from '../queries/UserResponseSparkline'
+import { graphql } from 'react-apollo'
+import { LineChart, Line } from 'recharts'
 
 class UserPanel extends Component {
   constructor(props) {
@@ -24,20 +27,29 @@ class UserPanel extends Component {
 
   render() {
     const { user } = this.props
+    const { textResponses } = this.props.data
+    console.log(this.props.data)
+
+    const data = textResponses
+
     return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{user.name}</Typography>
-          <VictoryLine
-            height={25}
-            data={[
-              { x: 1, y: 2 },
-              { x: 2, y: 3 },
-              { x: 3, y: 5 },
-              { x: 4, y: 4 },
-              { x: 5, y: 7 },
-            ]}
-          />
+          <div width="40%" margin="50">
+            <LineChart
+              height={20}
+              data={data}
+              style={{ data: { stroke: '#c43a31' } }}
+            >
+              <Line
+                type="monotone"
+                dataKey="score"
+                stroke="#8884d8"
+                strokeWidth={2}
+              />
+            </LineChart>
+          </div>
         </ExpansionPanelSummary>
         {this.state.edit ? (
           <UserForm user={user} toggleEdit={this.toggleEdit} />
@@ -49,4 +61,6 @@ class UserPanel extends Component {
   }
 }
 
-export default UserPanel
+export default graphql(query, {
+  options: ownProps => ({ variables: { userSlackId: ownProps.user.slackId } }),
+})(UserPanel)

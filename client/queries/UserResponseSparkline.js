@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  query sparkLineData($userId: String!) {
-    textResponses(usersSlackId: $userId) {
+  query sparkLinesData($userSlackId: String!) {
+    textResponses(userSlackId: $userSlackId) {
       id
       questionText
       response

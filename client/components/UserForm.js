@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withStyles } from '@material-ui/styles'
 import {
   TextField,
   FormControl,
@@ -9,7 +10,18 @@ import {
   ExpansionPanelDetails,
   Divider,
 } from '@material-ui/core'
-import axios from 'axios'
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: 10,
+    marginRight: 10,
+    width: 200,
+  },
+})
 
 class UserForm extends Component {
   constructor(props) {
@@ -36,13 +48,10 @@ class UserForm extends Component {
     console.log('after', this.state)
   }
 
-  componentDidMount() {
-    axios.get('')
-  }
-
   render() {
+    const { classes } = this.props
     return (
-      <div>
+      <div className={classes.container}>
         <ExpansionPanelDetails>
           <form>
             <TextField
@@ -50,7 +59,7 @@ class UserForm extends Component {
               label="Name"
               value={this.state.name}
               onChange={this.handleChange}
-              variant="outlined"
+              className={classes.textField}
             />
             <TextField
               id="email"
@@ -91,4 +100,4 @@ class UserForm extends Component {
   }
 }
 
-export default UserForm
+export default withStyles(styles)(UserForm)
