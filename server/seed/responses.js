@@ -171,8 +171,9 @@ const seedResponses = async (text) => {
     const fixedQuestions = questions.filter(q => q.responseType !== 'text')
 
     for (let fixedQ of fixedQuestions) {
-      for (let i = 0; i < getRandomIntInclusive(5); i++) {
-        await randomResponse(fixedQ, faker.random.arrayElement(users))
+      const limit = getRandomIntInclusive(10)
+      for (let i = 0; i < limit; i++) {
+        await randomResponse(fixedQ, faker.random.arrayElement(users)).save()
       }
     }
 

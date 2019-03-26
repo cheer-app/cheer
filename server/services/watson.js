@@ -15,7 +15,8 @@ const callWatson = async (response, date = new Date(moment().clone().format()), 
     "text": response,
     "features": {
       "sentiment": {}
-    }
+    },
+    "language": "en"
   }
 
   naturalLanguageUnderstanding.analyze(parameters, (err, res) => {
@@ -34,4 +35,4 @@ const callWatson = async (response, date = new Date(moment().clone().format()), 
   })
 }
 
-module.exports = { callWatson, naturalLanguageUnderstanding }
+module.exports = { callWatson }

@@ -4,7 +4,9 @@ const axios = require('axios')
 require('dotenv').config()
 const Response = require('../../models/response')
 const User = require('../../models/user')
-const {naturalLanguageUnderstanding} = require('../watson')
+const Question = require('../../models/question')
+const {callWatson} = require('../watson')
+const moment = require('moment')
 
 async function rateButtHandler(payload, respond) {
   try {
@@ -43,9 +45,11 @@ async function yesNoButtHandler(payload, respond) {
 }
 
 async function startDialog(payload, respond) {
+  console.log('PAYLOAD =>', payload)
   try {
     const originalQuestion = payload.message.blocks[0].text.text
     const dialogForm = JSON.stringify(dialogBlock(originalQuestion))
+    console.log('DIALOG FORM =>', dialogForm)
     const dialogData = {
       token: process.env.SLACK_BOT_OAUTH_ACCESS_TOKEN,
       trigger_id: payload.trigger_id,
@@ -64,12 +68,9 @@ async function startDialog(payload, respond) {
 
 async function dialogHandler(payload, respond) {
   try {
-
-    await new Response({
-      questionText: payload.state,
-      userSlackId: payload.user.id,
-      response: payload.submission.answerbox,
-    }).save()
+    const question = await Question.findOne({question: payload.state})
+    const user = await User.findOne({slackId: payload.user.id})
+    await callWatson(payload.submission.answerbox, new Date(moment().clone().format()), question, user)
     const message = {
       text: `Thank you for your submission`,
     }
