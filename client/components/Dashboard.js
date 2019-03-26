@@ -35,12 +35,24 @@ class Dashboard extends Component {
   render() {
     const { watson } = this.props.data;
     return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <WordCloudWrapper
-          data={watson}
-          handleClick={word => this.handleClick(word)}
-        />
-        <BarGraph data={watson} state={this.state} />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-around',
+        }}
+      >
+        <div>
+          <WordCloudWrapper
+            data={watson}
+            handleClick={word => this.handleClick(word)}
+          />
+        </div>
+        <div>
+          <h5>{this.state.text}</h5>
+          <BarGraph data={watson} state={this.state} />
+        </div>
       </div>
     );
   }

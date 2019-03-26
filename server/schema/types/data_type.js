@@ -12,9 +12,9 @@ const SentimentType = new GraphQLObjectType({
   name: 'sentiment',
   fields: {
     label: { type: GraphQLString },
-    score: { type: GraphQLFloat }
-  }
-})
+    score: { type: GraphQLFloat },
+  },
+});
 
 const EmotionType = new GraphQLObjectType({
   name: 'emotions',
@@ -23,9 +23,9 @@ const EmotionType = new GraphQLObjectType({
     disgust: { type: GraphQLFloat },
     fear: { type: GraphQLFloat },
     joy: { type: GraphQLFloat },
-    sadness: { type: GraphQLFloat }
-  }
-})
+    sadness: { type: GraphQLFloat },
+  },
+});
 
 const KeyWordType = new GraphQLObjectType({
   name: 'keywords',
@@ -35,8 +35,15 @@ const KeyWordType = new GraphQLObjectType({
     relevance: { type: GraphQLFloat },
     sentiment: { type: SentimentType },
     text: { type: GraphQLString },
-  }
-})
+  },
+});
+
+const DocumentType = new GraphQLObjectType({
+  name: 'document',
+  fields: {
+    document: { type: SentimentType },
+  },
+});
 
 const DataType = new GraphQLObjectType({
   name: 'data',
@@ -44,9 +51,9 @@ const DataType = new GraphQLObjectType({
     id: { type: GraphQLID },
     date: { type: GraphQLString },
     // concepts: new GraphQLList(KeyWordType),
-    keywords: {type: new GraphQLList(KeyWordType)},
-    // sentiment: { type: SentimentType }
-  }
-})
+    keywords: { type: new GraphQLList(KeyWordType) },
+    sentiment: { type: DocumentType },
+  },
+});
 
 module.exports = DataType;
