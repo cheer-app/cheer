@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
+const moment = require('moment')
 
 const responseSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now
+    default: new Date(moment().clone().format())
   },
   response: {
     type: String
@@ -20,8 +21,16 @@ const responseSchema = new mongoose.Schema({
   questionText: {
     type: String
   },
+  questionId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Question'
+  },
   userSlackId: {
     type: String
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 })
 

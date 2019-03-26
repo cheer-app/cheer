@@ -3,6 +3,8 @@ const qs = require('qs')
 const axios = require('axios')
 require('dotenv').config()
 const Response = require('../../models/response')
+const User = require('../../models/user')
+const {naturalLanguageUnderstanding} = require('../watson')
 
 async function rateButtHandler(payload, respond) {
   try {
@@ -62,6 +64,7 @@ async function startDialog(payload, respond) {
 
 async function dialogHandler(payload, respond) {
   try {
+
     await new Response({
       questionText: payload.state,
       userSlackId: payload.user.id,
