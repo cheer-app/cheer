@@ -13,7 +13,11 @@ export default class BarGraph extends Component {
     ];
     if (this.props.data) {
       return (
-        <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
+        <VictoryChart
+          theme={VictoryTheme.material}
+          domainPadding={10}
+          animate={{ duration: 1000, onLoad: { duration: 500 } }}
+        >
           <VictoryAxis
             tickValues={['Anger', 'Disgust', 'Fear', 'Joy', 'Sadness']}
           />
