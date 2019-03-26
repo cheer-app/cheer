@@ -176,7 +176,9 @@ class Header extends React.Component {
                   onClose={this.handleClose}
                 >
                   <MenuItem onClick={this.onLogoutClick}>Logout</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <Link to='account'>
+                    <MenuItem onClick={this.handleClose}>Account</MenuItem>
+                  </Link>
                 </Menu>
               </div>
             )}
@@ -197,7 +199,7 @@ class Header extends React.Component {
             </IconButton>
           </div>
           <Divider />
-          <List>
+          <List onClick={this.handleDrawerClose}>
             <Link to='/dashboard'>
               <ListItem button key={'Dashboard'}>
                 <ListItemIcon><Dashboard /></ListItemIcon>

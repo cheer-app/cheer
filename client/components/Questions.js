@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
+import { Link } from 'react-router'
 import { withStyles, Button } from '@material-ui/core'
 import query from '../queries/Questions'
 import QuestionPanel from './QuestionPanel'
@@ -25,13 +26,14 @@ const styles = {
 function Questions(props) {
   const { classes } = props
   const { questions } = props.data
-  console.log('questions:', questions)
 
   return (
     <div>
       <span className={classes.root}>
         <h3 className={classes.grow}>Questions</h3>
-        <Button className={classes.float}>New Question</Button>
+        <Link to='question-form'>
+          <Button className={classes.float}>Add Question</Button>
+        </Link>
       </span>
       <br />
       {!questions ? (

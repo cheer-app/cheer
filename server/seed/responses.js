@@ -1,5 +1,5 @@
-const Response = require('../models/response')
-const mongoose = require('mongoose')
+const Response = require('../models/response');
+const mongoose = require('mongoose');
 mongoose.connect(
   'mongodb://cheer:cheer2019@cluster0-shard-00-00-t8jw8.mongodb.net:27017,cluster0-shard-00-01-t8jw8.mongodb.net:27017,cluster0-shard-00-02-t8jw8.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true'
 );
@@ -133,13 +133,13 @@ const getRandomSubset = (array, count) => {
   }
 
   return arrayCopy;
-}
+};
 
 const randomPolarRes = () => faker.random.arrayElement(['yes', 'no'])
 
 const randomResString = () => {
-  return getRandomSubset(randomWordsArr).join(' ')
-}
+  return getRandomSubset(randomWordsArr).join(' ');
+};
 
 const randomResponse = (question) => {
   const responseConfig = {
