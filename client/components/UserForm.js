@@ -9,6 +9,7 @@ import {
   ExpansionPanelDetails,
   Divider,
 } from '@material-ui/core'
+import axios from 'axios'
 
 class UserForm extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class UserForm extends Component {
     this.state = {
       name: this.props.user.name,
       email: this.props.user.email,
-      slackId: this.props.user.slackid,
+      slackId: this.props.user.slackId,
       isAdmin: this.props.user.isAdmin,
     }
     this.handleChange = this.handleChange.bind(this)
@@ -33,6 +34,10 @@ class UserForm extends Component {
     console.log('before', this.state)
     this.setState({ isAdmin: !this.state.isAdmin })
     console.log('after', this.state)
+  }
+
+  componentDidMount() {
+    axios.get('')
   }
 
   render() {
