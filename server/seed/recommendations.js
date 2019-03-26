@@ -1,8 +1,5 @@
 const Recommendation = require('../models/recommendation')
-const mongoose = require('mongoose');
-mongoose.connect(
-  `mongodb://cheer:${process.env.MONGODB_PASSWORD}@cluster0-shard-00-00-t8jw8.mongodb.net:27017,cluster0-shard-00-01-t8jw8.mongodb.net:27017,cluster0-shard-00-02-t8jw8.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true`
-);
+const { mongoConnection } = require('../services/mongodb')
 
 const recs = [
   new Recommendation({

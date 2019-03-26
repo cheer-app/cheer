@@ -45,11 +45,9 @@ async function yesNoButtHandler(payload, respond) {
 }
 
 async function startDialog(payload, respond) {
-  console.log('PAYLOAD =>', payload)
   try {
     const originalQuestion = payload.message.blocks[0].text.text
     const dialogForm = JSON.stringify(dialogBlock(originalQuestion))
-    console.log('DIALOG FORM =>', dialogForm)
     const dialogData = {
       token: process.env.SLACK_BOT_OAUTH_ACCESS_TOKEN,
       trigger_id: payload.trigger_id,
