@@ -3,6 +3,10 @@ const qs = require('qs')
 const axios = require('axios')
 require('dotenv').config()
 const Response = require('../../models/response')
+const User = require('../../models/user')
+const Question = require('../../models/question')
+const {callWatson} = require('../watson')
+const moment = require('moment')
 
 async function rateButtHandler(payload, respond) {
   try {
@@ -40,44 +44,6 @@ async function yesNoButtHandler(payload, respond) {
   }
 }
 
-async function yesButtHandler(payload, respond) {
-  try {
-    await new Response({
-      polarResponse: payload.actions[0].value,
-      questionText: payload.message.blocks[0].text.text,
-      userSlackId: payload.user.id,
-    }).save()
-    const message = {
-      text: `You were asked ${
-        payload.message.blocks[0].text.text
-      } and you responded yes.`,
-    }
-    respond(message)
-  } catch (error) {
-    console.error(error)
-    respond({ text: 'An error occurred while recording your response.' })
-  }
-}
-
-async function noButtHandler(payload, respond) {
-  try {
-    await new Response({
-      polarResponse: payload.actions[0].value,
-      questionText: payload.message.blocks[0].text.text,
-      userSlackId: payload.user.id,
-    }).save()
-    const message = {
-      text: `You were asked ${
-        payload.message.blocks[0].text.text
-      } and you responded no.`,
-    }
-    respond(message)
-  } catch (error) {
-    console.error(error)
-    respond({ text: 'An error occurred while recording your response.' })
-  }
-}
-
 async function startDialog(payload, respond) {
   try {
     const originalQuestion = payload.message.blocks[0].text.text
@@ -100,11 +66,9 @@ async function startDialog(payload, respond) {
 
 async function dialogHandler(payload, respond) {
   try {
-    await new Response({
-      questionText: payload.state,
-      userSlackId: payload.user.id,
-      response: payload.submission.answerbox,
-    }).save()
+    const question = await Question.findOne({question: payload.state})
+    const user = await User.findOne({slackId: payload.user.id})
+    await callWatson(payload.submission.answerbox, new Date(moment().clone().format()), question, user)
     const message = {
       text: `Thank you for your submission`,
     }
@@ -115,4 +79,4 @@ async function dialogHandler(payload, respond) {
   }
 }
 
-module.exports = { rateButtHandler, yesNoButtHandler, yesButtHandler, noButtHandler, startDialog, dialogHandler }
+module.exports = { rateButtHandler, yesNoButtHandler, startDialog, dialogHandler }
