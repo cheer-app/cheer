@@ -25,6 +25,17 @@ const RootQueryType = new GraphQLObjectType({
         return User.find({})
       },
     },
+    getUser: {
+      type: new GraphQLList(UserType),
+      args: {
+        slackId: {
+          type: GraphQLString,
+        },
+      },
+      resolve(parentValue, args) {
+        return User.find({ ...args })
+      },
+    },
     watson: {
       type: new GraphQLList(DataType),
       resolve() {
@@ -50,6 +61,20 @@ const RootQueryType = new GraphQLObjectType({
       resolve(parentValue, args) {
         return Response.find({ ...args, response: { $ne: null } }, null, {
           limit: 5,
+          sort: { date: -1 },
+        })
+      },
+    },
+    allResponses: {
+      type: new GraphQLList(TextResponseType),
+      args: {
+        userSlackId: {
+          type: GraphQLString,
+        },
+      },
+      resolve(parentValue, args) {
+        return Response.find({ ...args }, null, {
+          limit: 15,
           sort: { date: -1 },
         })
       },

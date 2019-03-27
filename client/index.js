@@ -17,6 +17,7 @@ import UserForm from './components/UserForm'
 import QuestionForm from './components/QuestionForm'
 import Account from './components/Account'
 import { CssBaseline } from '@material-ui/core'
+import UserHistory from './components/UserHistory'
 
 const link = new HttpLink({
   uri: '/graphql',
@@ -44,6 +45,7 @@ const Root = () => {
           <Route path="user-form" component={requireAuth(UserForm)} />
           <Route path="question-form" component={requireAuth(QuestionForm)} />
           <Route path="account" component={requireAuth(Account)} />
+          <Route exact path="users/:id" component={requireAuth(UserHistory)} />
         </Route>
       </Router>
     </ApolloProvider>

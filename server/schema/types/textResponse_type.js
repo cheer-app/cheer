@@ -7,6 +7,8 @@ const TextResponseType = new GraphQLObjectType({
     id: { type: GraphQLID },
     questionText: { type: GraphQLString },
     response: { type: GraphQLString },
+    polarResponse: { type: GraphQLString },
+    rateResponse: { type: GraphQLFloat },
     score: { type: GraphQLFloat },
     userSlackId: { type: GraphQLString },
   },
