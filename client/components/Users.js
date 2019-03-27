@@ -27,15 +27,14 @@ const styles = {
 function Users(props) {
   const { classes } = props
   const { allUsers } = props.data
-  console.log('allUser', props.data)
 
   return (
     <div style={{ marginLeft: 150, marginRight: 150 }}>
       <span className={classes.root}>
         <h3 className={classes.grow}>Users</h3>
-        <Link to="user-form">
+        {/* <Link to="user-form">
           <Button className={classes.float}>Add User</Button>
-        </Link>
+        </Link> */}
       </span>
       <br />
       {!allUsers ? (
