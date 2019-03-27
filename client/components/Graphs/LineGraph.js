@@ -20,7 +20,7 @@ class LineGraph extends Component {
           y: elem.score,
           z: +convertTime(elem.date).slice(4),
         }))
-        .filter(elem => elem.x.includes('Jan'))
+        .filter(elem => elem.x.includes('Mar'))
         .sort((a, b) => a.z - b.z)
         .map(elem => ({
           x: elem.x,
@@ -28,11 +28,11 @@ class LineGraph extends Component {
         }));
 
       return (
-        <VictoryChart theme={VictoryTheme.material}>
+        <VictoryChart width={1000} height={550} theme={VictoryTheme.material}>
           <VictoryLine
             animate={{
               duration: 2000,
-              onLoad: { duration: 1000 },
+              onLoad: { duration: 2000 },
             }}
             domain={{ y: [-1, 1] }}
             style={{

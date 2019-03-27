@@ -20,9 +20,12 @@ export default class BarGraph extends Component {
     if (this.props.data) {
       return (
         <VictoryChart
+          width={500}
+          height={500}
+          domain={{ y: [0, 10] }}
           containerComponent={<VictoryContainer responsive={false} />}
           theme={VictoryTheme.material}
-          domainPadding={10}
+          domainPadding={15}
           animate={{ duration: 1000, onLoad: { duration: 500 } }}
         >
           <VictoryAxis

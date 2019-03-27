@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 const TabContainer = (props) => {
   return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
+    <Typography component="div" style={{ padding: 30, display: 'flex', justifyContent: 'space-around', textAlign: 'center', height: '80vh', fontWeight: 500 }}>
       {props.children}
     </Typography>
   );
@@ -22,7 +22,7 @@ class Dashboard extends Component {
     super();
     this.state = {
       sentiment: '',
-      text: '',
+      text: 'Keyword',
       value: 0,
       anger: 0,
       disgust: 0,
@@ -70,18 +70,18 @@ class Dashboard extends Component {
 
         {tab === 0 && <TabContainer>
           <div>
-            <h3>Keywords Based on Survey Responses</h3>
+            <h5 style={{fontWeight: 700 }}>Keywords Generated From Responses</h5>
             <WordCloudWrapper data={watson} handleClick={word => this.handleClick(word)} />
           </div>
           <div>
-            <h3>Emotional Response of Keyword</h3>
+            <h5 style={{fontWeight: 700 }}>Emotional Response of {<span style={{color: 'blue'}}>{this.state.text}</span>}</h5>
             <BarGraph data={watson} state={this.state} />
           </div>
         </TabContainer>}
 
         {tab === 1 && <TabContainer>
           <div>
-            <h3>Overall Company Sentiment Over Time</h3>
+            <h5 style={{fontWeight: 700 }}>Company Sentiment For {<span style={{color: 'blue'}}>March</span>}</h5>
             <LineGraph />
           </div>
         </TabContainer>}
