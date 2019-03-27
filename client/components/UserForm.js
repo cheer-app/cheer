@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/styles'
+import { Mutation } from 'react-apollo'
+import mutation from '../mutations/UpdateUser'
+import { hashHistory } from 'react-router'
 import {
   TextField,
   FormControl,
@@ -34,18 +37,21 @@ class UserForm extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSwitch = this.handleSwitch.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
-    console.log('before', this.state)
     this.setState({ [event.target.id]: event.target.value })
-    console.log('after', this.state)
   }
 
   handleSwitch() {
-    console.log('before', this.state)
     this.setState({ isAdmin: !this.state.isAdmin })
-    console.log('after', this.state)
+  }
+
+  handleSubmit(postMutation) {
+    postMutation()
+    this.props.toggleEdit()
+    hashHistory.push('/users')
   }
 
   render() {
@@ -66,14 +72,14 @@ class UserForm extends Component {
               label="Email"
               value={this.state.email}
               onChange={this.handleChange}
-              variant="outlined"
+              className={classes.textField}
             />
             <TextField
               id="slackId"
               label="Slack ID"
               value={this.state.slackId}
               onChange={this.handleChange}
-              variant="outlined"
+              className={classes.textField}
             />
             <FormControl>
               <FormControlLabel
@@ -91,9 +97,26 @@ class UserForm extends Component {
           <Button size="small" onClick={this.props.toggleEdit}>
             Cancel
           </Button>
-          <Button size="small" color="primary">
-            Save
-          </Button>
+          <Mutation
+           mutation={mutation}
+           variables={{
+             id: this.props.user.id,
+             email: this.state.email,
+             name: this.state.name,
+             isAdmin: this.state.isAdmin,
+             slackId: this.state.slackId,
+           }}
+         >
+           {postMutation => (
+             <Button
+               size='small'
+               color='primary'
+               onClick={() => this.handleSubmit(postMutation)}
+             >
+               Save
+             </Button>
+           )}
+         </Mutation>
         </ExpansionPanelActions>
       </div>
     )
