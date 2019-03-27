@@ -1,10 +1,10 @@
-import React from 'react';
-import { graphql } from 'react-apollo';
-import { Link } from 'react-router';
-import UserPanel from './UserPanel';
-import query from '../queries/AllUsers';
-import { Button } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import React from 'react'
+import { graphql } from 'react-apollo'
+import { Link } from 'react-router'
+import UserPanel from './UserPanel'
+import users from '../queries/AllUsers'
+import { Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = {
   root: {
@@ -22,11 +22,12 @@ const styles = {
     marginLeft: -12,
     marginRight: 5,
   },
-};
+}
 
 function Users(props) {
-  const { classes } = props;
-  const { allUsers } = props.data;
+  const { classes } = props
+  const { allUsers } = props.data
+  console.log('allUser', props.data)
 
   return (
     <div style={{ marginLeft: 150, marginRight: 150 }}>
@@ -41,11 +42,11 @@ function Users(props) {
         <div>loading...</div>
       ) : (
         allUsers.map(user => {
-          return <UserPanel key={user.id} user={user} />;
+          return <UserPanel key={user.id} user={user} />
         })
       )}
     </div>
-  );
+  )
 }
 
-export default withStyles(styles)(graphql(query)(Users));
+export default withStyles(styles)(graphql(users)(Users))
