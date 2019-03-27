@@ -7,7 +7,6 @@ class App extends React.Component {
     hashHistory.push('/dashboard');
   }
   render() {
-    console.log(hashHistory);
     return (
       <div>
         <Header />
