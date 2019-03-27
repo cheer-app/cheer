@@ -11,7 +11,7 @@ class LineGraph extends Component {
       return (
         <VictoryChart theme={VictoryTheme.material}>
           <VictoryLine
-            domain={{ y: [-2, 2] }}
+            domain={{ y: [0, 5] }}
             style={{
               data: { stroke: '#c43a31' },
               parent: { border: '1px solid #ccc' },
