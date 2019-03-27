@@ -51,7 +51,7 @@ class Dashboard extends Component {
           />
         </div>
         <div>
-          <h5>{this.state.text || 'Current Phrase'}</h5>
+          <h5>{`Key Phrase: ${this.state.text}`}</h5>
           <BarGraph data={watson} state={this.state} />
           <LineGraph />
         </div>

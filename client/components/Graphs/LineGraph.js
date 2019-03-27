@@ -5,33 +5,47 @@ import query from '../../queries/Aggregate';
 
 class LineGraph extends Component {
   render() {
-    const { aggregate } = this.props.data
-    console.log(aggregate)
+    const { aggregate } = this.props.data;
 
-    return (
-      <div></div>
-    )
+    if (aggregate) {
+      const convertTime = time => {
+        let date = new Date(null);
+        date.setSeconds(time);
+        return date.toString().slice(4, 10);
+      };
 
-    // if (this.props.data) {
-    //   const data = this.props.data[0].keywords.reduce((acc, elem) => {
-    //     acc.push({ x: elem.text[0], y: elem.sentiment.score });
-    //     return acc;
-    //   }, []);
-    //   return (
-    //     <VictoryChart theme={VictoryTheme.material}>
-    //       <VictoryLine
-    //         domain={{ y: [-2, 2] }}
-    //         style={{
-    //           data: { stroke: '#c43a31' },
-    //           parent: { border: '1px solid #ccc' },
-    //         }}
-    //         data={data}
-    //       />
-    //     </VictoryChart>
-    //   );
-    // } else {
-    //   return null;
-    // }
+      const data = aggregate
+        .map(elem => ({
+          x: convertTime(elem.date),
+          y: elem.score,
+          z: +convertTime(elem.date).slice(4),
+        }))
+        .filter(elem => elem.x.includes('Jan'))
+        .sort((a, b) => a.z - b.z)
+        .map(elem => ({
+          x: elem.x,
+          y: elem.y,
+        }));
+
+      return (
+        <VictoryChart theme={VictoryTheme.material}>
+          <VictoryLine
+            animate={{
+              duration: 2000,
+              onLoad: { duration: 1000 },
+            }}
+            domain={{ y: [-1, 1] }}
+            style={{
+              data: { stroke: '#c43a31' },
+              parent: { border: '2px solid #ccc' },
+            }}
+            data={data}
+          />
+        </VictoryChart>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
