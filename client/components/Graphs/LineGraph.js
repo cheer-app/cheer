@@ -6,7 +6,6 @@ import query from '../../queries/Aggregate';
 class LineGraph extends Component {
   render() {
     const { aggregate } = this.props.data;
-    console.log(aggregate);
 
     if (aggregate) {
       const convertTime = time => {
@@ -17,12 +16,17 @@ class LineGraph extends Component {
 
       const data = aggregate
         .map(elem => ({
-          x: String(convertTime(elem.date)),
+          x: convertTime(elem.date),
           y: elem.score,
+          z: +convertTime(elem.date).slice(4),
         }))
-        .filter(elem => elem.x.includes('Jan'));
+        .filter(elem => elem.x.includes('Jan'))
+        .sort((a, b) => a.z - b.z)
+        .map(elem => ({
+          x: elem.x,
+          y: elem.y,
+        }));
 
-      console.log('data', data);
       return (
         <VictoryChart theme={VictoryTheme.material}>
           <VictoryLine
