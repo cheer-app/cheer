@@ -1,6 +1,7 @@
 require('dotenv').config()
 const moment = require('moment')
 const Response = require('../models/response')
+const Aggregate = require('../models/watson')
 const NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js')
 
 const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
@@ -9,19 +10,23 @@ const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
   url: 'https://gateway.watsonplatform.net/natural-language-understanding/api/v1/analyze?version=2018-11-16'
 })
 
-const callWatson = async (response, date = new Date(moment().clone().format()), question, user) => {
-
+const callWatson = (response, date = new Date(moment().clone().format()), question, user) => {
   const parameters = {
     "text": response,
     "features": {
-      "sentiment": {}
-    },
-    "language": "en"
+      "sentiment": {},
+      "keywords": {
+        "sentiment": true,
+        "emotion": true,
+        "limit": 25
+      }
+    }
   }
 
-  naturalLanguageUnderstanding.analyze(parameters, (err, res) => {
-    if (err) console.log('Watson error: ', err)
-    else {
+  naturalLanguageUnderstanding.analyze(parameters, async (err, res) => {
+    if (!res) return
+
+    if (question && user) {
       Response.create({
         score: res.sentiment.document.score,
         response,
@@ -30,6 +35,12 @@ const callWatson = async (response, date = new Date(moment().clone().format()), 
         questionId: question._id,
         userSlackId: user.slackId,
         userId: user._id
+      })
+    } else {
+      Aggregate.create({
+        score: res.sentiment.document.score,
+        keywords: res.keywords,
+        date
       })
     }
   })
