@@ -1,20 +1,39 @@
 import React, { Component } from 'react';
 import { VictoryLine, VictoryChart, VictoryTheme } from 'victory';
+import { graphql } from 'react-apollo';
+import query from '../../queries/Aggregate';
 
 class LineGraph extends Component {
   render() {
-    if (this.props.data) {
-      const data = this.props.data[0].keywords.reduce((acc, elem) => {
-        acc.push({ x: elem.text[0], y: elem.sentiment.score });
-        return acc;
-      }, []);
+    const { aggregate } = this.props.data;
+    console.log(aggregate);
+
+    if (aggregate) {
+      const convertTime = time => {
+        let date = new Date(null);
+        date.setSeconds(time);
+        return date.toString().slice(4, 10);
+      };
+
+      const data = aggregate
+        .map(elem => ({
+          x: String(convertTime(elem.date)),
+          y: elem.score,
+        }))
+        .filter(elem => elem.x.includes('Jan'));
+
+      console.log('data', data);
       return (
         <VictoryChart theme={VictoryTheme.material}>
           <VictoryLine
-            domain={{ y: [0, 5] }}
+            animate={{
+              duration: 2000,
+              onLoad: { duration: 1000 },
+            }}
+            domain={{ y: [-1, 1] }}
             style={{
               data: { stroke: '#c43a31' },
-              parent: { border: '1px solid #ccc' },
+              parent: { border: '2px solid #ccc' },
             }}
             data={data}
           />
@@ -26,4 +45,4 @@ class LineGraph extends Component {
   }
 }
 
-export default LineGraph;
+export default graphql(query)(LineGraph);

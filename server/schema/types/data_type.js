@@ -55,4 +55,4 @@ const DataType = new GraphQLObjectType({
   },
 });
 
-module.exports = DataType;
+module.exports = {DataType, KeyWordType};
