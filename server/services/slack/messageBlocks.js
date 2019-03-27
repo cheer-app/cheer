@@ -135,13 +135,13 @@ const textResponse = questionText => {
 const dialogBlock = questionText => {
   return {
     callback_id: 'dialogSubmit',
-    title: 'dialogResponse',
+    title: 'Type your response',
     submit_label: 'Submit',
     state: questionText,
     elements: [
       {
         type: 'textarea',
-        label: 'temp Label',
+        label: 'Compose below:',
         name: 'answerbox',
         placeholder: questionText,
       },

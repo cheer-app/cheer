@@ -1,31 +1,24 @@
-const router = require('express').Router();
-const axios = require('axios');
-const { yesNoBlock, textResponse } = require('./messageBlocks');
+const router = require('express').Router()
 const {
   rateButtHandler,
   yesNoButtHandler,
-  yesButtHandler,
-  noButtHandler,
   startDialog,
   dialogHandler,
 } = require('./actionHandlers');
 require('dotenv').config();
 const User = require('../../models/user');
 
-const { WebClient } = require('@slack/client');
-//const { RTMClient } = require('@slack/client')
-const { createMessageAdapter } = require('@slack/interactive-messages');
-const slackInteractions = createMessageAdapter(
-  process.env.SLACK_SIGNING_SECRET
-);
+const { WebClient } = require('@slack/client')
+
+const { createMessageAdapter } = require('@slack/interactive-messages')
+const slackInteractions = createMessageAdapter(process.env.SLACK_SIGNING_SECRET)
 
 const { createEventAdapter } = require('@slack/events-api');
 const slackEvents = createEventAdapter(process.env.SLACK_SIGNING_SECRET);
 
 const token = process.env.SLACK_BOT_OAUTH_ACCESS_TOKEN;
 
-const web = new WebClient(token);
-//const rtm = new RTMClient(token)
+const web = new WebClient(token)
 
 slackInteractions.action({ blockId: 'rateBlock' }, rateButtHandler);
 
@@ -52,8 +45,8 @@ slackInteractions.action(
   startDialog
 );
 
-//handles dialog submissions
-slackInteractions.action({ callbackId: 'dialogSubmit' }, dialogHandler);
+// handles dialog submissions
+slackInteractions.action({ callbackId: 'dialogSubmit' }, dialogHandler)
 
 // get a list of users and their slack IDs
 const getUsers = async () => {
