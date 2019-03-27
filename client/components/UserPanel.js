@@ -46,8 +46,6 @@ class UserPanel extends Component {
   render() {
     const { user, classes } = this.props
     const { textResponses } = this.props.data
-    console.log(this.props.data)
-
     const data = textResponses
 
     return (
