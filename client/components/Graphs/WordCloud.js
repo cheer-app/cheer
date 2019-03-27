@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import WordCloud from 'react-d3-cloud'
 
-const fontSizeMapper = word => word.value * 30
+const fontSizeMapper = word => word.value * 60
 
 class WordCloudWrapper extends Component {
   render() {
