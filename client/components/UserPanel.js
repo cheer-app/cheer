@@ -10,7 +10,7 @@ import UserDetails from './UserDetails'
 import { VictoryLine, VictoryBar } from 'victory'
 import query from '../queries/UserResponseSparkline'
 import { graphql } from 'react-apollo'
-import { LineChart, Line } from 'recharts'
+import { LineChart, Line, YAxis } from 'recharts'
 
 class UserPanel extends Component {
   constructor(props) {
@@ -33,30 +33,28 @@ class UserPanel extends Component {
     const data = textResponses
 
     return (
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>{user.name}</Typography>
-          <div width="40%" margin="50">
-            <LineChart
-              height={20}
-              data={data}
-              style={{ data: { stroke: '#c43a31' } }}
-            >
-              <Line
-                type="monotone"
-                dataKey="score"
-                stroke="#8884d8"
-                strokeWidth={2}
-              />
-            </LineChart>
-          </div>
-        </ExpansionPanelSummary>
-        {this.state.edit ? (
-          <UserForm user={user} toggleEdit={this.toggleEdit} />
-        ) : (
-          <UserDetails user={user} toggleEdit={this.toggleEdit} />
-        )}
-      </ExpansionPanel>
+      <div>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography>{user.name}</Typography>
+            <div>
+              <LineChart width={250} height={30} data={data}>
+                <Line
+                  type="monotone"
+                  dataKey="score"
+                  stroke="#8884d8"
+                  strokeWidth={2}
+                />
+              </LineChart>
+            </div>
+          </ExpansionPanelSummary>
+          {this.state.edit ? (
+            <UserForm user={user} toggleEdit={this.toggleEdit} />
+          ) : (
+            <UserDetails user={user} toggleEdit={this.toggleEdit} />
+          )}
+        </ExpansionPanel>
+      </div>
     )
   }
 }

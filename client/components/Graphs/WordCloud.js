@@ -20,15 +20,17 @@ class WordCloudWrapper extends Component {
         return acc;
       }, []);
       return (
-        <WordCloud
-          padding={40}
-          data={keywords}
-          fontSizeMapper={fontSizeMapper}
-          font="roboto"
-          onWordClick={word => {
-            this.props.handleClick(word);
-          }}
-        />
+        <div>
+          <h4>Trending Words for the Week</h4>
+          <WordCloud
+            data={keywords}
+            fontSizeMapper={fontSizeMapper}
+            font="roboto"
+            onWordClick={word => {
+              this.props.handleClick(word);
+            }}
+          />
+        </div>
       );
     } else {
       return null;
