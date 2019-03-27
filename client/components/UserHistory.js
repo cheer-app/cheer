@@ -3,28 +3,22 @@ import { graphql, compose, Query } from 'react-apollo'
 import responses from '../queries/AllResponses'
 import query from '../queries/SingleUser'
 import UserDetails from './UserDetails'
-import { Typography } from '@material-ui/core'
-
+import HistoryDetails from './HistoryDetails'
+import { Typography, Paper } from '@material-ui/core'
 const UserHistory = props => {
-  console.log(props.data)
   // const user = props.data.getUser[0]
   let user
   if (props.data.getUser) user = props.data.getUser[0]
-
   return !user ? (
     <div>loading...</div>
   ) : (
-    <div>
+    <Paper>
       <Typography>
-        Email: {user.email}
-        <br />
-        Admin Status: {user.isAdmin ? 'Admin' : 'Not Admin'}
-        <br />
-        Slack ID: {user.slackId}
+        <h1>{user.name}</h1>
       </Typography>
-    </div>
+      <HistoryDetails user={user} />
+    </Paper>
   )
-  // <HistoryDetails />
 }
 export default graphql(query, {
   options: ownProps => ({

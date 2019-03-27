@@ -43,7 +43,6 @@ const Root = () => {
           <Route path="questions" component={requireAuth(Questions)} />
           <Route path="user-form" component={requireAuth(UserForm)} />
           <Route path="question-form" component={requireAuth(QuestionForm)} />
-          <Route path="account" component={requireAuth(Account)} />
           <Route exact path="users/:id" component={requireAuth(UserHistory)} />
         </Route>
       </Router>
