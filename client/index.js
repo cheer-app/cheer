@@ -34,7 +34,6 @@ const client = new ApolloClient({
 const Root = () => {
   return (
     <ApolloProvider client={client}>
-      <CssBaseline />
       <Router history={hashHistory}>
         <Route path="/" component={App}>
           <Route path="login" component={LoginForm} />

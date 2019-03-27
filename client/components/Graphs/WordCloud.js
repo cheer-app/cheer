@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import WordCloud from 'react-d3-cloud';
+import React, { Component } from 'react'
+import WordCloud from 'react-d3-cloud'
 
-const fontSizeMapper = word => word.value * 60;
+const fontSizeMapper = word => word.value * 30
 
 class WordCloudWrapper extends Component {
   render() {
@@ -16,9 +16,9 @@ class WordCloudWrapper extends Component {
           joy: word.emotion.joy,
           sadness: word.emotion.sadness,
           sentiment: word.sentiment.label,
-        });
-        return acc;
-      }, []);
+        })
+        return acc
+      }, [])
       return (
         <div>
           <h4>Trending Words for the Week</h4>
@@ -27,15 +27,15 @@ class WordCloudWrapper extends Component {
             fontSizeMapper={fontSizeMapper}
             font="roboto"
             onWordClick={word => {
-              this.props.handleClick(word);
+              this.props.handleClick(word)
             }}
           />
         </div>
-      );
+      )
     } else {
-      return null;
+      return null
     }
   }
 }
 
-export default WordCloudWrapper;
+export default WordCloudWrapper

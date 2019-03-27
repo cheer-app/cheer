@@ -4,6 +4,7 @@ import {
   Typography,
   ExpansionPanelSummary,
 } from '@material-ui/core'
+import { withStyles } from '@material-ui/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import UserForm from './UserForm'
 import UserDetails from './UserDetails'
@@ -11,6 +12,23 @@ import { VictoryLine, VictoryBar } from 'victory'
 import query from '../queries/UserResponseSparkline'
 import { graphql } from 'react-apollo'
 import { LineChart, Line, YAxis } from 'recharts'
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    // flexGrow: '1',
+  },
+  sparkline: {
+    marginLeft: 100,
+    marginRight: 10,
+    width: 200,
+    // flexGrow: 1,
+  },
+  text: {
+    // flexGrow: 3,
+  },
+})
 
 class UserPanel extends Component {
   constructor(props) {
@@ -26,7 +44,7 @@ class UserPanel extends Component {
   }
 
   render() {
-    const { user } = this.props
+    const { user, classes } = this.props
     const { textResponses } = this.props.data
     console.log(this.props.data)
 
@@ -36,16 +54,23 @@ class UserPanel extends Component {
       <div>
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>{user.name}</Typography>
-            <div>
-              <LineChart width={250} height={30} data={data}>
-                <Line
-                  type="monotone"
-                  dataKey="score"
-                  stroke="#8884d8"
-                  strokeWidth={2}
-                />
-              </LineChart>
+            <div className={classes.container}>
+              <Typography className={classes.text}>{user.name}</Typography>
+              <div>
+                <LineChart
+                  width={250}
+                  height={30}
+                  data={data}
+                  className={classes.sparkline}
+                >
+                  <Line
+                    type="monotone"
+                    dataKey="score"
+                    stroke="#8884d8"
+                    strokeWidth={2}
+                  />
+                </LineChart>
+              </div>
             </div>
           </ExpansionPanelSummary>
           {this.state.edit ? (
@@ -59,6 +84,10 @@ class UserPanel extends Component {
   }
 }
 
-export default graphql(query, {
-  options: ownProps => ({ variables: { userSlackId: ownProps.user.slackId } }),
-})(UserPanel)
+export default withStyles(styles)(
+  graphql(query, {
+    options: ownProps => ({
+      variables: { userSlackId: ownProps.user.slackId },
+    }),
+  })(UserPanel)
+)
