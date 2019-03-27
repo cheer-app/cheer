@@ -2,13 +2,22 @@ const graphql = require('graphql')
 const mongoose = require('mongoose')
 const { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLID } = graphql
 const UserType = require('./user_type')
+<<<<<<< HEAD
 const DataType = require('./data_type')
 const TextResponseType = require('./textResponse_type')
+=======
+const {DataType} = require('./data_type')
+>>>>>>> d504b9bc3169e5f2bbf87e2c59cea9958de2e290
 const QuestionType = require('./question_type')
+const AggregateType = require('./aggregate_type')
 const Watson = mongoose.model('watson')
 const User = mongoose.model('user')
 const Question = mongoose.model('question')
+<<<<<<< HEAD
 const Response = mongoose.model('response')
+=======
+const Aggregate = mongoose.model('aggregate')
+>>>>>>> d504b9bc3169e5f2bbf87e2c59cea9958de2e290
 
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -48,6 +57,7 @@ const RootQueryType = new GraphQLObjectType({
         return Question.find({})
       },
     },
+<<<<<<< HEAD
     textResponses: {
       type: new GraphQLList(TextResponseType),
       args: {
@@ -79,6 +89,14 @@ const RootQueryType = new GraphQLObjectType({
         })
       },
     },
+=======
+    aggregate: {
+      type: new GraphQLList(AggregateType),
+      resolve() {
+        return Aggregate.find({})
+      }
+    }
+>>>>>>> d504b9bc3169e5f2bbf87e2c59cea9958de2e290
   },
 })
 

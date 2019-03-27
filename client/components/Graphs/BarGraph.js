@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryAxis,
+  VictoryTheme,
+  VictoryContainer,
+} from 'victory';
 
 export default class BarGraph extends Component {
   render() {
@@ -14,6 +20,7 @@ export default class BarGraph extends Component {
     if (this.props.data) {
       return (
         <VictoryChart
+          containerComponent={<VictoryContainer responsive={false} />}
           theme={VictoryTheme.material}
           domainPadding={10}
           animate={{ duration: 1000, onLoad: { duration: 500 } }}

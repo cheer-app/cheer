@@ -20,7 +20,12 @@ class WordCloudWrapper extends Component {
         return acc
       }, [])
       return (
-        <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
           <h4>Trending Words for the Week</h4>
           <WordCloud
             data={keywords}

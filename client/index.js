@@ -16,7 +16,6 @@ import Questions from './components/Questions'
 import UserForm from './components/UserForm'
 import QuestionForm from './components/QuestionForm'
 import Account from './components/Account'
-import { CssBaseline } from '@material-ui/core'
 import UserHistory from './components/UserHistory'
 
 const link = new HttpLink({

@@ -30,7 +30,7 @@ function Users(props) {
   console.log('allUser', props.data)
 
   return (
-    <div>
+    <div style={{ marginLeft: 150, marginRight: 150 }}>
       <span className={classes.root}>
         <h3 className={classes.grow}>Users</h3>
         <Link to="user-form">
