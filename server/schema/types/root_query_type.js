@@ -4,7 +4,7 @@ const { GraphQLObjectType, GraphQLList } = graphql
 const UserType = require('./user_type')
 const DataType = require('./data_type')
 const QuestionType = require('./question_type')
-// const Watson = mongoose.model('watson')
+const Watson = mongoose.model('watson')
 const User = mongoose.model('user')
 const Question = mongoose.model('question')
 

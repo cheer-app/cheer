@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
+const moment = require('moment')
 
 const watsonSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now
+    default: new Date(moment().clone().format())
   },
   categories: {
     type: Array
