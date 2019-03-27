@@ -1,13 +1,20 @@
 import React from 'react';
 import Header from './Header';
+import { hashHistory } from 'react-router';
 
-const App = props => {
-  return (
-    <div style={{ margin: 'auto' }}>
-      <Header />
-      {props.children}
-    </div>
-  );
-};
+class App extends React.Component {
+  componentDidMount() {
+    hashHistory.push('/dashboard');
+  }
+  render() {
+    console.log(hashHistory);
+    return (
+      <div>
+        <Header />
+        {this.props.children}
+      </div>
+    );
+  }
+}
 
 export default App;
