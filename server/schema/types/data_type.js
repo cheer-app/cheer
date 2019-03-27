@@ -50,7 +50,6 @@ const DataType = new GraphQLObjectType({
   fields: {
     id: { type: GraphQLID },
     date: { type: GraphQLString },
-    // concepts: new GraphQLList(KeyWordType),
     keywords: { type: new GraphQLList(KeyWordType) },
     sentiment: { type: DocumentType },
   },
