@@ -20,13 +20,6 @@ class WordCloudWrapper extends Component {
         return acc;
       }, []);
       return (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <h4>Trending Words for the Week</h4>
           <WordCloud
             data={keywords}
             fontSizeMapper={fontSizeMapper}
@@ -35,7 +28,6 @@ class WordCloudWrapper extends Component {
               this.props.handleClick(word);
             }}
           />
-        </div>
       );
     } else {
       return null;
