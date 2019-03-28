@@ -82,9 +82,7 @@ const mutation = new GraphQLObjectType({
         slackId: { type: GraphQLString },
       },
       resolve(parents, { name, email, isAdmin, slackId }) {
-        return User.create({
-          $set: { name, email, isAdmin, slackId },
-        })
+        return User.create({ name, email, isAdmin, slackId })
       },
     },
     createQuestion: {
@@ -97,12 +95,10 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parents, { question, responseType, category, sendDayIdx }) {
         return Question.create({
-          $set: {
             question,
             responseType,
             category,
             sendDayIdx,
-          },
         })
       },
     },

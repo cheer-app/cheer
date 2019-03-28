@@ -37,7 +37,7 @@ class QuestionCreateForm extends Component {
       sendDayIdx: '',
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleSelect = this.handleChange.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
     this.handleSwitch = this.handleSwitch.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
