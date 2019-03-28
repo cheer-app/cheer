@@ -25,7 +25,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 
 import { graphql } from 'react-apollo'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import query from '../queries/CurrentUser'
 import mutation from '../mutations/Logout'
 

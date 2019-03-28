@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import UserPanel from './UserPanel';
 import query from '../queries/AllUsers';
 import { Button } from '@material-ui/core';
