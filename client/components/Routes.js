@@ -7,8 +7,10 @@ import Dashboard from './Dashboard';
 import requireAuth from './requireAuth';
 import Users from './Users';
 import Questions from './Questions';
-import UserForm from './UserForm';
-import QuestionForm from './QuestionForm';
+import UserUpdateForm from './UserUpdateForm';
+import UserCreateForm from './UserCreateForm';
+import QuestionUpdateForm from './QuestionUpdateForm';
+import QuestionCreateForm from './QuestionCreateForm';
 
 const Routes = () => {
   return (
@@ -19,8 +21,10 @@ const Routes = () => {
       <Route path="/dashboard" component={requireAuth(Dashboard)} />
       <Route path="/users" component={requireAuth(Users)} />
       <Route path="/questions" component={requireAuth(Questions)} />
-      <Route path="/addUser" component={requireAuth(UserForm)} />
-      <Route path="/addQuestion" component={requireAuth(QuestionForm)} />
+      <Route path="/updateUser" component={requireAuth(UserUpdateForm)} />
+      <Route path="/createUser" component={requireAuth(UserCreateForm)} />
+      <Route path="/updateQuestion" component={requireAuth(QuestionUpdateForm)} />
+      <Route path="/createQuestion" component={requireAuth(QuestionCreateForm)} />
     </Switch>
   )
 }

@@ -6,9 +6,8 @@ import {
 } from '@material-ui/core'
 import { withStyles } from '@material-ui/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import UserForm from './UserForm'
+import UserUpdateForm from './UserUpdateForm'
 import UserDetails from './UserDetails'
-import { VictoryLine, VictoryBar } from 'victory'
 import query from '../queries/UserResponseSparkline'
 import { graphql } from 'react-apollo'
 import { LineChart, Line, YAxis } from 'recharts'
@@ -72,7 +71,7 @@ class UserPanel extends Component {
             </div>
           </ExpansionPanelSummary>
           {this.state.edit ? (
-            <UserForm user={user} toggleEdit={this.toggleEdit} />
+            <UserUpdateForm user={user} toggleEdit={this.toggleEdit} />
           ) : (
             <UserDetails user={user} toggleEdit={this.toggleEdit} />
           )}

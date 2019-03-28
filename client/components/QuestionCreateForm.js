@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/styles'
 import { Mutation } from 'react-apollo'
-import mutation from '../mutations/UpdateQuestion'
+import mutation from '../mutations/CreateQuestion'
 import {
   TextField,
   FormControl,
-  FormControlLabel,
-  Switch,
   Button,
   ExpansionPanelActions,
   ExpansionPanelDetails,
@@ -21,7 +19,6 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    textAlign: 'center'
   },
   textField: {
     marginLeft: 10,
@@ -30,7 +27,7 @@ const styles = theme => ({
   },
 })
 
-class QuestionForm extends Component {
+class QuestionCreateForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -40,8 +37,9 @@ class QuestionForm extends Component {
       sendDayIdx: '',
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
+    this.handleSelect = this.handleChange.bind(this)
     this.handleSwitch = this.handleSwitch.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
@@ -58,17 +56,17 @@ class QuestionForm extends Component {
 
   handleSubmit(postMutation) {
     postMutation()
-    this.props.history.push('/questions')
+    // this.props.history.replace('/questions')
   }
 
   render() {
     const { classes } = this.props
     return (
-      <div>
+      <div className={classes.container}>
         <ExpansionPanelDetails>
-          <form>
+        <form>
             <TextField
-              id="text"
+              id="question"
               label="Question Text:"
               value={this.state.question}
               onChange={this.handleChange}
@@ -107,7 +105,7 @@ class QuestionForm extends Component {
               <Select
                 value={this.state.responseType}
                 onChange={this.handleSelect}
-                input={<OutlinedInput name="type" />}
+                input={<OutlinedInput name="responseType" />}
               >
                 <MenuItem value="polar">Yes/No</MenuItem>
                 <MenuItem value="rating">Point Scale</MenuItem>
@@ -118,16 +116,16 @@ class QuestionForm extends Component {
         </ExpansionPanelDetails>
         <Divider />
         <ExpansionPanelActions>
-          <Button size="small" onClick={this.props.toggleEdit}>
+          <Button size="small">
             Cancel
           </Button>
           <Mutation
            mutation={mutation}
            variables={{
-             question: this.state.question,
-             responseType: this.state.responseType,
-             category: this.state.category,
-             sendDayIdx: this.state.sendDayIdx,
+              question: this.state.question,
+              responseType: this.state.responseType,
+              category: this.state.category,
+              sendDayIdx: this.state.sendDayIdx,
            }}
          >
            {postMutation => (
@@ -146,4 +144,4 @@ class QuestionForm extends Component {
   }
 }
 
-export default withStyles(styles)(QuestionForm)
+export default withStyles(styles)(QuestionCreateForm)

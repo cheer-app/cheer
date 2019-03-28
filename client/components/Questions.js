@@ -31,7 +31,7 @@ function Questions(props) {
     <div style={{ marginLeft: 150, marginRight: 150 }}>
       <span className={classes.root}>
         <h3 className={classes.grow}>Questions</h3>
-        <Link to="/addQuestion">
+        <Link to="/createQuestion">
           <Button className={classes.float}>Add Question</Button>
         </Link>
       </span>
