@@ -41,6 +41,7 @@ class LineGraph extends Component {
   };
 
   render() {
+    console.log(this.state.month);
     const { aggregate } = this.props.data;
     const { classes } = this.props;
 
@@ -57,7 +58,7 @@ class LineGraph extends Component {
           y: elem.score,
           z: +convertTime(elem.date).slice(4),
         }))
-        .filter(elem => elem.x.includes('Mar'))
+        .filter(elem => elem.x.includes(this.state.month || 'Jan'))
         .sort((a, b) => a.z - b.z)
         .map(elem => ({
           x: elem.x,
@@ -66,10 +67,7 @@ class LineGraph extends Component {
 
       return (
         <div>
-          {/* <h5 style={{ fontWeight: 700 }}>
-            Company Sentiment For {<span style={{ color: 'blue' }}>March</span>}
-          </h5> */}
-          <h5 style={{ fontWeight: 700 }}>Company Sentiment For /></h5>
+          <h5 style={{ fontWeight: 700 }}>Company Sentiment For</h5>
           <form autoComplete="off">
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="demo-controlled-open-select">
@@ -89,9 +87,18 @@ class LineGraph extends Component {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={10}>Jan</MenuItem>
-                <MenuItem value={20}>Feb</MenuItem>
-                <MenuItem value={30}>March</MenuItem>
+                <MenuItem value="Jan">Jan</MenuItem>
+                <MenuItem value="Feb">Feb</MenuItem>
+                <MenuItem value="March">March</MenuItem>
+                <MenuItem value="April">April</MenuItem>
+                <MenuItem value="May">May</MenuItem>
+                <MenuItem value="June">June</MenuItem>
+                <MenuItem value="July">July</MenuItem>
+                <MenuItem value="August">August</MenuItem>
+                <MenuItem value="September">September</MenuItem>
+                <MenuItem value="October">October</MenuItem>
+                <MenuItem value="November">November</MenuItem>
+                <MenuItem value="December">December</MenuItem>
               </Select>
             </FormControl>
           </form>
