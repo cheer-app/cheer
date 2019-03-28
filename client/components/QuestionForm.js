@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/styles'
 import { Mutation } from 'react-apollo'
 import mutation from '../mutations/UpdateQuestion'
-import { hashHistory } from 'react-router'
 import {
   TextField,
   FormControl,
@@ -59,7 +58,7 @@ class QuestionForm extends Component {
 
   handleSubmit(postMutation) {
     postMutation()
-    hashHistory.push('/questions')
+    this.props.history.push('/questions')
   }
 
   render() {

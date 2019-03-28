@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/styles'
 import { Mutation } from 'react-apollo'
 import mutation from '../mutations/UpdateUser'
-import { hashHistory } from 'react-router'
 import {
   TextField,
   FormControl,
@@ -51,7 +50,7 @@ class UserForm extends Component {
 
   handleSubmit(postMutation) {
     postMutation()
-    hashHistory.push('/users')
+    this.props.history.push('/users')
   }
 
   render() {

@@ -3,7 +3,6 @@ import AuthForm from './AuthForm';
 import { graphql } from 'react-apollo';
 import mutation from '../mutations/Signup';
 import query from '../queries/CurrentUser';
-import { hashHistory } from 'react-router-dom';
 
 class SignupForm extends Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class SignupForm extends Component {
 
   componentWillUpdate(nextProps) {
     if (nextProps.data.user && !this.props.data.user) {
-      hashHistory.push('/dashboard');
+      this.props.history.push('/dashboard');
     }
   }
 
