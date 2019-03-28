@@ -25,6 +25,10 @@ const styles = theme => ({
     marginRight: 10,
     width: 200,
   },
+  selectField: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
 })
 
 class QuestionCreateForm extends Component {
@@ -83,6 +87,7 @@ class QuestionCreateForm extends Component {
                 value={this.state.sendDayIdx}
                 onChange={this.handleSelect}
                 input={<OutlinedInput name="sendDayIdx" />}
+                className={classes.selectField}
               >
                 <MenuItem value="1">Monday</MenuItem>
                 <MenuItem value="2">Tuesday</MenuItem>
@@ -97,6 +102,7 @@ class QuestionCreateForm extends Component {
                 value={this.state.category}
                 onChange={this.handleSelect}
                 input={<OutlinedInput name="category" />}
+                className={classes.selectField}
               >
                 <MenuItem value="wellness">Wellness</MenuItem>
                 <MenuItem value="engagement">Engagement</MenuItem>
@@ -108,6 +114,7 @@ class QuestionCreateForm extends Component {
                 value={this.state.responseType}
                 onChange={this.handleSelect}
                 input={<OutlinedInput name="responseType" />}
+                className={classes.selectField}
               >
                 <MenuItem value="polar">Yes/No</MenuItem>
                 <MenuItem value="rating">Point Scale</MenuItem>

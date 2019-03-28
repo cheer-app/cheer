@@ -28,11 +28,10 @@ const styles = theme => ({
   selectField: {
     marginLeft: 10,
     marginRight: 10,
-    // width: 200,
   },
 })
 
-class QuestionForm extends Component {
+class QuestionUpdateForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -97,7 +96,6 @@ class QuestionForm extends Component {
             <FormControl>
               <InputLabel>Category</InputLabel>
               <Select
-                
                 value={this.state.category}
                 onChange={this.handleSelect}
                 input={<Input name="category" />}
@@ -112,7 +110,7 @@ class QuestionForm extends Component {
               <Select
                 value={this.state.responseType}
                 onChange={this.handleSelect}
-                input={<Input name="type" />}
+                input={<Input name="responseType" />}
                 className={classes.selectField}
               >
                 <MenuItem value="polar">Yes/No</MenuItem>
