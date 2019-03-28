@@ -2,11 +2,47 @@ import React, { Component } from 'react';
 import { VictoryLine, VictoryChart, VictoryTheme, VictoryLabel } from 'victory';
 import { graphql } from 'react-apollo';
 import query from '../../queries/Aggregate';
-import Dropdown from './Dropdown';
+import { withStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+const styles = theme => ({
+  button: {
+    display: 'block',
+    marginTop: theme.spacing.unit * 2,
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+  },
+});
 
 class LineGraph extends Component {
+  constructor() {
+    super();
+    this.state = {
+      month: '',
+      open: false,
+    };
+  }
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
   render() {
     const { aggregate } = this.props.data;
+    const { classes } = this.props;
 
     if (aggregate) {
       const convertTime = time => {
@@ -33,9 +69,32 @@ class LineGraph extends Component {
           {/* <h5 style={{ fontWeight: 700 }}>
             Company Sentiment For {<span style={{ color: 'blue' }}>March</span>}
           </h5> */}
-          <h5 style={{ fontWeight: 700 }}>
-            Company Sentiment For <Dropdown />
-          </h5>
+          <h5 style={{ fontWeight: 700 }}>Company Sentiment For /></h5>
+          <form autoComplete="off">
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="demo-controlled-open-select">
+                Month
+              </InputLabel>
+              <Select
+                open={this.state.open}
+                onClose={this.handleClose}
+                onOpen={this.handleOpen}
+                value={this.state.month}
+                onChange={this.handleChange}
+                inputProps={{
+                  name: 'month',
+                  id: 'demo-controlled-open-select',
+                }}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={10}>Jan</MenuItem>
+                <MenuItem value={20}>Feb</MenuItem>
+                <MenuItem value={30}>March</MenuItem>
+              </Select>
+            </FormControl>
+          </form>
           <VictoryChart width={1000} height={550} theme={VictoryTheme.material}>
             <VictoryLine
               animate={{
@@ -60,4 +119,4 @@ class LineGraph extends Component {
   }
 }
 
-export default graphql(query)(LineGraph);
+export default withStyles(styles)(graphql(query)(LineGraph));
