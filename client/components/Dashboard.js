@@ -9,13 +9,23 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 
-const TabContainer = (props) => {
+const TabContainer = props => {
   return (
-    <Typography component="div" style={{ padding: 30, display: 'flex', justifyContent: 'space-around', textAlign: 'center', height: '80vh', fontWeight: 500 }}>
+    <Typography
+      component="div"
+      style={{
+        padding: 30,
+        display: 'flex',
+        justifyContent: 'space-around',
+        textAlign: 'center',
+        height: '100%',
+        fontWeight: 500,
+      }}
+    >
       {props.children}
     </Typography>
   );
-}
+};
 
 class Dashboard extends Component {
   constructor() {
@@ -68,23 +78,38 @@ class Dashboard extends Component {
           <Tab label="Historical" />
         </Tabs>
 
-        {tab === 0 && <TabContainer>
-          <div>
-            <h5 style={{fontWeight: 700 }}>Keywords Generated From Responses</h5>
-            <WordCloudWrapper data={watson} handleClick={word => this.handleClick(word)} />
-          </div>
-          <div>
-            <h5 style={{fontWeight: 700 }}>Emotional Response of {<span style={{color: 'blue'}}>{this.state.text}</span>}</h5>
-            <BarGraph data={watson} state={this.state} />
-          </div>
-        </TabContainer>}
+        {tab === 0 && (
+          <TabContainer>
+            <div>
+              <h5 style={{ fontWeight: 700 }}>
+                Keywords Generated From Responses
+              </h5>
+              <WordCloudWrapper
+                data={watson}
+                handleClick={word => this.handleClick(word)}
+              />
+            </div>
+            <div>
+              <h5 style={{ fontWeight: 700 }}>
+                Emotional Response of{' '}
+                {<span style={{ color: 'blue' }}>{this.state.text}</span>}
+              </h5>
+              <BarGraph data={watson} state={this.state} />
+            </div>
+          </TabContainer>
+        )}
 
-        {tab === 1 && <TabContainer>
-          <div>
-            <h5 style={{fontWeight: 700 }}>Company Sentiment For {<span style={{color: 'blue'}}>March</span>}</h5>
-            <LineGraph />
-          </div>
-        </TabContainer>}
+        {tab === 1 && (
+          <TabContainer>
+            <div>
+              <h5 style={{ fontWeight: 700 }}>
+                Company Sentiment For{' '}
+                {<span style={{ color: 'blue' }}>March</span>}
+              </h5>
+              <LineGraph />
+            </div>
+          </TabContainer>
+        )}
       </Paper>
     );
   }

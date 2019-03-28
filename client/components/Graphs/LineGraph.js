@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VictoryLine, VictoryChart, VictoryTheme } from 'victory';
+import { VictoryLine, VictoryChart, VictoryTheme, VictoryLabel } from 'victory';
 import { graphql } from 'react-apollo';
 import query from '../../queries/Aggregate';
 
@@ -41,6 +41,8 @@ class LineGraph extends Component {
             }}
             data={data}
           />
+          <VictoryLabel text="Date" x={970} y={270} />
+          <VictoryLabel text="Sentiment" x={0} y={20} />
         </VictoryChart>
       );
     } else {
