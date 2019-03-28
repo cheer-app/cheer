@@ -1,15 +1,13 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  mutation UpdateUser(
-    $id: String
+  mutation CreateUser(
     $email: String
     $name: String
     $isAdmin: Boolean
     $slackId: String
   ) {
-    updateUser(
-      id: $id
+    createUser(
       email: $email
       name: $name
       isAdmin: $isAdmin

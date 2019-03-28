@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/styles'
 import { Mutation } from 'react-apollo'
-import mutation from '../mutations/UpdateUser'
-import { hashHistory } from 'react-router'
+import mutation from '../mutations/CreateUser'
 import {
   TextField,
   FormControl,
@@ -26,14 +25,14 @@ const styles = theme => ({
   },
 })
 
-class UserForm extends Component {
+class UserUpdateForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: this.props.user.name,
-      email: this.props.user.email,
-      slackId: this.props.user.slackId,
-      isAdmin: this.props.user.isAdmin,
+      name: '',
+      email: '',
+      slackId: '',
+      isAdmin: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSwitch = this.handleSwitch.bind(this)
@@ -49,9 +48,10 @@ class UserForm extends Component {
   }
 
   handleSubmit(postMutation) {
-    postMutation()
-    this.props.toggleEdit()
-    hashHistory.push('/users')
+    if (postMutation) {
+      postMutation()
+    }
+    this.props.history.push('/users')
   }
 
   render() {
@@ -94,13 +94,12 @@ class UserForm extends Component {
         </ExpansionPanelDetails>
         <Divider />
         <ExpansionPanelActions>
-          <Button size="small" onClick={this.props.toggleEdit}>
+          <Button size="small" onClick={() => this.handleSubmit()}>
             Cancel
           </Button>
           <Mutation
            mutation={mutation}
            variables={{
-             id: this.props.user.id,
              email: this.state.email,
              name: this.state.name,
              isAdmin: this.state.isAdmin,
@@ -123,4 +122,4 @@ class UserForm extends Component {
   }
 }
 
-export default withStyles(styles)(UserForm)
+export default withStyles(styles)(UserUpdateForm)

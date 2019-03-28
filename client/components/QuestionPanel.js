@@ -5,7 +5,7 @@ import {
   ExpansionPanelSummary,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import QuestionForm from './QuestionForm'
+import QuestionUpdateForm from './QuestionUpdateForm'
 import QuestionDetails from './QuestionDetails'
 
 class QuestionPanel extends Component {
@@ -29,7 +29,7 @@ class QuestionPanel extends Component {
           <Typography>{question.question}</Typography>
         </ExpansionPanelSummary>
         {this.state.edit ? (
-          <QuestionForm question={question} toggleEdit={this.toggleEdit} />
+          <QuestionUpdateForm question={question} toggleEdit={this.toggleEdit} />
         ) : (
           <QuestionDetails question={question} toggleEdit={this.toggleEdit} />
         )}

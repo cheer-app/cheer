@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/styles'
+import { Mutation } from 'react-apollo'
+import mutation from '../mutations/UpdateQuestion'
 import {
   TextField,
   FormControl,
-  FormControlLabel,
-  Switch,
   Button,
   ExpansionPanelActions,
   ExpansionPanelDetails,
@@ -28,40 +28,39 @@ const styles = theme => ({
   selectField: {
     marginLeft: 10,
     marginRight: 10,
-    // width: 200,
   },
 })
 
-class QuestionForm extends Component {
+class QuestionUpdateForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: this.props.question.question,
-      type: this.props.question.responseType,
+      question: this.props.question.question,
+      responseType: this.props.question.responseType,
       category: this.props.question.category,
       sendDayIdx: this.props.question.sendDayIdx,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
     this.handleSwitch = this.handleSwitch.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
-    console.log('before', event.target)
     this.setState({ [event.target.id]: event.target.value })
-    console.log('after', this.state)
   }
 
   handleSelect(event) {
-    console.log('before', event.target)
     this.setState({ [event.target.name]: event.target.value })
-    console.log('after', this.state)
   }
 
   handleSwitch() {
-    console.log('before', this.state)
     this.setState({ isAdmin: !this.state.isAdmin })
-    console.log('after', this.state)
+  }
+
+  handleSubmit(postMutation) {
+    postMutation()
+    this.props.toggleEdit()
   }
 
   render() {
@@ -69,11 +68,11 @@ class QuestionForm extends Component {
     return (
       <div className={classes.container}>
         <ExpansionPanelDetails>
-          <form>
+        <form>
             <TextField
-              id="text"
+              id="question"
               label="Question Text:"
-              value={this.state.text}
+              value={this.state.question}
               onChange={this.handleChange}
               fullWidth
               multiline
@@ -109,9 +108,9 @@ class QuestionForm extends Component {
             <FormControl>
               <InputLabel>Response Type</InputLabel>
               <Select
-                value={this.state.type}
+                value={this.state.responseType}
                 onChange={this.handleSelect}
-                input={<Input name="type" />}
+                input={<Input name="responseType" />}
                 className={classes.selectField}
               >
                 <MenuItem value="polar">Yes/No</MenuItem>
@@ -126,13 +125,30 @@ class QuestionForm extends Component {
           <Button size="small" onClick={this.props.toggleEdit}>
             Cancel
           </Button>
-          <Button size="small" color="primary">
-            Save
-          </Button>
+          <Mutation
+           mutation={mutation}
+           variables={{
+              id: this.props.question.id,
+              question: this.state.question,
+              responseType: this.state.responseType,
+              category: this.state.category,
+              sendDayIdx: this.state.sendDayIdx,
+           }}
+         >
+           {postMutation => (
+             <Button
+               size='small'
+               color='primary'
+               onClick={() => this.handleSubmit(postMutation)}
+             >
+               Save
+             </Button>
+           )}
+         </Mutation>
         </ExpansionPanelActions>
       </div>
     )
   }
 }
 
-export default withStyles(styles)(QuestionForm)
+export default withStyles(styles)(QuestionUpdateForm)
