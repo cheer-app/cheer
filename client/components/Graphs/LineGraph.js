@@ -1,11 +1,48 @@
 import React, { Component } from 'react';
-import { VictoryLine, VictoryChart, VictoryTheme } from 'victory';
+import { VictoryLine, VictoryChart, VictoryTheme, VictoryLabel } from 'victory';
 import { graphql } from 'react-apollo';
 import query from '../../queries/Aggregate';
+import { withStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+const styles = theme => ({
+  button: {
+    display: 'block',
+    marginTop: theme.spacing.unit * 2,
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+  },
+});
 
 class LineGraph extends Component {
+  constructor() {
+    super();
+    this.state = {
+      month: '',
+      open: false,
+    };
+  }
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
   render() {
     const { aggregate } = this.props.data;
+    const { classes } = this.props;
 
     if (aggregate) {
       const convertTime = time => {
@@ -20,7 +57,7 @@ class LineGraph extends Component {
           y: elem.score,
           z: +convertTime(elem.date).slice(4),
         }))
-        .filter(elem => elem.x.includes('Mar'))
+        .filter(elem => elem.x.includes(this.state.month || 'Mar'))
         .sort((a, b) => a.z - b.z)
         .map(elem => ({
           x: elem.x,
@@ -28,20 +65,59 @@ class LineGraph extends Component {
         }));
 
       return (
-        <VictoryChart width={1000} height={550} theme={VictoryTheme.material}>
-          <VictoryLine
-            animate={{
-              duration: 2000,
-              onLoad: { duration: 2000 },
-            }}
-            domain={{ y: [-1, 1] }}
-            style={{
-              data: { stroke: '#c43a31' },
-              parent: { border: '2px solid #ccc' },
-            }}
-            data={data}
-          />
-        </VictoryChart>
+        <div>
+          <h5 style={{ fontWeight: 700 }}>Company Sentiment For</h5>
+          <form autoComplete="off">
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="demo-controlled-open-select">
+                March
+              </InputLabel>
+              <Select
+                open={this.state.open}
+                onClose={this.handleClose}
+                onOpen={this.handleOpen}
+                value={this.state.month}
+                onChange={this.handleChange}
+                inputProps={{
+                  name: 'month',
+                  id: 'demo-controlled-open-select',
+                }}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="Jan">January</MenuItem>
+                <MenuItem value="Feb">February</MenuItem>
+                <MenuItem value="Mar">March</MenuItem>
+                <MenuItem value="Apr">April</MenuItem>
+                <MenuItem value="May">May</MenuItem>
+                <MenuItem value="Jun">June</MenuItem>
+                <MenuItem value="Jul">July</MenuItem>
+                <MenuItem value="Aug">August</MenuItem>
+                <MenuItem value="Sep">September</MenuItem>
+                <MenuItem value="Oct">October</MenuItem>
+                <MenuItem value="Nov">November</MenuItem>
+                <MenuItem value="Dec">December</MenuItem>
+              </Select>
+            </FormControl>
+          </form>
+          <VictoryChart width={1000} height={550} theme={VictoryTheme.material}>
+            <VictoryLine
+              animate={{
+                duration: 2000,
+                onLoad: { duration: 2000 },
+              }}
+              domain={{ y: [-1, 1] }}
+              style={{
+                data: { stroke: '#c43a31' },
+                parent: { border: '2px solid #ccc' },
+              }}
+              data={data}
+            />
+            <VictoryLabel text="Date" x={970} y={270} />
+            <VictoryLabel text="Sentiment" x={0} y={20} />
+          </VictoryChart>
+        </div>
       );
     } else {
       return null;
@@ -49,4 +125,4 @@ class LineGraph extends Component {
   }
 }
 
-export default graphql(query)(LineGraph);
+export default withStyles(styles)(graphql(query)(LineGraph));

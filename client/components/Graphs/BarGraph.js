@@ -5,6 +5,7 @@ import {
   VictoryAxis,
   VictoryTheme,
   VictoryContainer,
+  VictoryLabel,
 } from 'victory';
 
 export default class BarGraph extends Component {
@@ -33,6 +34,8 @@ export default class BarGraph extends Component {
           />
           <VictoryAxis dependentAxis />
           <VictoryBar data={data} x="emotion" y="rating" />
+          <VictoryLabel text="Sentiment" x={10} y={20} />
+          <VictoryLabel text="Emotion" x={250} y={495} />
         </VictoryChart>
       );
     } else {
