@@ -3,7 +3,7 @@ import AuthForm from './AuthForm'
 import mutation from '../mutations/Login'
 import { graphql } from 'react-apollo'
 import query from '../queries/CurrentUser'
-import { hashHistory } from 'react-router'
+import { hashHistory } from 'react-router-dom'
 
 class LoginForm extends Component {
   constructor(props) {

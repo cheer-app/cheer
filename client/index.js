@@ -4,7 +4,8 @@ import ApolloClient from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloProvider } from 'react-apollo'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { Router, hashHistory, Route } from 'react-router'
+//import { hashHistory, Route } from 'react-router';
+import { hashHistory, BrowserRouter as Router } from 'react-router-dom'
 
 import App from './components/App'
 import LoginForm from './components/LoginForm'
@@ -33,20 +34,11 @@ const client = new ApolloClient({
 
 const Root = () => {
   return (
-    <ApolloProvider client={client}>
-      <Router history={hashHistory}>
-        <Route path="/" component={App}>
-          <Route path="login" component={LoginForm} />
-          <Route path="signup" component={SignupForm} />
-          <Route path="dashboard" component={requireAuth(Dashboard)} />
-          <Route path="users" component={requireAuth(Users)} />
-          <Route path="questions" component={requireAuth(Questions)} />
-          <Route path="user-form" component={requireAuth(UserForm)} />
-          <Route path="question-form" component={requireAuth(QuestionForm)} />
-          <Route exact path="users/:id" component={requireAuth(UserHistory)} />
-        </Route>
-      </Router>
-    </ApolloProvider>
+    <Router>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </Router>
   )
 }
 

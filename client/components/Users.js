@@ -1,8 +1,8 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
-import { Link } from 'react-router'
+import { Link, withRouter } from 'react-router-dom'
 import UserPanel from './UserPanel'
-import users from '../queries/AllUsers'
+import query from '../queries/AllUsers'
 import { Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -48,4 +48,4 @@ function Users(props) {
   )
 }
 
-export default withStyles(styles)(graphql(users)(Users))
+export default withRouter(withStyles(styles)(graphql(query)(Users)))

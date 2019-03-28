@@ -7,6 +7,7 @@ const passportConfig = require('./services/auth')
 const MongoStore = require('connect-mongo')(session)
 const schema = require('./schema/schema')
 const slackServer = require('./services/slack').router
+const path = require('path')
 
 const app = express()
 
@@ -46,7 +47,11 @@ const webpackMiddleware = require('webpack-dev-middleware')
 const webpack = require('webpack')
 const webpackConfig = require('../webpack.config.js')
 app.use(webpackMiddleware(webpack(webpackConfig)))
-app.use('/api', require('./api'))
+
+// sends index.html
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'client/index.html'))
+})
 
 app.use((err, req, res, next) => {
   console.error(err)
