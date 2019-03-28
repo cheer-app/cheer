@@ -58,13 +58,48 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLString },
         question: { type: GraphQLString },
+        responseType: { type: GraphQLString },
         category: { type: GraphQLString },
         sendDayIdx: { type: GraphQLString },
       },
-      resolve(parents, { id, question, category, sendDayIdx }) {
+      resolve(parents, { id, question, responseType, category, sendDayIdx }) {
         return Question.findByIdAndUpdate(id, {
           $set: {
             question,
+            responseType,
+            category,
+            sendDayIdx,
+          },
+        })
+      },
+    },
+    createUser: {
+      type: UserType,
+      args: {
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        isAdmin: { type: GraphQLBoolean },
+        slackId: { type: GraphQLString },
+      },
+      resolve(parents, { name, email, isAdmin, slackId }) {
+        return User.create({
+          $set: { name, email, isAdmin, slackId },
+        })
+      },
+    },
+    createQuestion: {
+      type: QuestionType,
+      args: {
+        question: { type: GraphQLString },
+        responseType: { type: GraphQLString },
+        category: { type: GraphQLString },
+        sendDayIdx: { type: GraphQLString },
+      },
+      resolve(parents, { question, responseType, category, sendDayIdx }) {
+        return Question.create({
+          $set: {
+            question,
+            responseType,
             category,
             sendDayIdx,
           },

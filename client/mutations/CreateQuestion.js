@@ -1,15 +1,13 @@
 import gql from 'graphql-tag'
 
 export default gql`
-  mutation UpdateQuestion(
-    $id: String
+  mutation CreateQuestion(
     $question: String
     $responseType: String
     $category: String
     $sendDayIdx: String
   ) {
-    updateQuestion(
-      id: $id
+    createQuestion(
       question: $question
       responseType: $responseType
       category: $category

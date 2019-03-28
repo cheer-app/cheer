@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/styles'
 import { Mutation } from 'react-apollo'
-import mutation from '../mutations/UpdateUser'
+import mutation from '../mutations/UpdateQuestion'
 import { hashHistory } from 'react-router'
 import {
   TextField,
@@ -35,8 +35,8 @@ class QuestionForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: '',
-      type: '',
+      question: '',
+      responseType: '',
       category: '',
       sendDayIdx: '',
     }
@@ -71,7 +71,7 @@ class QuestionForm extends Component {
             <TextField
               id="text"
               label="Question Text:"
-              value={this.state.text}
+              value={this.state.question}
               onChange={this.handleChange}
               variant="outlined"
               fullWidth
@@ -106,7 +106,7 @@ class QuestionForm extends Component {
             <FormControl variant="outlined">
               <InputLabel>Response Type</InputLabel>
               <Select
-                value={this.state.type}
+                value={this.state.responseType}
                 onChange={this.handleSelect}
                 input={<OutlinedInput name="type" />}
               >
@@ -122,9 +122,25 @@ class QuestionForm extends Component {
           <Button size="small" onClick={this.props.toggleEdit}>
             Cancel
           </Button>
-          <Button size="small" color="primary">
-            Save
-          </Button>
+          <Mutation
+           mutation={mutation}
+           variables={{
+             question: this.state.question,
+             responseType: this.state.responseType,
+             category: this.state.category,
+             sendDayIdx: this.state.sendDayIdx,
+           }}
+         >
+           {postMutation => (
+             <Button
+               size='small'
+               color='primary'
+               onClick={() => this.handleSubmit(postMutation)}
+             >
+               Save
+             </Button>
+           )}
+         </Mutation>
         </ExpansionPanelActions>
       </div>
     )
