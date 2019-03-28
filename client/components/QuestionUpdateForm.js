@@ -37,7 +37,7 @@ class QuestionUpdateForm extends Component {
       sendDayIdx: this.props.question.sendDayIdx,
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleSelect = this.handleChange.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
     this.handleSwitch = this.handleSwitch.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -47,7 +47,7 @@ class QuestionUpdateForm extends Component {
   }
 
   handleSelect(event) {
-    this.setState({ [event.target.id]: event.target.value })
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   handleSwitch() {
@@ -78,7 +78,6 @@ class QuestionUpdateForm extends Component {
             <FormControl variant="outlined">
               <InputLabel>Scheduled Day</InputLabel>
               <Select
-                id="sendDayIdx"
                 value={this.state.sendDayIdx}
                 onChange={this.handleSelect}
                 input={<OutlinedInput name="sendDayIdx" />}
@@ -93,10 +92,10 @@ class QuestionUpdateForm extends Component {
             <FormControl variant="outlined">
               <InputLabel>Category</InputLabel>
               <Select
-                id="category"
+                
                 value={this.state.category}
                 onChange={this.handleSelect}
-                input={<OutlinedInput name="category" />}
+                input={<OutlinedInput name="category"/>}
               >
                 <MenuItem value="wellness">Wellness</MenuItem>
                 <MenuItem value="engagement">Engagement</MenuItem>
@@ -105,7 +104,6 @@ class QuestionUpdateForm extends Component {
             <FormControl variant="outlined">
               <InputLabel>Response Type</InputLabel>
               <Select
-                id="responseType"
                 value={this.state.responseType}
                 onChange={this.handleSelect}
                 input={<OutlinedInput name="responseType" />}
