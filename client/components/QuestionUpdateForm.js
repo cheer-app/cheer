@@ -10,7 +10,7 @@ import {
   ExpansionPanelDetails,
   Divider,
   InputLabel,
-  OutlinedInput,
+  Input,
   Select,
   MenuItem,
 } from '@material-ui/core'
@@ -25,9 +25,14 @@ const styles = theme => ({
     marginRight: 10,
     width: 200,
   },
+  selectField: {
+    marginLeft: 10,
+    marginRight: 10,
+    // width: 200,
+  },
 })
 
-class QuestionUpdateForm extends Component {
+class QuestionForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -70,17 +75,17 @@ class QuestionUpdateForm extends Component {
               label="Question Text:"
               value={this.state.question}
               onChange={this.handleChange}
-              variant="outlined"
               fullWidth
               multiline
             />
             <br />
-            <FormControl variant="outlined">
+            <FormControl>
               <InputLabel>Scheduled Day</InputLabel>
               <Select
                 value={this.state.sendDayIdx}
                 onChange={this.handleSelect}
-                input={<OutlinedInput name="sendDayIdx" />}
+                input={<Input name="sendDayIdx" />}
+                className={classes.selectField}
               >
                 <MenuItem value="1">Monday</MenuItem>
                 <MenuItem value="2">Tuesday</MenuItem>
@@ -89,24 +94,26 @@ class QuestionUpdateForm extends Component {
                 <MenuItem value="5">Friday</MenuItem>
               </Select>
             </FormControl>
-            <FormControl variant="outlined">
+            <FormControl>
               <InputLabel>Category</InputLabel>
               <Select
                 
                 value={this.state.category}
                 onChange={this.handleSelect}
-                input={<OutlinedInput name="category"/>}
+                input={<Input name="category" />}
+                className={classes.selectField}
               >
                 <MenuItem value="wellness">Wellness</MenuItem>
                 <MenuItem value="engagement">Engagement</MenuItem>
               </Select>
             </FormControl>
-            <FormControl variant="outlined">
+            <FormControl>
               <InputLabel>Response Type</InputLabel>
               <Select
                 value={this.state.responseType}
                 onChange={this.handleSelect}
-                input={<OutlinedInput name="responseType" />}
+                input={<Input name="type" />}
+                className={classes.selectField}
               >
                 <MenuItem value="polar">Yes/No</MenuItem>
                 <MenuItem value="rating">Point Scale</MenuItem>
