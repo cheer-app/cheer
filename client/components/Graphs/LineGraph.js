@@ -41,7 +41,6 @@ class LineGraph extends Component {
   };
 
   render() {
-    console.log(this.state.month);
     const { aggregate } = this.props.data;
     const { classes } = this.props;
 
@@ -58,7 +57,7 @@ class LineGraph extends Component {
           y: elem.score,
           z: +convertTime(elem.date).slice(4),
         }))
-        .filter(elem => elem.x.includes(this.state.month || 'Jan'))
+        .filter(elem => elem.x.includes(this.state.month || 'Mar'))
         .sort((a, b) => a.z - b.z)
         .map(elem => ({
           x: elem.x,
@@ -71,7 +70,7 @@ class LineGraph extends Component {
           <form autoComplete="off">
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="demo-controlled-open-select">
-                Month
+                March
               </InputLabel>
               <Select
                 open={this.state.open}
@@ -87,18 +86,18 @@ class LineGraph extends Component {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="Jan">Jan</MenuItem>
-                <MenuItem value="Feb">Feb</MenuItem>
-                <MenuItem value="March">March</MenuItem>
-                <MenuItem value="April">April</MenuItem>
+                <MenuItem value="Jan">January</MenuItem>
+                <MenuItem value="Feb">February</MenuItem>
+                <MenuItem value="Mar">March</MenuItem>
+                <MenuItem value="Apr">April</MenuItem>
                 <MenuItem value="May">May</MenuItem>
-                <MenuItem value="June">June</MenuItem>
-                <MenuItem value="July">July</MenuItem>
-                <MenuItem value="August">August</MenuItem>
-                <MenuItem value="September">September</MenuItem>
-                <MenuItem value="October">October</MenuItem>
-                <MenuItem value="November">November</MenuItem>
-                <MenuItem value="December">December</MenuItem>
+                <MenuItem value="Jun">June</MenuItem>
+                <MenuItem value="Jul">July</MenuItem>
+                <MenuItem value="Aug">August</MenuItem>
+                <MenuItem value="Sep">September</MenuItem>
+                <MenuItem value="Oct">October</MenuItem>
+                <MenuItem value="Nov">November</MenuItem>
+                <MenuItem value="Dec">December</MenuItem>
               </Select>
             </FormControl>
           </form>
