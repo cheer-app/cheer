@@ -48,8 +48,10 @@ class UserUpdateForm extends Component {
   }
 
   handleSubmit(postMutation) {
-    postMutation()
-    // this.props.history.replace('/users')
+    if (postMutation) {
+      postMutation()
+    }
+    this.props.history.push('/users')
   }
 
   render() {
@@ -92,7 +94,7 @@ class UserUpdateForm extends Component {
         </ExpansionPanelDetails>
         <Divider />
         <ExpansionPanelActions>
-          <Button size="small">
+          <Button size="small" onClick={() => this.handleSubmit()}>
             Cancel
           </Button>
           <Mutation

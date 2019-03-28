@@ -55,8 +55,10 @@ class QuestionCreateForm extends Component {
   }
 
   handleSubmit(postMutation) {
-    postMutation()
-    // this.props.history.replace('/questions')
+    if (postMutation) {
+      postMutation()
+    }
+    this.props.history.push('/questions')
   }
 
   render() {
@@ -116,7 +118,7 @@ class QuestionCreateForm extends Component {
         </ExpansionPanelDetails>
         <Divider />
         <ExpansionPanelActions>
-          <Button size="small">
+          <Button size="small" onClick={() => this.handleSubmit()}>
             Cancel
           </Button>
           <Mutation
