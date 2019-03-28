@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { VictoryLine, VictoryChart, VictoryTheme, VictoryLabel } from 'victory';
 import { graphql } from 'react-apollo';
 import query from '../../queries/Aggregate';
+import Dropdown from './Dropdown';
 
 class LineGraph extends Component {
   render() {
@@ -28,22 +29,30 @@ class LineGraph extends Component {
         }));
 
       return (
-        <VictoryChart width={1000} height={550} theme={VictoryTheme.material}>
-          <VictoryLine
-            animate={{
-              duration: 2000,
-              onLoad: { duration: 2000 },
-            }}
-            domain={{ y: [-1, 1] }}
-            style={{
-              data: { stroke: '#c43a31' },
-              parent: { border: '2px solid #ccc' },
-            }}
-            data={data}
-          />
-          <VictoryLabel text="Date" x={970} y={270} />
-          <VictoryLabel text="Sentiment" x={0} y={20} />
-        </VictoryChart>
+        <div>
+          {/* <h5 style={{ fontWeight: 700 }}>
+            Company Sentiment For {<span style={{ color: 'blue' }}>March</span>}
+          </h5> */}
+          <h5 style={{ fontWeight: 700 }}>
+            Company Sentiment For <Dropdown />
+          </h5>
+          <VictoryChart width={1000} height={550} theme={VictoryTheme.material}>
+            <VictoryLine
+              animate={{
+                duration: 2000,
+                onLoad: { duration: 2000 },
+              }}
+              domain={{ y: [-1, 1] }}
+              style={{
+                data: { stroke: '#c43a31' },
+                parent: { border: '2px solid #ccc' },
+              }}
+              data={data}
+            />
+            <VictoryLabel text="Date" x={970} y={270} />
+            <VictoryLabel text="Sentiment" x={0} y={20} />
+          </VictoryChart>
+        </div>
       );
     } else {
       return null;

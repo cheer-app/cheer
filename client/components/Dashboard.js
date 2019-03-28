@@ -101,13 +101,7 @@ class Dashboard extends Component {
 
         {tab === 1 && (
           <TabContainer>
-            <div>
-              <h5 style={{ fontWeight: 700 }}>
-                Company Sentiment For{' '}
-                {<span style={{ color: 'blue' }}>March</span>}
-              </h5>
-              <LineGraph />
-            </div>
+            <LineGraph />
           </TabContainer>
         )}
       </Paper>
