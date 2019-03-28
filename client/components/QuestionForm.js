@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import { withStyles } from '@material-ui/styles'
+import { Mutation } from 'react-apollo'
+import mutation from '../mutations/UpdateUser'
+import { hashHistory } from 'react-router'
 import {
   TextField,
   FormControl,
@@ -14,14 +18,27 @@ import {
   MenuItem,
 } from '@material-ui/core'
 
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    textAlign: 'center'
+  },
+  textField: {
+    marginLeft: 10,
+    marginRight: 10,
+    width: 200,
+  },
+})
+
 class QuestionForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: this.props.question.question,
-      type: this.props.question.responseType,
-      category: this.props.question.category,
-      sendDayIdx: this.props.question.sendDayIdx,
+      text: '',
+      type: '',
+      category: '',
+      sendDayIdx: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
@@ -29,21 +46,20 @@ class QuestionForm extends Component {
   }
 
   handleChange(event) {
-    console.log('before', event.target)
     this.setState({ [event.target.id]: event.target.value })
-    console.log('after', this.state)
   }
 
   handleSelect(event) {
-    console.log('before', event.target)
     this.setState({ [event.target.name]: event.target.value })
-    console.log('after', this.state)
   }
 
   handleSwitch() {
-    console.log('before', this.state)
     this.setState({ isAdmin: !this.state.isAdmin })
-    console.log('after', this.state)
+  }
+
+  handleSubmit(postMutation) {
+    postMutation()
+    hashHistory.push('/questions')
   }
 
   render() {
@@ -115,4 +131,4 @@ class QuestionForm extends Component {
   }
 }
 
-export default QuestionForm
+export default withStyles(styles)(QuestionForm)

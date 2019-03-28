@@ -15,7 +15,6 @@ import Users from './components/Users'
 import Questions from './components/Questions'
 import UserForm from './components/UserForm'
 import QuestionForm from './components/QuestionForm'
-import Account from './components/Account'
 import UserHistory from './components/UserHistory'
 
 const link = new HttpLink({
@@ -41,8 +40,8 @@ const Root = () => {
           <Route path="dashboard" component={requireAuth(Dashboard)} />
           <Route path="users" component={requireAuth(Users)} />
           <Route path="questions" component={requireAuth(Questions)} />
-          <Route path="user-form" component={requireAuth(UserForm)} />
-          <Route path="question-form" component={requireAuth(QuestionForm)} />
+          <Route path="addUser" component={requireAuth(UserForm)} />
+          <Route path="addQuestion" component={requireAuth(QuestionForm)} />
           <Route exact path="users/:id" component={requireAuth(UserHistory)} />
         </Route>
       </Router>
