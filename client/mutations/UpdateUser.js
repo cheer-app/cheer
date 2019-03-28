@@ -15,6 +15,7 @@ export default gql`
       isAdmin: $isAdmin
       slackId: $slackId
     ) {
+      id
       email
       name
       isAdmin

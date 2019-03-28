@@ -13,6 +13,7 @@ export default gql`
       category: $category
       sendDayIdx: $sendDayIdx
     ) {
+      id
       question
       responseType
       category
