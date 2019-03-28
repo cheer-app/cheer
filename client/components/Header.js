@@ -176,9 +176,6 @@ class Header extends React.Component {
                   onClose={this.handleClose}
                 >
                   <MenuItem onClick={this.onLogoutClick}>Logout</MenuItem>
-                  <Link to='account'>
-                    <MenuItem onClick={this.handleClose}>Account</MenuItem>
-                  </Link>
                 </Menu>
               </div>
             )}

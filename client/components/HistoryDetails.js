@@ -4,7 +4,6 @@ import query from '../queries/AllResponses'
 
 const HistoryDetails = props => {
   const { allResponses } = props.data
-  console.log(allResponses)
   return !allResponses ? (
     <div>Loading...</div>
   ) : (

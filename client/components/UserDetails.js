@@ -6,6 +6,7 @@ import {
   Button,
   Divider,
 } from '@material-ui/core'
+import { Link } from 'react-router'
 
 function UserDetails(props) {
   const { user } = props
@@ -23,6 +24,9 @@ function UserDetails(props) {
       </ExpansionPanelDetails>
       <Divider />
       <ExpansionPanelActions>
+        <Link to={{ pathname: `/users/${user.slackId}`, state: user }}>
+          <Button size="small">History</Button>
+        </Link>
         <Button size="small" onClick={props.toggleEdit}>
           Edit
         </Button>

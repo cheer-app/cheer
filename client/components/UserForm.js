@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import { withStyles } from '@material-ui/styles'
+import { Mutation } from 'react-apollo'
+import mutation from '../mutations/UpdateUser'
+import { hashHistory } from 'react-router'
 import {
   TextField,
   FormControl,
@@ -10,34 +14,50 @@ import {
   Divider,
 } from '@material-ui/core'
 
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: 10,
+    marginRight: 10,
+    width: 200,
+  },
+})
+
 class UserForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
       name: this.props.user.name,
       email: this.props.user.email,
-      slackId: this.props.user.slackid,
+      slackId: this.props.user.slackId,
       isAdmin: this.props.user.isAdmin,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSwitch = this.handleSwitch.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
-    console.log('before', this.state)
     this.setState({ [event.target.id]: event.target.value })
-    console.log('after', this.state)
   }
 
   handleSwitch() {
-    console.log('before', this.state)
     this.setState({ isAdmin: !this.state.isAdmin })
-    console.log('after', this.state)
+  }
+
+  handleSubmit(postMutation) {
+    postMutation()
+    this.props.toggleEdit()
+    hashHistory.push('/users')
   }
 
   render() {
+    const { classes } = this.props
     return (
-      <div>
+      <div className={classes.container}>
         <ExpansionPanelDetails>
           <form>
             <TextField
@@ -45,21 +65,21 @@ class UserForm extends Component {
               label="Name"
               value={this.state.name}
               onChange={this.handleChange}
-              variant="outlined"
+              className={classes.textField}
             />
             <TextField
               id="email"
               label="Email"
               value={this.state.email}
               onChange={this.handleChange}
-              variant="outlined"
+              className={classes.textField}
             />
             <TextField
               id="slackId"
               label="Slack ID"
               value={this.state.slackId}
               onChange={this.handleChange}
-              variant="outlined"
+              className={classes.textField}
             />
             <FormControl>
               <FormControlLabel
@@ -77,13 +97,30 @@ class UserForm extends Component {
           <Button size="small" onClick={this.props.toggleEdit}>
             Cancel
           </Button>
-          <Button size="small" color="primary">
-            Save
-          </Button>
+          <Mutation
+           mutation={mutation}
+           variables={{
+             id: this.props.user.id,
+             email: this.state.email,
+             name: this.state.name,
+             isAdmin: this.state.isAdmin,
+             slackId: this.state.slackId,
+           }}
+         >
+           {postMutation => (
+             <Button
+               size='small'
+               color='primary'
+               onClick={() => this.handleSubmit(postMutation)}
+             >
+               Save
+             </Button>
+           )}
+         </Mutation>
         </ExpansionPanelActions>
       </div>
     )
   }
 }
 
-export default UserForm
+export default withStyles(styles)(UserForm)
