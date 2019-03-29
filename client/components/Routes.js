@@ -1,16 +1,17 @@
-import React from 'react';
+import React from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
-import Dashboard from './Dashboard';
-import requireAuth from './requireAuth';
-import Users from './Users';
-import Questions from './Questions';
-import UserUpdateForm from './UserUpdateForm';
-import UserCreateForm from './UserCreateForm';
-import QuestionUpdateForm from './QuestionUpdateForm';
-import QuestionCreateForm from './QuestionCreateForm';
+import LoginForm from './LoginForm'
+import SignupForm from './SignupForm'
+import Dashboard from './Dashboard'
+import requireAuth from './requireAuth'
+import Users from './Users'
+import Questions from './Questions'
+import UserUpdateForm from './UserUpdateForm'
+import UserCreateForm from './UserCreateForm'
+import QuestionUpdateForm from './QuestionUpdateForm'
+import QuestionCreateForm from './QuestionCreateForm'
+import UsersHistory from './UserHistory'
 
 const Routes = () => {
   return (
@@ -19,12 +20,19 @@ const Routes = () => {
       <Route path="/login" component={LoginForm} />
       <Route path="/signup" component={SignupForm} />
       <Route path="/dashboard" component={requireAuth(Dashboard)} />
+      <Route path="/users/:id" component={requireAuth(UsersHistory)} />
       <Route path="/users" component={requireAuth(Users)} />
       <Route path="/questions" component={requireAuth(Questions)} />
       <Route path="/updateUser" component={requireAuth(UserUpdateForm)} />
       <Route path="/createUser" component={requireAuth(UserCreateForm)} />
-      <Route path="/updateQuestion" component={requireAuth(QuestionUpdateForm)} />
-      <Route path="/createQuestion" component={requireAuth(QuestionCreateForm)} />
+      <Route
+        path="/updateQuestion"
+        component={requireAuth(QuestionUpdateForm)}
+      />
+      <Route
+        path="/createQuestion"
+        component={requireAuth(QuestionCreateForm)}
+      />
     </Switch>
   )
 }

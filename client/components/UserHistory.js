@@ -22,6 +22,6 @@ const UserHistory = props => {
 }
 export default graphql(query, {
   options: ownProps => ({
-    variables: { slackId: ownProps.params.id },
+    variables: { slackId: ownProps.match.params.id },
   }),
 })(UserHistory)

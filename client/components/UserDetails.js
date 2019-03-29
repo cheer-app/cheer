@@ -6,7 +6,7 @@ import {
   Button,
   Divider,
 } from '@material-ui/core'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 function UserDetails(props) {
   const { user } = props
