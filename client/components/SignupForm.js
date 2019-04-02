@@ -7,7 +7,6 @@ import query from '../queries/CurrentUser';
 class SignupForm extends Component {
   constructor(props) {
     super(props);
-
     this.state = { errors: [] };
   }
 
