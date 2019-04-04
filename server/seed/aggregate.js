@@ -16,7 +16,7 @@ const seedAggregate = async () => {
       }
     })
 
-    for (date in dates) {
+    for (let date in dates) {
       if (dates[date]) {
         await callWatson(dates[date], date)
       }

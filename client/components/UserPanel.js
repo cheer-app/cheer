@@ -10,22 +10,17 @@ import UserUpdateForm from './UserUpdateForm'
 import UserDetails from './UserDetails'
 import query from '../queries/UserResponseSparkline'
 import { graphql } from 'react-apollo'
-import { LineChart, Line, YAxis } from 'recharts'
+import { LineChart, Line, } from 'recharts'
 
 const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    // flexGrow: '1',
   },
   sparkline: {
     marginLeft: 100,
     marginRight: 10,
     width: 200,
-    // flexGrow: 1,
-  },
-  text: {
-    // flexGrow: 3,
   },
 })
 

@@ -3,7 +3,6 @@ const models = require('./models')
 const graphqlHTTP = require('express-graphql')
 const session = require('express-session')
 const passport = require('passport')
-const passportConfig = require('./services/auth')
 const MongoStore = require('connect-mongo')(session)
 const schema = require('./schema/schema')
 const slackServer = require('./services/slack').router
@@ -15,15 +14,13 @@ app.use(require('morgan')('dev'))
 app.use('/slack', slackServer)
 require('dotenv').config()
 
-const { MONGO_URI } = require('./services/mongodb')
-
 app.use(
   session({
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     secret: 'aaabbbccc',
     store: new MongoStore({
-      url: MONGO_URI,
+      url: process.env.MONGO_URI,
       autoReconnect: true,
     }),
   })
@@ -48,7 +45,6 @@ const webpack = require('webpack')
 const webpackConfig = require('../webpack.config.js')
 app.use(webpackMiddleware(webpack(webpackConfig)))
 
-// sends index.html
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'client/index.html'))
 })

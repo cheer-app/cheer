@@ -74,11 +74,21 @@ function signup({ email, password, req }) {
 function login({ email, password, req }) {
   return new Promise((resolve, reject) => {
     passport.authenticate('local', (err, user) => {
-      if (!user) { reject('Invalid credentials.') }
+      if (!user) { reject(err) }
 
       req.login(user, () => resolve(user));
     })({ body: { email, password } });
   });
 }
 
-module.exports = { signup, login };
+function logout(req) {
+  return new Promise((resolve, reject) => {
+    req.logout()
+    req.session.destroy(err => {
+      if (err) reject(err)
+      resolve({})
+    })
+  })
+}
+
+module.exports = { signup, login, logout };

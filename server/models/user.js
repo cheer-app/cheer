@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt-nodejs');
-const crypto = require('crypto');
 const mongoose = require('mongoose');
 
 // Every user has an email and password.  The password is not stored as

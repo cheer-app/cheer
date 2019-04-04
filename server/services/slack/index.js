@@ -22,7 +22,6 @@ const web = new WebClient(token)
 
 slackInteractions.action({ blockId: 'rateBlock' }, rateButtHandler);
 
-// open direct message conversation and send a message
 const sendMessage = async (user, messageBlock) => {
   try {
     const res = await web.im.open({
@@ -39,16 +38,13 @@ const sendMessage = async (user, messageBlock) => {
 
 slackInteractions.action({ blockId: 'yesNoBlock' }, yesNoButtHandler);
 
-// handles text questions, initiates dialog
 slackInteractions.action(
   { blockId: 'textResponse', actionId: 'startDialog' },
   startDialog
 );
 
-// handles dialog submissions
 slackInteractions.action({ callbackId: 'dialogSubmit' }, dialogHandler)
 
-// get a list of users and their slack IDs
 const getUsers = async () => {
   try {
     const response = await web.users.list({ token });
@@ -72,14 +68,11 @@ const getUsers = async () => {
 
 slackEvents.on('team_join', async event => {
   try {
-    // see if the new slack workspace member is in the database
     const foundUser = await User.findOne({ name: event.user.real_name });
     if (foundUser) {
-      // if they are, add their slack id
       foundUser.slackId = event.user.id;
       await foundUser.save();
     } else {
-      // if they aren't, get their email from slack, and put them into the database
       let slackUsers = await getUsers();
       slackUsers = slackUsers.filter(user => user.id === event.user.id);
       await User.create({

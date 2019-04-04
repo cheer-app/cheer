@@ -1,6 +1,6 @@
 const graphql = require('graphql')
 const mongoose = require('mongoose')
-const { GraphQLObjectType, GraphQLList, GraphQLString, GraphQLID } = graphql
+const { GraphQLObjectType, GraphQLList, GraphQLString, } = graphql
 const UserType = require('./user_type')
 const TextResponseType = require('./textResponse_type')
 const {DataType} = require('./data_type')

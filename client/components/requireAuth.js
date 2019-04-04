@@ -5,14 +5,14 @@ import { withRouter } from 'react-router-dom';
 
 export default (WrappedComponent) => {
   class RequireAuth extends Component {
-    componentWillUpdate(nextProps) {
-      if (!nextProps.data.loading && !nextProps.data.user) {
-        nextProps.history.push('/login');
+    componentDidMount() {
+      if (!this.props.data.loading && !this.props.data.user) {
+        this.props.history.push('/login');
       }
     }
 
     render() {
-      return <WrappedComponent {...this.props} />;
+      return this.props.data.user ? <WrappedComponent {...this.props} /> : <p>Sorry, you are not authorized to view this page.</p>
     }
   }
 

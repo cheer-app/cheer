@@ -6,9 +6,6 @@ import {
   TextField,
   FormControl,
   Button,
-  ExpansionPanelActions,
-  ExpansionPanelDetails,
-  Divider,
   InputLabel,
   Input,
   Select,
@@ -87,7 +84,6 @@ class QuestionCreateForm extends Component {
   render() {
     const { classes } = this.props
     return (
-      // <div className={classes.container}>
       <Paper className={classes.root}>
         <form>
           <TextField
@@ -141,7 +137,6 @@ class QuestionCreateForm extends Component {
             </Select>
           </FormControl>
         </form>
-        {/* <Divider /> */}
         <Button
           size="small"
           onClick={() => this.handleSubmit()}
@@ -170,7 +165,6 @@ class QuestionCreateForm extends Component {
           )}
         </Mutation>
       </Paper>
-      // </div>
     )
   }
 }
