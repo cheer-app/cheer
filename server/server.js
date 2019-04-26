@@ -14,6 +14,8 @@ app.use(require('morgan')('dev'))
 app.use('/slack', slackServer)
 require('dotenv').config()
 
+require('./services/mongodb')
+
 app.use(
   session({
     resave: false,

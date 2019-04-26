@@ -71,5 +71,8 @@
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-dev-middleware": "^3.6.1"
+  },
+  "devDependencies": {
+    "debug": "^4.1.1"
   }
 }
